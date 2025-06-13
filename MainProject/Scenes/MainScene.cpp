@@ -24,7 +24,7 @@ void MainScene::ResizeLayout()
 // load resources.
 void MainScene::Load()
 {
-
+	gameManager_.Load();
 
 
 	Scene::Load();
@@ -33,7 +33,7 @@ void MainScene::Load()
 // initialize a variables.
 void MainScene::Initialize()
 {
-
+	gameManager_.Initialize();
 }
 
 // releasing resources required for termination.
@@ -45,7 +45,7 @@ void MainScene::Terminate()
 // updates the scene.
 void MainScene::Update(float deltaTime)
 {
-
+	gameManager_.Update();
 
 
 	Scene::Update(deltaTime);

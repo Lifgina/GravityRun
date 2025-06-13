@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../HuEngine.h"
+#include "../Class/Model/GameManager.h"
 
 class MainScene : public HE::Scene
 {
@@ -18,6 +19,6 @@ public:
 
 private:
 
-
+	GameManager gameManager_; // ゲームマネージャーのインスタンス
 
 };
