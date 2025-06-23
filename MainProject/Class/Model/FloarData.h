@@ -16,7 +16,7 @@ private:
 	// 見やすくするために改行を入れているだけで、実際の処理には影響しない。
 
 	// 床の位置
-	Vector2 floorPosition_[29] =
+	Vector2 floorPosition_[11] =
 	{Vector2(0.0f,0.0f),    Vector2(512.0f,0.0f),  Vector2(1024.0f,0.0f),
 	 Vector2(256.0f,177.5f),Vector2(768.0f,177.5f),
 	 Vector2(384.0f,355.0f),

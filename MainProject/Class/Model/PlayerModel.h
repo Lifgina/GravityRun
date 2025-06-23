@@ -18,8 +18,8 @@ public:
 
 private:
 	//以下プランナーがいじっていい変数
-	float playerSpeed_ = 300.0f; // プレイヤーの移動速度
-	float gravity_ = 980.0f; // 重力の強さ
+	float playerSpeed_ = 450.0f; // プレイヤーの移動速度
+	float gravity_ = 16000.0f; // 重力の強さ
 	float roopInterval_ = 100.0f; // 上下ループをした時に逆側から出てくるまでの時間補正
 
 	float collisionSizeCorrection_x_ = 0.0f; // 衝突判定のサイズ補正
