@@ -2,23 +2,42 @@
 
 #include "../../HuEngine.h"
 
+using namespace HE::Math;
+
 class FloorData {
 public:
-	int GetFloorHeight() const {return floorHeight_;}
-	int GetFloorPosition_Y(int line) const { return floorPosition_Y_[line]; }
-	int GetFloorEdgePosition_X(int line,int num) const {return floorEdgePosition_X_[line][num];}
-
-	void Load();
+	Vector2 GetFloorPosition(int floorID) const { return floorPosition_[floorID]; }
+	int GetFloorHeight(int floorID) const { return floorHeight_[floorID]; }
+	int GetFloorWidth(int floorID) const { return floorWidth_[floorID]; }
 
 private:
-	int floorNum_ = 6; // 床の数
-	HE::Sprite draftSprite_[6]; // 床のスプライト。実際にある床の数を[]の中に記入
-	float floorHeight_ = 10.0f; //床の厚さ
-	float floorPosition_Y_[3] = { 200.0f,400.0f,600.0f }; //床の上端の位置
-	float floorEdgePosition_X_[3][6] = {
-	{0.0f,200.0f,400.0f,600.0f,800.0f,1000.0f},
-	{-1,-1,-1,-1,300.0f,980.0f,},
-	{-1,-1,300.0f,600.0f,900.0f,1200.0f} };
-	//床の端の位置(前者:床が縦に並ぶ個数,後者:端として設定する最大数)
-	//(行によって床の数を減らす場合は前に画面外の座標を指定)
+
+	// 床を定義するためのデータ
+	// 見やすくするために改行を入れているだけで、実際の処理には影響しない。
+
+	// 床の位置
+	Vector2 floorPosition_[29] =
+	{Vector2(0.0f,0.0f),    Vector2(512.0f,0.0f),  Vector2(1024.0f,0.0f),
+	 Vector2(256.0f,177.5f),Vector2(768.0f,177.5f),
+	 Vector2(384.0f,355.0f),
+	 Vector2(256.0f,532.5f),Vector2(768.0f,532.5f),
+	 Vector2(0.0f,710.0f),  Vector2(512.0f,710.0f),Vector2(1024.0f,710.0f)
+	 }; 
+
+
+	// 床の高さ
+	float floorHeight_[11] = 
+	{ 10.0f, 10.0f, 10.0f, 
+	  10.0f, 10.0f,
+	  10.0f,
+	  10.0f, 10.0f,
+	  10.0f, 10.0f, 10.0f }; 
+
+	float floorWidth_[11] = 
+	{256.0f,256.0f,256.0f,
+	 256.0f,256.0f,
+	 512.0f,
+	 256.0f,256.0f,
+	 256.0f,256.0f,256.0f}; // 床の幅
+	
 };

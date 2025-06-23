@@ -11,35 +11,68 @@ void PlayerModel::Load()
 	draftSprite_ = HE::Sprite("");
 	draftSprite_.params.siz = Math::Vector2(50, 50);
 	RenderingPath->AddSprite(&draftSprite_,0);
+	collision_sprite_ = HE::Sprite("");
+	collision_sprite_.params.color =  HE::Color(255, 0, 0, 100); // 衝突範囲表示用のスプライト
+	RenderingPath->AddSprite(&collision_sprite_, 10);
 }
 
 void PlayerModel::Initialize(Math::Vector2 InitialPos)
 {
 	playerPosition_ = InitialPos;
-	SetStageData();
 
 }
 
-void PlayerModel::SetStageData()
-{
-	floorHeight_ = floorData_.GetFloorHeight();
-	for (int i = 0; i < floorLines_; ++i) {
-		floorPosition_Y_[i]=floorData_.GetFloorPosition_Y(i);
-		for (int j = 0; j < floorEdgeNum_; ++j) {
-			floorEdgePosition_X_[i][j]= floorData_.GetFloorEdgePosition_X(i, j);
-		}
-	}
-}
 
 void PlayerModel::Update()
 {
 	UpdatePlayerSprite();
-	GroundCheck();
 	PlayerMoveX();
 	PlayerMoveY();
-	DirectionChange();
+	OnGroundCheck(); 
+	GravityChange();
 }
 
+Math::Rectangle PlayerModel::GetCollision()
+{
+	Math::Rectangle collision;
+	collision.x = (long)playerPosition_.x - collisionSizeCorrection_x_ / 2 + collisionPositionCorrection_x_;
+	collision.y = (long)playerPosition_.y - collisionSizeCorrection_y_ / 2 + collisionPositionCorrection_y_;
+	collision.width = (long)playerWidth_ + collisionSizeCorrection_x_;
+	collision.height = (long)playerHeight_ + collisionSizeCorrection_y_;
+
+
+	// 衝突範囲表示設定
+	collision_sprite_.params.pos.x = (float)collision.x;
+	collision_sprite_.params.pos.y = (float)collision.y;
+	collision_sprite_.params.siz.x = (float)collision.width;
+	collision_sprite_.params.siz.y = (float)collision.height;
+	return collision;
+}
+
+void PlayerModel::OnCollisionGround(Math::Vector2 floorPos, float floorHeight,float floorWidth)
+{
+	if (isOnGround_) return; // すでに床に乗っている場合は何もしない
+	isOnGround_ = true; // 床に乗っている状態にする
+	if(isGravityUpward_) {
+		playerPosition_.y = floorPos.y + floorHeight;	
+	}
+	else {
+		playerPosition_.y = floorPos.y - playerHeight_;
+	}
+	floorRange_x_min_ = floorPos.x; // 床の範囲の最小値を設定
+	floorRange_x_max_ = floorPos.x + floorWidth; // 床の範囲の最大値を設定
+}
+
+void PlayerModel::OnGroundCheck()
+{
+	if (!isOnGround_) return;
+	if (playerPosition_.x+playerWidth_ < floorRange_x_min_ || floorRange_x_max_ < playerPosition_.x)
+	{
+		isOnGround_ = false; // 床から離れた場合は床に乗っていない状態にする
+		return;
+	}
+
+}
 void PlayerModel::UpdatePlayerSprite()
 {
 	draftSprite_.params.pos = playerPosition_;
@@ -47,10 +80,12 @@ void PlayerModel::UpdatePlayerSprite()
 
 void PlayerModel::PlayerMoveX()
 {
+	if(!isOnGround_)
+		return; // 床に乗っていない場合は移動しない
 	float direction;
 	if (isMovingToRight_) {
 		direction = 1.0f; // 右に移動
-		if (playerPosition_.x >= RenderingPath->GetLogicalWidth()) {
+		if (playerPosition_.x >= RenderingPath->GetLogicalWidth()-playerWidth_) {
 			isMovingToRight_ = false; // 画面の右端に到達したら左に移動
 		}
 	}
@@ -64,51 +99,11 @@ void PlayerModel::PlayerMoveX()
 	playerPosition_.x += direction * playerSpeed_ * Time.deltaTime;
 }
 
-void PlayerModel::GroundCheck()
-{
-	float playerHeight = draftSprite_.params.siz.y;
-	float playerWidth = draftSprite_.params.siz.x;
-	isOnGround_X_ = false;
-	isOnGround_Y_ = false;
-
-	for (int i = 0; i < floorLines_; i++) {
-		for (int j = 0; j < floorEdgeNum_; j += 2) {
-			// X方向の床区間内か？
-			if (floorEdgePosition_X_[i][j] - playerWidth <= playerPosition_.x &&
-				playerPosition_.x <= floorEdgePosition_X_[i][j + 1]) {
-
-				// Y方向の床高さ内か？
-				if (isGravityUpward_) {
-					if (playerPosition_.y > floorPosition_Y_[i] &&
-						playerPosition_.y <= floorPosition_Y_[i] + floorHeight_) {
-						// 床の上端に位置を合わせる
-						playerPosition_.y = floorPosition_Y_[i] + floorHeight_;
-						isOnGround_X_ = true;
-						isOnGround_Y_ = true;
-						return; // どこかで床に乗っていれば即終了
-					}
-				}
-				else {
-					if (playerPosition_.y >= floorPosition_Y_[i] - playerHeight &&
-						playerPosition_.y <= floorPosition_Y_[i]) {
-						playerPosition_.y = floorPosition_Y_[i] - playerHeight;
-						isOnGround_X_ = true;
-						isOnGround_Y_ = true;
-						return;
-					}
-				}
-			}
-		}
-	}
-	// どの床にも乗っていなければ両方false
-	isOnGround_X_ = false;
-	isOnGround_Y_ = false;
-}
 
 void PlayerModel::PlayerMoveY()
 {   
-	int playerHeight = draftSprite_.params.siz.y; // プレイヤーの高さを取得
-	if (isOnGround_X_&&isOnGround_Y_) {
+	int playerHeight = draftSprite_.params.siz.y; // プレイヤーの身長を取得
+	if (isOnGround_) {
 		fallingSpeed_ = 0.0f; // 床にいる場合は落下速度をリセット
 	}
 	else {
@@ -117,7 +112,7 @@ void PlayerModel::PlayerMoveY()
 			playerPosition_.y -= fallingSpeed_ * Time.deltaTime; // 上に重力を受けている場合は上に移動
 			fallingSpeed_ += gravity_ * Time.deltaTime; // 重力の影響を受けて落下速度を増加
 			if (playerPosition_.y <= -playerHeight) {
-				playerPosition_.y = RenderingPath->GetLogicalHeight(); //床の上下はループ 
+				playerPosition_.y = RenderingPath->GetLogicalHeight()+roopInterval_; //床の上下はループ 
 			}
 		}
 		else
@@ -126,17 +121,21 @@ void PlayerModel::PlayerMoveY()
 			fallingSpeed_ += gravity_ * Time.deltaTime; // 重力の影響を受けて落下速度を増加
 
 			if (playerPosition_.y >= RenderingPath->GetLogicalHeight()) {
-				playerPosition_.y = 0; //床の上下はループ 
+				playerPosition_.y = 0-roopInterval_; //床の上下はループ 
 			}
 		}
 	}
 	
 }
 
-void PlayerModel::DirectionChange()
+void PlayerModel::GravityChange()
 {
+	if(!isOnGround_)
+		return; // 床に乗っていない場合は方向転換しない
 	if (InputSystem.Keyboard.wasPressedThisFrame.Space)
 	{
 		isGravityUpward_ = !isGravityUpward_; // 方向を反転
+		isOnGround_ = false; // 床から離れる
 	}
 }
+
