@@ -5,7 +5,7 @@
 class PlayerModel {
 public:
 	void Load(); //後でViewに移動し、プレイヤーの描画を記述
-	void Initialize(HE::Math::Vector2 initialPos);//初期位置はGameManagerで定義
+	void Initialize(HE::Math::Vector2 initialPos,float leftedge,float rightedge);//初期位置はGameManagerで定義
 	void Update();
 	void UpdatePlayerSprite(); // プレイヤーのスプライトを更新する、後でViewに移動
 	HE::Math::Rectangle GetCollision();
@@ -35,6 +35,8 @@ private:
 	HE::Math::Vector2 playerPosition_;
 	float playerWidth_ = 50.0f; // プレイヤーの幅
 	float playerHeight_ = 50.0f; // プレイヤーの高さ
+	float gameWindowLeftEdge_; // ゲームウィンドウの左端の位置
+	float gameWindowRightEdge_; // ゲームウィンドウの右端の位置
 	float floorRange_x_min_;
 	float floorRange_x_max_;
 	bool isMovingToRight_ = true; // プレイヤーが右に移動中かどうか 

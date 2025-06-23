@@ -10,12 +10,14 @@ using namespace HE;
 void GameManager::Load()
 {
 	playerModel_.Load();
+	timerModel_.Load();
 	
 }
 
 void GameManager::Initialize()
 {
-	playerModel_.Initialize(initialPlayerPosition_);
+	playerModel_.Initialize(initialPlayerPosition_, leftEdge, rightEdge); 
+	timerModel_.Initialize(timeLimit_);
 	for (int i = 0; i < std::size(floorModel_); ++i) {
 		floorModel_[i].Initialize(
 			floorData_.GetFloorPosition(i),
@@ -38,5 +40,6 @@ void GameManager::Update()
 		}
 	}
 	playerModel_.Update();
+	timerModel_.Update();
 
 }

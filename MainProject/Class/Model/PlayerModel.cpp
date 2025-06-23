@@ -16,9 +16,11 @@ void PlayerModel::Load()
 	RenderingPath->AddSprite(&collision_sprite_, 10);
 }
 
-void PlayerModel::Initialize(Math::Vector2 InitialPos)
+void PlayerModel::Initialize(Math::Vector2 InitialPos, float leftedge, float rightedge)
 {
 	playerPosition_ = InitialPos;
+	gameWindowLeftEdge_ = leftedge; // ゲームウィンドウの左端の位置
+	gameWindowRightEdge_ = rightedge; // ゲームウィンドウの右端の位置
 
 }
 
@@ -85,13 +87,13 @@ void PlayerModel::PlayerMoveX()
 	float direction;
 	if (isMovingToRight_) {
 		direction = 1.0f; // 右に移動
-		if (playerPosition_.x >= RenderingPath->GetLogicalWidth()-playerWidth_) {
+		if (playerPosition_.x >= gameWindowRightEdge_-playerWidth_) {
 			isMovingToRight_ = false; // 画面の右端に到達したら左に移動
 		}
 	}
 	else {
 		direction = -1.0f; // 左に移動
-		if (playerPosition_.x <= 0) {
+		if (playerPosition_.x <= gameWindowLeftEdge_) {
 			isMovingToRight_ = true; // 画面の左端に到達したら右に移動
 		}
 	}
