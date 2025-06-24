@@ -14,10 +14,10 @@ void GameManager::Load()
 	
 }
 
-void GameManager::Initialize()
+void GameManager::Initialize(float timelimit)
 {
 	playerModel_.Initialize(initialPlayerPosition_, leftEdge, rightEdge); 
-	timerModel_.Initialize(timeLimit_);
+	timerModel_.Initialize(timelimit);
 }
 void GameManager::FloorSetup(int floorID, HE::Math::Vector2 floorPos, float floorHeight, float floorWidth)
 { 

@@ -9,7 +9,7 @@
 class GameManager {
 public:
 	void Load();
-	void Initialize();
+	void Initialize(float timelimit);
 	void FloorSetup(int floorID,HE::Math::Vector2 floorPos,float floorHeight,float floorWidth);
 	void Update();
 
@@ -19,7 +19,6 @@ private:
 	FloorModel floorModel_[16]; // 床のモデル 
 	TimerModel timerModel_; // タイマーのモデル
 
-	float timeLimit_ = 60.0f; // タイムリミットの設定
 	float leftEdge = 10.0f; // ゲームウィンドウの左端の位置
 	float rightEdge = 1280.0f-10.0f-60.0f; // ゲームウィンドウの右端の位置
 

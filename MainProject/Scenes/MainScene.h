@@ -20,6 +20,8 @@ public:
 
 private:
 
+	float timeLimit_ = 60.0f; // タイムリミット
+
 	GameManager gameManager_; // ゲームマネージャーのインスタンス
 	FloorData floorData_; // 床データのインスタンス
 
