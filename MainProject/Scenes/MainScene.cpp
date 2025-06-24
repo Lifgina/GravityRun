@@ -34,6 +34,10 @@ void MainScene::Load()
 void MainScene::Initialize()
 {
 	gameManager_.Initialize();
+	for (int i = 0; i <floorData_.GetFloorCount(); i++)
+	{
+		gameManager_.FloorSetup(i, floorData_.GetFloorPosition(i), floorData_.GetFloorHeight(i), floorData_.GetFloorWidth(i));
+	}
 }
 
 // releasing resources required for termination.

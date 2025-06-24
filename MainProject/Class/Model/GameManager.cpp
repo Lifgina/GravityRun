@@ -18,14 +18,10 @@ void GameManager::Initialize()
 {
 	playerModel_.Initialize(initialPlayerPosition_, leftEdge, rightEdge); 
 	timerModel_.Initialize(timeLimit_);
-	for (int i = 0; i < std::size(floorModel_); ++i) {
-		floorModel_[i].Initialize(
-			floorData_.GetFloorPosition(i),
-			floorData_.GetFloorWidth(i),
-			floorData_.GetFloorHeight(i)
-		);
-	}
-
+}
+void GameManager::FloorSetup(int floorID, HE::Math::Vector2 floorPos, float floorHeight, float floorWidth)
+{ 
+	floorModel_[floorID].Initialize(floorPos, floorWidth, floorHeight);
 }
 
 void GameManager::Update()

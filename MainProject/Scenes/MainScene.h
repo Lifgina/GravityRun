@@ -2,6 +2,7 @@
 
 #include "../HuEngine.h"
 #include "../Class/Model/GameManager.h"
+#include "../Class/Model/FloarData.h"
 
 class MainScene : public HE::Scene
 {
@@ -20,5 +21,6 @@ public:
 private:
 
 	GameManager gameManager_; // ゲームマネージャーのインスタンス
+	FloorData floorData_; // 床データのインスタンス
 
 };

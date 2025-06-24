@@ -3,7 +3,6 @@
 #include "../../HuEngine.h"
 #include "PlayerModel.h"
 #include "FloorModel.h"
-#include "FloarData.h"
 #include "TimerModel.h"
 
 
@@ -11,13 +10,13 @@ class GameManager {
 public:
 	void Load();
 	void Initialize();
+	void FloorSetup(int floorID,HE::Math::Vector2 floorPos,float floorHeight,float floorWidth);
 	void Update();
 
 
 private:
 	PlayerModel playerModel_; // プレイヤーのモデル
-	FloorData floorData_; // 床のデータを管理するクラス
-	FloorModel floorModel_[11]; // 床のモデル floorModelの数は必要に応じて変更
+	FloorModel floorModel_[16]; // 床のモデル 
 	TimerModel timerModel_; // タイマーのモデル
 
 	float timeLimit_ = 60.0f; // タイムリミットの設定
