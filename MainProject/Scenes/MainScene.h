@@ -3,6 +3,8 @@
 #include "../HuEngine.h"
 #include "../Class/Model/GameManager.h"
 #include "../Class/Model/FloarData.h"
+#include "../Class/Model/EnemyData.h"
+#include "../Class/View/GameOverView.h"
 
 class MainScene : public HE::Scene
 {
@@ -18,11 +20,17 @@ public:
 
 	void Update(float deltaTime) override;
 
+	void MoniteringGameManager();
+
 private:
 
 	float timeLimit_ = 60.0f; // タイムリミット
 
+
+	bool isGameOver_ ; // ゲームオーバー状態
 	GameManager gameManager_; // ゲームマネージャーのインスタンス
 	FloorData floorData_; // 床データのインスタンス
+	EnemyData enemyData_; // 敵データのインスタンス
+	GameOverView gameOverView_; // ゲームオーバービューのインスタンス
 
 };
