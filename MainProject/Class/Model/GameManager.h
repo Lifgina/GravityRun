@@ -17,7 +17,8 @@ public:
 	void MoveEnemySetup(int enemyID,float timeToActive, float enemySpeed, float firstDirection,HE::Math::Vector2 initialPos, float maxRange, float minRange);
 	void SilentEnemySetup(int enemyID, HE::Math::Vector2 initialPos);
 	void Update();
-	void CollisionCheck();
+	void GroundCollisionCheck();
+	void EnemyCollisionCheck(); 
 	bool GetIsGameOver() const { return isGameOver_; } // ゲームオーバー状態を取得
 
 

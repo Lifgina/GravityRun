@@ -39,8 +39,9 @@ void GameManager::SilentEnemySetup(int enemyID, HE::Math::Vector2 initialPos)
 
 void GameManager::Update()
 {
-	CollisionCheck();
 	playerModel_.Update();
+	GroundCollisionCheck();
+	EnemyCollisionCheck();
 	timerModel_.Update();
 	for (int i = 0; i < std::size(moveEnemy_); i++)
 	{
@@ -49,7 +50,7 @@ void GameManager::Update()
 
 }
 
-void GameManager::CollisionCheck()
+void GameManager::GroundCollisionCheck()
 {
 	Math::Rectangle player_collision = playerModel_.GetCollision();
 	for (int i = 0; i < std::size(floorModel_); i++)
@@ -61,6 +62,12 @@ void GameManager::CollisionCheck()
 		}
 	}
 
+
+}
+
+void GameManager::EnemyCollisionCheck()
+{
+	Math::Rectangle player_collision = playerModel_.GetCollision();
 	for (int i = 0; i < std::size(moveEnemy_); i++)
 	{
 		Math::Rectangle enemy_collision = moveEnemy_[i].GetCollision();

@@ -27,11 +27,11 @@ void PlayerModel::Initialize(Math::Vector2 InitialPos, float leftedge, float rig
 
 void PlayerModel::Update()
 {
-	UpdatePlayerSprite();
+	OnGroundCheck();
 	PlayerMoveX();
-	PlayerMoveY();
-	OnGroundCheck(); 
+	PlayerMoveY(); 
 	GravityChange();
+	UpdatePlayerSprite();
 }
 
 Math::Rectangle PlayerModel::GetCollision()
