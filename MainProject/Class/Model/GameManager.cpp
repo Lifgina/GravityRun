@@ -25,10 +25,10 @@ void GameManager::FloorSetup(int floorID, HE::Math::Vector2 floorPos, float floo
 	floorModel_[floorID].Initialize(floorPos, floorWidth, floorHeight);
 }
 
-void GameManager::MoveEnemySetup(int enemyID, float enemySpeed, HE::Math::Vector2 initialPos, float maxRange, float minRange)
+void GameManager::MoveEnemySetup(int enemyID, float enemySpeed, float firstDirection,HE::Math::Vector2 initialPos, float maxRange, float minRange)
 {
 	moveEnemy_[enemyID].Load();
-	moveEnemy_[enemyID].Initialize(enemySpeed, initialPos, maxRange, minRange);
+	moveEnemy_[enemyID].Initialize(enemySpeed, firstDirection,initialPos, maxRange, minRange);
 }
 
 void GameManager::SilentEnemySetup(int enemyID, HE::Math::Vector2 initialPos)

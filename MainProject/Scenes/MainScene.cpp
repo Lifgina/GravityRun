@@ -47,7 +47,7 @@ void MainScene::Initialize()
 	}
 	for (int i = 0; i < enemyData_.GetMoveEnemyCount(); i++)
 	{
-		gameManager_.MoveEnemySetup(i, enemyData_.GetMoveEnemySpeed(i), enemyData_.GetMoveEnemyPosition(i), enemyData_.GetMoveEnemyMaxRange_X(i), enemyData_.GetMoveEnemyMinRange_X(i));
+		gameManager_.MoveEnemySetup(i, enemyData_.GetMoveEnemySpeed(i),enemyData_.GetMoveEnemyDirection(i), enemyData_.GetMoveEnemyPosition(i), enemyData_.GetMoveEnemyMaxRange_X(i), enemyData_.GetMoveEnemyMinRange_X(i));
 	}
 
 }

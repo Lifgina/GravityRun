@@ -9,13 +9,14 @@ using namespace HE;
 void MoveEnemy::Load()
 {
 	draftSprite_ = HE::Sprite("");
-	draftSprite_.params.siz = Math::Vector2(50, 50);
-	draftSprite_.params.color = HE::Color(255, 0, 0, 255); //赤色のスプライト
+	draftSprite_.params.siz = Math::Vector2(enemyWidth_, enemyHeight_);
+	draftSprite_.params.color = HE::Color(0, 255, 0, 255); //緑色のスプライト
 	RenderingPath->AddSprite(&draftSprite_, 0);
 }
 
-void MoveEnemy::Initialize(float enemySpeed,Math::Vector2 initialPos, float maxRange, float minRange)
+void MoveEnemy::Initialize(float enemySpeed,float firstDirection,Math::Vector2 initialPos, float maxRange, float minRange)
 {
+	moveDirection_ = firstDirection; // 1: 右, -1: 左
 	enemySpeed_ = enemySpeed;
 	enemyPosition_ = initialPos;
 	maxRange_X_ = maxRange;

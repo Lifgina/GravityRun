@@ -12,6 +12,6 @@ public:
 private:
 	HE::Sprite draftSprite_; // ƒXƒvƒ‰ƒCƒg
 	HE::Math::Vector2 enemyPosition_; // “G‚ÌˆÊ’u
-	float enemyHeight_ = 10.0f; // “G‚Ì‚‚³
-	float enemyWidth_ = 50.0f; // “G‚Ì•
+	float enemyHeight_ = 64.0f; // “G‚Ì‚‚³
+	float enemyWidth_ = 64.0f; // “G‚Ì•
 };
