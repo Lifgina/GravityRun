@@ -25,10 +25,10 @@ void GameManager::FloorSetup(int floorID, HE::Math::Vector2 floorPos, float floo
 	floorModel_[floorID].Initialize(floorPos, floorWidth, floorHeight);
 }
 
-void GameManager::MoveEnemySetup(int enemyID, float enemySpeed, float firstDirection,HE::Math::Vector2 initialPos, float maxRange, float minRange)
+void GameManager::MoveEnemySetup(int enemyID, float timeToActive,float enemySpeed, float firstDirection,HE::Math::Vector2 initialPos, float maxRange, float minRange)
 {
 	moveEnemy_[enemyID].Load();
-	moveEnemy_[enemyID].Initialize(enemySpeed, firstDirection,initialPos, maxRange, minRange);
+	moveEnemy_[enemyID].Initialize(timeToActive,enemySpeed, firstDirection,initialPos, maxRange, minRange);
 }
 
 void GameManager::SilentEnemySetup(int enemyID, HE::Math::Vector2 initialPos)
@@ -44,7 +44,7 @@ void GameManager::Update()
 	timerModel_.Update();
 	for (int i = 0; i < std::size(moveEnemy_); i++)
 	{
-		moveEnemy_[i].Update();
+		moveEnemy_[i].Update(timerModel_.GetTimer());
 	}
 
 }

@@ -14,17 +14,29 @@ void MoveEnemy::Load()
 	RenderingPath->AddSprite(&draftSprite_, 0);
 }
 
-void MoveEnemy::Initialize(float enemySpeed,float firstDirection,Math::Vector2 initialPos, float maxRange, float minRange)
+void MoveEnemy::Initialize(float timeToActive, float enemySpeed, float firstDirection, Math::Vector2 initialPos, float maxRange, float minRange)
 {
+	isActive_ = false;
+	timeToActive_ = timeToActive;
 	moveDirection_ = firstDirection; // 1: 右, -1: 左
 	enemySpeed_ = enemySpeed;
-	enemyPosition_ = initialPos;
+	initialPosition_ = initialPos;
 	maxRange_X_ = maxRange;
 	minRange_X_ = minRange;
+	enemyPosition_ = Math::Vector2(-1000.0f,-1000.0f);
 }
 
-void MoveEnemy::Update()
+void MoveEnemy::Update(float timer)
 {
+	if (!isActive_) {
+		if (timer >= timeToActive_) {
+			isActive_ = true; // 指定時間が経過したらアクティブにする
+			enemyPosition_ = initialPosition_; // 初期位置に設定
+		}
+		else {
+			return; // アクティブになるまで何もしない
+		}
+	}
 	draftSprite_.params.pos = enemyPosition_;
 
 	if (moveDirection_ == 1) { // 右に移動

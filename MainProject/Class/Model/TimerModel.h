@@ -8,6 +8,7 @@ public:
 	void Initialize(float timeLimit);
 	void Update();
 	void UpdateTimerSprite();
+	float GetTimer() const { return timer_; } // タイマーの値を取得
 
 private:
 	float timer_;

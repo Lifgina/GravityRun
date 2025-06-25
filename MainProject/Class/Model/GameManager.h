@@ -14,7 +14,7 @@ public:
 	void Load();
 	void Initialize(float timelimit);
 	void FloorSetup(int floorID,HE::Math::Vector2 floorPos,float floorHeight,float floorWidth);
-	void MoveEnemySetup(int enemyID, float enemySpeed, float firstDirection,HE::Math::Vector2 initialPos, float maxRange, float minRange);
+	void MoveEnemySetup(int enemyID,float timeToActive, float enemySpeed, float firstDirection,HE::Math::Vector2 initialPos, float maxRange, float minRange);
 	void SilentEnemySetup(int enemyID, HE::Math::Vector2 initialPos);
 	void Update();
 	void CollisionCheck();
