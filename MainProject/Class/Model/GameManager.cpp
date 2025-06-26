@@ -14,15 +14,16 @@ void GameManager::Load()
 	
 }
 
-void GameManager::Initialize(float timelimit)
+void GameManager::Initialize(float timelimit,Math::Vector2 initialPos, float leftEdge, float rightEdge)
 {
-	playerModel_.Initialize(initialPlayerPosition_, leftEdge, rightEdge); 
+	playerModel_.Initialize(initialPos, leftEdge, rightEdge); 
 	timerModel_.Initialize(timelimit);
 	isGameOver_ = false; // ゲームオーバー状態を初期化
+	onPlayerFloorID_ = -1; // プレイヤーが乗っている床のIDを初期化
 }
-void GameManager::FloorSetup(int floorID, HE::Math::Vector2 floorPos, float floorHeight, float floorWidth)
+void GameManager::FloorSetup(int floorID, HE::Math::Vector2 floorPos, float floorHeight, float floorWidth,bool isBreakable)
 { 
-	floorModel_[floorID].Initialize(floorPos, floorWidth, floorHeight);
+	floorModel_[floorID].Initialize(floorPos, floorWidth, floorHeight,isBreakable);
 }
 
 void GameManager::MoveEnemySetup(int enemyID, float timeToActive,float enemySpeed, float firstDirection,HE::Math::Vector2 initialPos, float maxRange, float minRange)
@@ -47,6 +48,7 @@ void GameManager::Update()
 	{
 		moveEnemy_[i].Update(timerModel_.GetTimer());
 	}
+	MonitorPlayerOnGround(); // プレイヤーが床に乗っているかどうかを監視
 
 }
 
@@ -59,6 +61,7 @@ void GameManager::GroundCollisionCheck()
 		if (player_collision.Intersects(floor_collision))
 		{
 			playerModel_.OnCollisionGround(floorModel_[i].GetFloorPosition(), floorModel_[i].GetFloorHeight(), floorModel_[i].GetFloorWidth());
+			onPlayerFloorID_ = i; // プレイヤーが乗っている床のIDを更新
 		}
 	}
 
@@ -86,4 +89,13 @@ void GameManager::EnemyCollisionCheck()
 			return;
 		}
 	}
+}
+
+void GameManager::MonitorPlayerOnGround()
+{
+	bool isOnGround = playerModel_.GetIsOnGround();
+	if (prevIsOnGround_ && isOnGround != prevIsOnGround_) {
+		floorModel_[onPlayerFloorID_].BreakFloor(); 
+	}
+	prevIsOnGround_ = isOnGround; // 前回の床に乗っている状態を更新
 }

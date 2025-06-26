@@ -28,7 +28,7 @@ void PlayerModel::Initialize(Math::Vector2 InitialPos, float leftedge, float rig
 void PlayerModel::Update(float timer)
 {
 	OnGroundCheck();
-	PlayerMoveX();
+	PlayerMoveX(timer);
 	PlayerMoveY(timer); 
 	UpdatePlayerSprite();
 }
@@ -80,11 +80,19 @@ void PlayerModel::UpdatePlayerSprite()
 	draftSprite_.params.pos = playerPosition_;
 }
 
-void PlayerModel::PlayerMoveX()
+void PlayerModel::PlayerMoveX(float timer)
 {
 	if(!isOnGround_)
 		return; // 床に乗っていない場合は移動しない
 	float direction;
+	float playerSpeed;
+
+	if (timer < speedChangeTime_) {
+		playerSpeed = initialPlayerSpeed_; // 初期速度
+	}
+	else {
+		playerSpeed = afterPlayerSpeed_; // 速度変化後の速度
+	}
 	if (isMovingToRight_) {
 		direction = 1.0f; // 右に移動
 		if (playerPosition_.x >= gameWindowRightEdge_-playerWidth_) {
@@ -98,7 +106,7 @@ void PlayerModel::PlayerMoveX()
 		}
 	}
 
-	playerPosition_.x += direction * playerSpeed_ * Time.deltaTime;
+	playerPosition_.x += direction * playerSpeed* Time.deltaTime;
 }
 
 

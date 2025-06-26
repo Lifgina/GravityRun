@@ -36,10 +36,10 @@ void MainScene::Initialize()
 {
 	gameOverView_.Initialize(); // ゲームオーバービューの初期化
 	isGameOver_ = false; // ゲームオーバー状態を初期化
-	gameManager_.Initialize(timeLimit_);
+	gameManager_.Initialize(timeLimit_,initialPlayerPosition_,leftEdge,rightEdge);
 	for (int i = 0; i <floorData_.GetFloorCount(); i++)
 	{
-		gameManager_.FloorSetup(i, floorData_.GetFloorPosition(i), floorData_.GetFloorHeight(i), floorData_.GetFloorWidth(i));
+		gameManager_.FloorSetup(i, floorData_.GetFloorPosition(i), floorData_.GetFloorHeight(i), floorData_.GetFloorWidth(i),floorData_.GetIsBreakable(i));
 	}
 	for (int i = 0; i < enemyData_.GetSilentEnemyCount(); i++)
 	{

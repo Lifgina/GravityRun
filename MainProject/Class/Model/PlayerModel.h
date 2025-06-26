@@ -9,16 +9,19 @@ public:
 	void Update(float timer);
 	void UpdatePlayerSprite(); // プレイヤーのスプライトを更新する、後でViewに移動
 	HE::Math::Rectangle GetCollision();
+	bool GetIsOnGround() const { return isOnGround_; } // 床に乗っているかどうかを取得
 	void OnCollisionGround(HE::Math::Vector2 floorPos,float floorHeight,float floorWidth);
 	void OnGroundCheck(); // 床に乗っているかどうかを確認する
-	void PlayerMoveX();
+	void PlayerMoveX(float timer);
 	void PlayerMoveY(float timer);
 	void GravityChange(); // プレイヤーの移動方向を変更する、後でMainSceneにスクリプトを移動
 
 
 private:
 	//以下プランナーがいじっていい変数
-	float playerSpeed_ = 300.0f; // プレイヤーの移動速度
+	float initialPlayerSpeed_ = 300.0f; // プレイヤーの移動速度
+	float afterPlayerSpeed_ = 450.0f; // プレイヤーの移動速度（速度変化後）
+	float speedChangeTime_ = 20.0f; // プレイヤーの速度変化まで時間
 	float gravity_ = 8000.0f; // 重力の強さ
 	float loopInterval_ = 0.5f; // 上下ループをした時に逆側から出てくるまでの時間補正
 
