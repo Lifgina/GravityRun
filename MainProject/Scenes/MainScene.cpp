@@ -68,7 +68,11 @@ void MainScene::Update(float deltaTime)
 		}
 		return; // ゲームオーバー状態では更新処理を行わない
 	}
+	if (InputSystem.Keyboard.wasPressedThisFrame.Space) {
+		gameManager_.GravityChange(); // スペースキーが押されたら重力の向きを変更
+	}
 	gameManager_.Update();
+
 	MoniteringGameManager();
 
 

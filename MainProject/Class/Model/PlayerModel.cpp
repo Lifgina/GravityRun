@@ -9,7 +9,7 @@ using namespace HE;
 void PlayerModel::Load()
 {
 	draftSprite_ = HE::Sprite("");
-	draftSprite_.params.siz = Math::Vector2(50, 50);
+	draftSprite_.params.siz = Math::Vector2(60, 60);
 	RenderingPath->AddSprite(&draftSprite_,0);
 	collision_sprite_ = HE::Sprite("");
 	collision_sprite_.params.color =  HE::Color(255, 0, 0, 100); // 衝突範囲表示用のスプライト
@@ -25,12 +25,11 @@ void PlayerModel::Initialize(Math::Vector2 InitialPos, float leftedge, float rig
 }
 
 
-void PlayerModel::Update()
+void PlayerModel::Update(float timer)
 {
 	OnGroundCheck();
 	PlayerMoveX();
-	PlayerMoveY(); 
-	GravityChange();
+	PlayerMoveY(timer); 
 	UpdatePlayerSprite();
 }
 
@@ -55,6 +54,7 @@ void PlayerModel::OnCollisionGround(Math::Vector2 floorPos, float floorHeight,fl
 {
 	if (isOnGround_) return; // すでに床に乗っている場合は何もしない
 	isOnGround_ = true; // 床に乗っている状態にする
+	fallingSpeed_ = 0.0f; // 落下速度をリセット
 	if(isGravityUpward_) {
 		playerPosition_.y = floorPos.y + floorHeight;	
 	}
@@ -102,42 +102,58 @@ void PlayerModel::PlayerMoveX()
 }
 
 
-void PlayerModel::PlayerMoveY()
-{   
-	int playerHeight = draftSprite_.params.siz.y; // プレイヤーの身長を取得
-	if (isOnGround_) {
-		fallingSpeed_ = 0.0f; // 床にいる場合は落下速度をリセット
+void PlayerModel::PlayerMoveY(float timer)
+{
+	int playerHeight = draftSprite_.params.siz.y;
+
+	// ループ待機中
+	if (isLoopWaiting_) {
+		if ((timer - loopWaitStartTime_) >= loopInterval_) {
+			// 逆側にワープ
+			if (isGravityUpward_) {
+				playerPosition_.y = RenderingPath->GetLogicalHeight();
+				fallingSpeed_ = loopedVelocityY_;
+			}
+			else {
+				playerPosition_.y = 0;
+				fallingSpeed_ = loopedVelocityY_;
+			}
+			isLoopWaiting_ = false;
+		}
+		return; // 待機中は移動しない
+	}
+
+	if (isOnGround_) return;
+
+	if (isGravityUpward_) {
+		playerPosition_.y -= fallingSpeed_ * Time.deltaTime;
+		fallingSpeed_ += gravity_ * Time.deltaTime;
+		if (playerPosition_.y <= -playerHeight) {
+			// ループ待機開始
+			isLoopWaiting_ = true;
+			loopWaitStartTime_ = timer;
+			loopedVelocityY_ = fallingSpeed_;
+		}
 	}
 	else {
-		if (isGravityUpward_)
-		{
-			playerPosition_.y -= fallingSpeed_ * Time.deltaTime; // 上に重力を受けている場合は上に移動
-			fallingSpeed_ += gravity_ * Time.deltaTime; // 重力の影響を受けて落下速度を増加
-			if (playerPosition_.y <= -playerHeight) {
-				playerPosition_.y = RenderingPath->GetLogicalHeight()+roopInterval_; //床の上下はループ 
-			}
-		}
-		else
-		{
-			playerPosition_.y += fallingSpeed_ * Time.deltaTime; // 下に重力を受けている場合は下に移動
-			fallingSpeed_ += gravity_ * Time.deltaTime; // 重力の影響を受けて落下速度を増加
-
-			if (playerPosition_.y >= RenderingPath->GetLogicalHeight()) {
-				playerPosition_.y = 0-roopInterval_; //床の上下はループ 
-			}
+		playerPosition_.y += fallingSpeed_ * Time.deltaTime;
+		fallingSpeed_ += gravity_ * Time.deltaTime;
+		if (playerPosition_.y >= RenderingPath->GetLogicalHeight()) {
+			// ループ待機開始
+			isLoopWaiting_ = true;
+			loopWaitStartTime_ = timer;
+			loopedVelocityY_ = fallingSpeed_;
 		}
 	}
-	
 }
+
 
 void PlayerModel::GravityChange()
 {
 	if(!isOnGround_)
 		return; // 床に乗っていない場合は方向転換しない
-	if (InputSystem.Keyboard.wasPressedThisFrame.Space)
-	{
-		isGravityUpward_ = !isGravityUpward_; // 方向を反転
-		isOnGround_ = false; // 床から離れる
-	}
+     isGravityUpward_ = !isGravityUpward_; // 方向を反転
+	 isOnGround_ = false; // 床から離れる
+	
 }
 

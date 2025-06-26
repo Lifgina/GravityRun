@@ -16,7 +16,7 @@ private:
 	// 床を定義するためのデータ
 	// 見やすくするために改行を入れているだけで、実際の処理には影響しない。
 
-	int floorCount_ = 16; // 床の数
+	int floorCount_ =16; // 床の数
 	// 床の位置
 	Vector2 floorPosition_[16] =
 	{Vector2(210.0f,0.0f),  Vector2(910.0f,0.0f),  

@@ -39,10 +39,10 @@ void GameManager::SilentEnemySetup(int enemyID, HE::Math::Vector2 initialPos)
 
 void GameManager::Update()
 {
-	playerModel_.Update();
+	timerModel_.Update();
+	playerModel_.Update(timerModel_.GetTimer());
 	GroundCollisionCheck();
 	EnemyCollisionCheck();
-	timerModel_.Update();
 	for (int i = 0; i < std::size(moveEnemy_); i++)
 	{
 		moveEnemy_[i].Update(timerModel_.GetTimer());

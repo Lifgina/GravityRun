@@ -17,6 +17,7 @@ public:
 	void MoveEnemySetup(int enemyID,float timeToActive, float enemySpeed, float firstDirection,HE::Math::Vector2 initialPos, float maxRange, float minRange);
 	void SilentEnemySetup(int enemyID, HE::Math::Vector2 initialPos);
 	void Update();
+	void GravityChange() { playerModel_.GravityChange(); } // プレイヤーの移動方向を変更する
 	void GroundCollisionCheck();
 	void EnemyCollisionCheck(); 
 	bool GetIsGameOver() const { return isGameOver_; } // ゲームオーバー状態を取得
@@ -26,13 +27,13 @@ private:
 	PlayerModel playerModel_; // プレイヤーのモデル
 	FloorModel floorModel_[16]; // 床のモデル 全ステージの最大の数を配列数に記入
 	TimerModel timerModel_; // タイマーのモデル
-	MoveEnemy moveEnemy_[6]; // 手裏剣のモデル EnemyData.hで定義されている敵の数に合わせる
-	SilentEnemy silentEnemy_[4]; // まきびしのモデル  EnemyData.hで定義されている敵の数に合わせる
+	MoveEnemy moveEnemy_[6]; // 手裏剣のモデル 全ステージの最大の数を配列数に記入
+	SilentEnemy silentEnemy_[4]; // まきびしのモデル 全ステージの最大の数を配列数に記入
 
 	bool isGameOver_ ; // ゲームオーバー状態
 
 	float leftEdge = 10.0f; // ゲームウィンドウの左端の位置
 	float rightEdge = 1280.0f-10.0f-60.0f; // ゲームウィンドウの右端の位置
 
-	HE::Math::Vector2 initialPlayerPosition_ = HE::Math::Vector2(510.0f, 284.0f-50.0f); // 初期プレイヤー位置	
+	HE::Math::Vector2 initialPlayerPosition_ = HE::Math::Vector2(510.0f, 284.0f-60.0f); // 初期プレイヤー位置	
 };

@@ -28,6 +28,7 @@ void MoveEnemy::Initialize(float timeToActive, float enemySpeed, float firstDire
 
 void MoveEnemy::Update(float timer)
 {
+	draftSprite_.params.pos = enemyPosition_;
 	if (!isActive_) {
 		if (timer >= timeToActive_) {
 			isActive_ = true; // 指定時間が経過したらアクティブにする
@@ -37,7 +38,7 @@ void MoveEnemy::Update(float timer)
 			return; // アクティブになるまで何もしない
 		}
 	}
-	draftSprite_.params.pos = enemyPosition_;
+	
 
 	if (moveDirection_ == 1) { // 右に移動
 		enemyPosition_.x += enemySpeed_ * Time.deltaTime;
