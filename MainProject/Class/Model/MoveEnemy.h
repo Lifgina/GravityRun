@@ -8,6 +8,7 @@ public:
 	void Initialize(float timeToActive, float enemySpeed, float firstDirection, HE::Math::Vector2 initialPos, float maxRange, float minRange);
 	void Update(float timer);
 	HE::Math::Rectangle GetCollision();
+	HE::Math::Vector2 GetEnemyPosition() const { return enemyPosition_; } // “G‚ÌˆÊ’u‚ðŽæ“¾
 
 
 

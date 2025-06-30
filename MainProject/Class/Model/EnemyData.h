@@ -23,7 +23,7 @@ public:
 
 private:
 	int silentEnemyCount_ = 4; // まきびしの数 
-	int MoveEnemyCount_ = 6; // 手裏剣の数
+	int MoveEnemyCount_ = 2; // 手裏剣の数
 
 	//まきびしのデータ
 	// 敵の位置
@@ -40,21 +40,17 @@ private:
 
 	//手裏剣のデータ
 	// 敵の初期位置
-	HE::Math::Vector2 moveEnemyPosition_[6] = {
-		HE::Math::Vector2(1010.0f-32.0f, 142.0f-32.0f),
-		HE::Math::Vector2(110.0f+32.0f ,  142.0f+10.0f),
-		HE::Math::Vector2(310.0f + 32.0f,  284.0f+10.0f),
-		HE::Math::Vector2(910.0f + 32.0f,  426.0f -32.0f),
-		HE::Math::Vector2(110.0f + 32.0f,  568.0f - 32.0f),
-		HE::Math::Vector2(1110.0f - 32.0f, 568.0f +10.0f),
+	HE::Math::Vector2 moveEnemyPosition_[2] = {
+		HE::Math::Vector2(360.0f-16.0f, 284.0f-32.0f),
+		HE::Math::Vector2(760.0f-16.0f ,  568.0f-32.0f),
 	};
-	float moveEnemyTimeToActive_[6] = {15.0f,30.0f,45.0f,45.0f,15.0f,30.0f}; // 敵がアクティブになるまでの時間
+	float moveEnemyTimeToActive_[2] = {15.0f,15.0f}; // 敵がアクティブになるまでの時間
 	// 敵の最初の向き　1:右向き　-1:左向き
-	float moveEnemyDirection_[6] = {-1,1,1,-1,1,-1};
+	float moveEnemyDirection_[2] = {1,1};
 	// 敵の移動速度
-	float moveEnemySpeed_[6] = {300.0f,300.0f,300.0f,300.0f,300.0f,300.0f};
+	float moveEnemySpeed_[2] = {300.0f,300.0f};
 	// 敵の移動範囲
-	float moveEnemyMinRange_X_[6] = {110.0f,10.0f, 10.0f, 10.0f, 10.0f, 10.0f};
-	float moveEnemyMaxRange_X_[6] = { 1010.0f-32.0f , 1146.0f , 1146.0f , 1146.0f , 1146.0f , 1146.0f  };
+	float moveEnemyMinRange_X_[2] = {310.0f,210.0f};
+	float moveEnemyMaxRange_X_[2] = { 1110.0f-32.0f , 1110.0f-32.0f};
 	
 };

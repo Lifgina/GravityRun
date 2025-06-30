@@ -18,6 +18,8 @@ public:
 	void MoveEnemySetup(int enemyID,float timeToActive, float enemySpeed, float firstDirection,HE::Math::Vector2 initialPos, float maxRange, float minRange);
 	void SilentEnemySetup(int enemyID, HE::Math::Vector2 initialPos);
 	const PlayerModel& GetPlayerModel() const { return playerModel_; }
+	const TimerModel& GetTimerModel() const { return timerModel_; }
+	const MoveEnemy& GetMoveEnemy(int enemyID) const { return moveEnemy_[enemyID]; }
 	void Update();
 	void GravityChange() { playerModel_.GravityChange(); } // プレイヤーの移動方向を変更する
 	void GroundCollisionCheck();
@@ -32,7 +34,7 @@ private:
 	PlayerModel playerModel_; // プレイヤーのモデル
 	FloorModel floorModel_[23]; // 床のモデル 全ステージの最大の数を配列数に記入
 	TimerModel timerModel_; // タイマーのモデル
-	MoveEnemy moveEnemy_[6]; // 手裏剣のモデル 全ステージの最大の数を配列数に記入
+	MoveEnemy moveEnemy_[2]; // 手裏剣のモデル 全ステージの最大の数を配列数に記入
 	SilentEnemy silentEnemy_[4]; // まきびしのモデル 全ステージの最大の数を配列数に記入
 
 	bool isGameOver_ ; // ゲームオーバー状態

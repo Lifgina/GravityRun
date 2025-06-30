@@ -6,6 +6,7 @@
 #include "../Class/Model/EnemyData.h"
 #include "../Class/View/GameOverView.h"
 #include "../Class/View/PlayerView.h"
+#include "../Class/View/MoveEnemyView.h"
 
 class MainScene : public HE::Scene
 {
@@ -40,5 +41,6 @@ private:
 	EnemyData enemyData_; // 敵データのインスタンス
 	GameOverView gameOverView_; // ゲームオーバービューのインスタンス
 	PlayerView playerView_; // プレイヤーのビューのインスタンス
+	MoveEnemyView moveEnemyView_[2]; // 手裏剣のビューのインスタンス
 
 };

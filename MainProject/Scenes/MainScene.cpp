@@ -27,8 +27,10 @@ void MainScene::Load()
 	gameManager_.Load();
 	gameOverView_.Load();
 	playerView_.Load();
-
-
+	for (int i = 0; i < enemyData_.GetMoveEnemyCount(); i++)
+	{
+		moveEnemyView_[i].Load();
+	}
 	Scene::Load();
 }
 
@@ -51,7 +53,10 @@ void MainScene::Initialize()
 	{
 		gameManager_.MoveEnemySetup(i,enemyData_.GetMoveEnemyTimeToActive(i), enemyData_.GetMoveEnemySpeed(i),enemyData_.GetMoveEnemyDirection(i), enemyData_.GetMoveEnemyPosition(i), enemyData_.GetMoveEnemyMaxRange_X(i), enemyData_.GetMoveEnemyMinRange_X(i));
 	}
-
+	for (int i = 0; i < enemyData_.GetMoveEnemyCount(); i++)
+	{
+		moveEnemyView_[i].Initialize(enemyData_.GetMoveEnemyPosition(i), enemyData_.GetMoveEnemyTimeToActive(i));
+	}
 }
 
 // releasing resources required for termination.
@@ -75,6 +80,10 @@ void MainScene::Update(float deltaTime)
 	}
 	gameManager_.Update();
 	playerView_.Update(gameManager_.GetPlayerModel().GetPlayerPosition()); // プレイヤーの位置を更新
+	for (int i = 0; i < enemyData_.GetMoveEnemyCount(); i++)
+	{
+		moveEnemyView_[i].Update(gameManager_.GetMoveEnemy(i).GetEnemyPosition(), gameManager_.GetTimerModel().GetTimer());
+	}
 	MoniteringGameManager();
 
 

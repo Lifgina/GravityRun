@@ -8,10 +8,6 @@ using namespace HE;
 
 void MoveEnemy::Load()
 {
-	draftSprite_ = HE::Sprite("");
-	draftSprite_.params.siz = Math::Vector2(enemyWidth_, enemyHeight_);
-	draftSprite_.params.color = HE::Color(0, 255, 0, 255); //緑色のスプライト
-	RenderingPath->AddSprite(&draftSprite_, 0);
 }
 
 void MoveEnemy::Initialize(float timeToActive, float enemySpeed, float firstDirection, Math::Vector2 initialPos, float maxRange, float minRange)
@@ -28,7 +24,6 @@ void MoveEnemy::Initialize(float timeToActive, float enemySpeed, float firstDire
 
 void MoveEnemy::Update(float timer)
 {
-	draftSprite_.params.pos = enemyPosition_;
 	if (!isActive_) {
 		if (timer >= timeToActive_) {
 			isActive_ = true; // 指定時間が経過したらアクティブにする
