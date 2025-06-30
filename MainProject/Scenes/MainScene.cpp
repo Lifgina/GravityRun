@@ -26,6 +26,7 @@ void MainScene::Load()
 {
 	gameManager_.Load();
 	gameOverView_.Load();
+	playerView_.Load();
 
 
 	Scene::Load();
@@ -36,7 +37,8 @@ void MainScene::Initialize()
 {
 	gameOverView_.Initialize(); // ゲームオーバービューの初期化
 	isGameOver_ = false; // ゲームオーバー状態を初期化
-	gameManager_.Initialize(timeLimit_,initialPlayerPosition_,leftEdge,rightEdge);
+	gameManager_.Initialize(timeLimit_);
+	gameManager_.PlayerSetup(initialPlayerPosition_, leftEdge, rightEdge, isMovingToRightFirst_, isGravityUpwardFirst_, playerWidth_, playerHeight_);
 	for (int i = 0; i <floorData_.GetFloorCount(); i++)
 	{
 		gameManager_.FloorSetup(i, floorData_.GetFloorPosition(i), floorData_.GetFloorHeight(i), floorData_.GetFloorWidth(i),floorData_.GetIsBreakable(i));
@@ -72,7 +74,7 @@ void MainScene::Update(float deltaTime)
 		gameManager_.GravityChange(); // スペースキーが押されたら重力の向きを変更
 	}
 	gameManager_.Update();
-
+	playerView_.Update(gameManager_.GetPlayerModel().GetPlayerPosition()); // プレイヤーの位置を更新
 	MoniteringGameManager();
 
 

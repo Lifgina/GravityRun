@@ -5,11 +5,11 @@
 class PlayerModel {
 public:
 	void Load(); //後でViewに移動し、プレイヤーの描画を記述
-	void Initialize(HE::Math::Vector2 initialPos,float leftedge,float rightedge);//初期位置はGameManagerで定義
+	void Initialize(HE::Math::Vector2 initialPos,float leftedge,float rightedge,bool isMovingToRightFirst,bool isGravityUpwardFirst,float playerWidth,float playerHeight);//初期位置はGameManagerで定義
 	void Update(float timer);
-	void UpdatePlayerSprite(); // プレイヤーのスプライトを更新する、後でViewに移動
 	HE::Math::Rectangle GetCollision();
 	bool GetIsOnGround() const { return isOnGround_; } // 床に乗っているかどうかを取得
+	HE::Math::Vector2 GetPlayerPosition() const { return playerPosition_; } // プレイヤーの位置を取得
 	void OnCollisionGround(HE::Math::Vector2 floorPos,float floorHeight,float floorWidth);
 	void OnGroundCheck(); // 床に乗っているかどうかを確認する
 	void PlayerMoveX(float timer);
@@ -37,18 +37,18 @@ private:
 	HE::Sprite draftSprite_;
 	HE::Sprite collision_sprite_; // 衝突範囲表示用のスプライト
 	HE::Math::Vector2 playerPosition_;
-	float playerWidth_ = 60.0f; // プレイヤーの幅
-	float playerHeight_ = 60.0f; // プレイヤーの高さ
+	float playerWidth_ ; // プレイヤーの幅
+	float playerHeight_ ; // プレイヤーの高さ
 	float gameWindowLeftEdge_; // ゲームウィンドウの左端の位置
 	float gameWindowRightEdge_; // ゲームウィンドウの右端の位置
 	float floorRange_x_min_;
 	float floorRange_x_max_;
-	bool isMovingToRight_ = true; // プレイヤーが右に移動中かどうか 
-	bool isGravityUpward_ =false; // プレイヤーが上に重力を受けているかどうか
-	bool isOnGround_ = false;
-	bool isLoopWaiting_ = false;
-	float loopWaitStartTime_ = 0.0f;
-	float loopedVelocityY_ = 0.0f;
+	bool isMovingToRight_ ; // プレイヤーが右に移動中かどうか 
+	bool isGravityUpward_ ; // プレイヤーが上に重力を受けているかどうか
+	bool isOnGround_ ;
+	bool isLoopWaiting_ ;
+	float loopWaitStartTime_ ;
+	float loopedVelocityY_ ;
 	float fallingSpeed_ ; // 落下速度
 
 };

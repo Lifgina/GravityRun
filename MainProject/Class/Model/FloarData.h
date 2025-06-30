@@ -22,7 +22,7 @@ private:
 	Vector2 floorPosition_[23] =
 	{Vector2(210.0f,0.0f),  Vector2(910.0f,0.0f),  
 	 Vector2(110.0f,142.0f),Vector2(510.0f,142.0f),Vector2(610.0f,142.0f),Vector2(1110.0f,142.0f),
-	 Vector2(10.0f,284.0f), Vector2(210.0f,142.0f),Vector2(310.0f,284.0f),Vector2(710.0f,284.0f),Vector2(810.0f,284.0f),
+	 Vector2(10.0f,284.0f), Vector2(210.0f,284.0f),Vector2(310.0f,284.0f),Vector2(710.0f,284.0f),Vector2(810.0f,284.0f),
 	 Vector2(110.0f,426.0f),Vector2(410.0f,426.0f),Vector2(510.0f,426.0f),Vector2(810.0f,426.0f),Vector2(910.0f,426.0f),
 	 Vector2(10.0f,568.0f), Vector2(110.0f,568.0f),Vector2(210.0f,568.0f),Vector2(610.0f,568.0f),Vector2(710.0f,568.0f),
 	 Vector2(210.0f,710.0f),Vector2(910.0f,710.0f),

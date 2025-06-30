@@ -56,6 +56,9 @@ void MoveEnemy::Update(float timer)
 
 Math::Rectangle MoveEnemy::GetCollision()
 {
+	if (!isActive_) {
+		return Math::Rectangle(); // アクティブでない場合は空の矩形を返す
+	}
 	Math::Rectangle collision;
 	collision.x = enemyPosition_.x;
 	collision.y = enemyPosition_.y;

@@ -14,12 +14,16 @@ void GameManager::Load()
 	
 }
 
-void GameManager::Initialize(float timelimit,Math::Vector2 initialPos, float leftEdge, float rightEdge)
+void GameManager::Initialize(float timelimit)
 {
-	playerModel_.Initialize(initialPos, leftEdge, rightEdge); 
 	timerModel_.Initialize(timelimit);
 	isGameOver_ = false; // ゲームオーバー状態を初期化
 	onPlayerFloorID_ = -1; // プレイヤーが乗っている床のIDを初期化
+}
+
+void GameManager::PlayerSetup(HE::Math::Vector2 initialPos, float leftEdge, float rightEdge, bool isMovingToRightFirst, bool isGravityUpwardFirst, float playerWidth, float playerHeight)
+{
+	playerModel_.Initialize(initialPos, leftEdge, rightEdge, isMovingToRightFirst, isGravityUpwardFirst, playerWidth, playerHeight);
 }
 void GameManager::FloorSetup(int floorID, HE::Math::Vector2 floorPos, float floorHeight, float floorWidth,bool isBreakable)
 { 

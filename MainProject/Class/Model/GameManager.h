@@ -12,16 +12,20 @@
 class GameManager {
 public:
 	void Load();
-	void Initialize(float timelimit,HE::Math::Vector2 initialPos,float leftEdge,float rightEdge);
+	void Initialize(float timelimit);
+	void PlayerSetup(HE::Math::Vector2 initialPos, float leftEdge, float rightEdge, bool isMovingToRightFirst, bool isGravityUpwardFirst, float playerWidth, float playerHeight);
 	void FloorSetup(int floorID,HE::Math::Vector2 floorPos,float floorHeight,float floorWidth,bool isBreakable);
 	void MoveEnemySetup(int enemyID,float timeToActive, float enemySpeed, float firstDirection,HE::Math::Vector2 initialPos, float maxRange, float minRange);
 	void SilentEnemySetup(int enemyID, HE::Math::Vector2 initialPos);
+	const PlayerModel& GetPlayerModel() const { return playerModel_; }
 	void Update();
 	void GravityChange() { playerModel_.GravityChange(); } // プレイヤーの移動方向を変更する
 	void GroundCollisionCheck();
 	void EnemyCollisionCheck(); 
 	void MonitorPlayerOnGround();
 	bool GetIsGameOver() const { return isGameOver_; } // ゲームオーバー状態を取得
+
+	
 
 
 private:

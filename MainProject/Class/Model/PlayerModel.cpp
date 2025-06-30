@@ -8,19 +8,27 @@ using namespace HE;
 
 void PlayerModel::Load()
 {
-	draftSprite_ = HE::Sprite("");
-	draftSprite_.params.siz = Math::Vector2(60, 60);
-	RenderingPath->AddSprite(&draftSprite_,0);
 	collision_sprite_ = HE::Sprite("");
 	collision_sprite_.params.color =  HE::Color(255, 0, 0, 100); // 衝突範囲表示用のスプライト
 	RenderingPath->AddSprite(&collision_sprite_, 10);
 }
 
-void PlayerModel::Initialize(Math::Vector2 InitialPos, float leftedge, float rightedge)
+void PlayerModel::Initialize(Math::Vector2 InitialPos, float leftedge, float rightedge, bool isMovingToRightFirst, bool isGravityUpwardFirst,float playerWidth,float playerHeight)
 {
 	playerPosition_ = InitialPos;
 	gameWindowLeftEdge_ = leftedge; // ゲームウィンドウの左端の位置
 	gameWindowRightEdge_ = rightedge; // ゲームウィンドウの右端の位置
+	isMovingToRight_ = isMovingToRightFirst; // プレイヤーの初期移動方向
+	isGravityUpward_ = isGravityUpwardFirst; // プレイヤーの初期重力方向
+
+	playerWidth_ = playerWidth; // プレイヤーの幅
+	playerHeight_ = playerHeight; // プレイヤーの高さ
+
+	loopedVelocityY_ = 0.0f; // ループ待機時の落下速度
+	loopWaitStartTime_ = 0.0f; // ループ待機開始時のタイマー
+	isOnGround_ = false; // 初期状態では床に乗っていない
+	isLoopWaiting_ = false; // 初期状態ではループ待機していない
+	fallingSpeed_ = 0.0f; // 初期状態では落下速度は0
 
 }
 
@@ -30,7 +38,6 @@ void PlayerModel::Update(float timer)
 	OnGroundCheck();
 	PlayerMoveX(timer);
 	PlayerMoveY(timer); 
-	UpdatePlayerSprite();
 }
 
 Math::Rectangle PlayerModel::GetCollision()
@@ -75,10 +82,7 @@ void PlayerModel::OnGroundCheck()
 	}
 
 }
-void PlayerModel::UpdatePlayerSprite()
-{
-	draftSprite_.params.pos = playerPosition_;
-}
+
 
 void PlayerModel::PlayerMoveX(float timer)
 {
@@ -112,7 +116,6 @@ void PlayerModel::PlayerMoveX(float timer)
 
 void PlayerModel::PlayerMoveY(float timer)
 {
-	int playerHeight = draftSprite_.params.siz.y;
 
 	// ループ待機中
 	if (isLoopWaiting_) {
@@ -123,7 +126,7 @@ void PlayerModel::PlayerMoveY(float timer)
 				fallingSpeed_ = loopedVelocityY_;
 			}
 			else {
-				playerPosition_.y = 0;
+				playerPosition_.y = -playerHeight_;
 				fallingSpeed_ = loopedVelocityY_;
 			}
 			isLoopWaiting_ = false;
@@ -136,7 +139,7 @@ void PlayerModel::PlayerMoveY(float timer)
 	if (isGravityUpward_) {
 		playerPosition_.y -= fallingSpeed_ * Time.deltaTime;
 		fallingSpeed_ += gravity_ * Time.deltaTime;
-		if (playerPosition_.y <= -playerHeight) {
+		if (playerPosition_.y <= -playerHeight_) {
 			// ループ待機開始
 			isLoopWaiting_ = true;
 			loopWaitStartTime_ = timer;
