@@ -35,7 +35,7 @@ private:
 	FloorModel floorModel_[23]; // 床のモデル 全ステージの最大の数を配列数に記入
 	TimerModel timerModel_; // タイマーのモデル
 	MoveEnemy moveEnemy_[2]; // 手裏剣のモデル 全ステージの最大の数を配列数に記入
-	SilentEnemy silentEnemy_[4]; // まきびしのモデル 全ステージの最大の数を配列数に記入
+	SilentEnemy silentEnemy_[12]; // まきびしのモデル 全ステージの最大の数を配列数に記入
 
 	bool isGameOver_ ; // ゲームオーバー状態
 	bool prevIsOnGround_ ; // 前回の床に乗っている状態

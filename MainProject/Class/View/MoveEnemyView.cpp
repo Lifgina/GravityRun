@@ -9,7 +9,6 @@ using namespace HE;
 void MoveEnemyView::Load()
 {
 	moveEnemySprite_ = HE::Sprite("");
-	moveEnemySprite_.params.siz = Math::Vector2(enemyWidth_, enemyHeight_);
 	moveEnemySprite_.params.color = HE::Color(0, 255, 0, 255); // 緑色のスプライト
 	RenderingPath->AddSprite(&moveEnemySprite_, 0); // スプライトをレンダリングパスに追加
 }
