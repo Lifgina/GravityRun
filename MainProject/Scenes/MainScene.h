@@ -36,7 +36,7 @@ private:
 	bool isMovingToRightFirst_ = true; // プレイヤーの初期移動方向
 	bool isGravityUpwardFirst_ = false; // プレイヤーの初期重力方向
 
-	bool isGameOver_ ; // ゲームオーバー状態
+	int gameState_ ; // ゲームの状態
 	GameManager gameManager_; // ゲームマネージャーのインスタンス
 	FloorData floorData_; // 床データのインスタンス
 	EnemyData enemyData_; // 敵データのインスタンス

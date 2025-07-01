@@ -31,7 +31,7 @@ public:
 	void GroundCollisionCheck();
 	void EnemyCollisionCheck(); 
 	void MonitorPlayerOnGround();
-	bool GetIsGameOver() const { return isGameOver_; } // ゲームオーバー状態を取得
+	int GetGameState() const { return gameState_; } // ゲームの状態を取得
 
 	
 
@@ -57,7 +57,7 @@ private:
 	int suitonEnemyCount_; // 水遁の術の敵の数
 	int suitonAttackCount_; // 水遁の術の攻撃の回数
 
-	bool isGameOver_ ; // ゲームオーバー状態
+	int gameState_; // ゲームの状態、0 = ゲーム中　1 = ゲームオーバー 2 = ゲームクリア
 	bool prevIsOnGround_ ; // 前回の床に乗っている状態
 
 	int onPlayerFloorID_ ; // プレイヤーが乗っている床のID

@@ -6,7 +6,7 @@ class GameOverView {
 public:
 	void Load();
 	void Initialize();
-	void ShowGameOver();
+	void ShowGameOver(int gameState);
 	void HideGameOver();
 
 

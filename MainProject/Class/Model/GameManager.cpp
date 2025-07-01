@@ -22,7 +22,7 @@ void GameManager::Initialize(float timelimit,int floorCount, int silentEnemyCoun
 	moveEnemyCount_ = moveEnemyCount; // 手裏剣の数を設定
 	suitonEnemyCount_ = suitonEnemyCount; // 水遁の術の敵の数を設定
 	suitonAttackCount_ = suitonAttackCount; // 水遁の術の攻撃の回数を設定
-	isGameOver_ = false; // ゲームオーバー状態を初期化
+	gameState_ = 0; // ゲーム状態を初期化
 	onPlayerFloorID_ = -1; // プレイヤーが乗っている床のIDを初期化
 }
 
@@ -104,7 +104,7 @@ void GameManager::EnemyCollisionCheck()
 		Math::Rectangle enemy_collision = moveEnemy_[i].GetCollision();
 		if (player_collision.Intersects(enemy_collision))
 		{
-			isGameOver_ = true; // プレイヤーが手裏剣に衝突した場合、ゲームオーバー状態にする
+			gameState_ = 1; // プレイヤーが手裏剣に衝突した場合、ゲームオーバー状態にする
 			return;
 		}
 	}
@@ -113,7 +113,7 @@ void GameManager::EnemyCollisionCheck()
 		Math::Rectangle enemy_collision = silentEnemy_[i].GetCollision();
 		if (player_collision.Intersects(enemy_collision))
 		{
-			isGameOver_ = true; // プレイヤーがまきびしに衝突した場合、ゲームオーバー状態にする
+			gameState_ = 1; // プレイヤーがまきびしに衝突した場合、ゲームオーバー状態にする
 			return;
 		}
 	}
@@ -122,7 +122,7 @@ void GameManager::EnemyCollisionCheck()
 		Math::Rectangle enemy_collision = suitonEnemy_[i].GetCollision();
 		if (player_collision.Intersects(enemy_collision))
 		{
-			isGameOver_ = true; // プレイヤーが水遁の術の敵に衝突した場合、ゲームオーバー状態にする
+			gameState_ = true; // プレイヤーが水遁の術の敵に衝突した場合、ゲームオーバー状態にする
 			return;
 		}
 	}

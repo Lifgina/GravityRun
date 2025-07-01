@@ -42,7 +42,7 @@ void MainScene::Load()
 void MainScene::Initialize()
 {
 	gameOverView_.Initialize(); // ゲームオーバービューの初期化
-	isGameOver_ = false; // ゲームオーバー状態を初期化
+	gameState_= 0; // ゲームオーバー状態を初期化
 	gameManager_.Initialize(timeLimit_, floorData_.GetFloorCount(), enemyData_.GetSilentEnemyCount(), enemyData_.GetMoveEnemyCount(), enemyData_.GetSuitonEnemyCount(), enemyData_.GetSuitonAttackTimes());
 	gameManager_.PlayerSetup(initialPlayerPosition_, leftEdge, rightEdge, isMovingToRightFirst_, isGravityUpwardFirst_, playerWidth_, playerHeight_);
 	for (int i = 0; i <floorData_.GetFloorCount(); i++)
@@ -75,33 +75,41 @@ void MainScene::Terminate()
 // updates the scene.
 void MainScene::Update(float deltaTime)
 {
-	if (isGameOver_) {
-		gameOverView_.ShowGameOver(); // ゲームオーバー画面を表示
+	MoniteringGameManager();
+	switch (gameState_)
+	{
+	case 0: // ゲーム中
+		if (InputSystem.Keyboard.wasPressedThisFrame.Space) {
+			gameManager_.GravityChange(); // スペースキーが押されたら重力の向きを変更
+		}
+		gameManager_.Update();
+		playerView_.Update(gameManager_.GetPlayerModel().GetPlayerPosition()); // プレイヤーの位置を更新
+		for (int i = 0; i < enemyData_.GetMoveEnemyCount(); i++)
+		{
+			moveEnemyView_[i].Update(gameManager_.GetMoveEnemy(i).GetEnemyPosition(), gameManager_.GetTimerModel().GetTimer());
+		}
+		for (int i = 0; i < enemyData_.GetSuitonEnemyCount(); i++)
+		{
+			suitonEnemyView_[i].Update(gameManager_.GetSuitonEnemy(i).GetIsActive(), gameManager_.GetSuitonEnemy(i).GetSuitonEnemyState());
+		}
+		break;
+	case 1: // ゲームオーバー
+		gameOverView_.ShowGameOver(1); // ゲームオーバー画面を表示
 		if (InputSystem.Keyboard.wasPressedThisFrame.Enter) {
 			SceneManager.SetNextScene(NextScene::MainScene); // Enterキーが押されたらシーンをリセット
 		}
-		return; // ゲームオーバー状態では更新処理を行わない
+		break;
+	case 2: // ゲームクリア
+		gameOverView_.ShowGameOver(2); // ゲームクリア画面を表示
+		if (InputSystem.Keyboard.wasPressedThisFrame.Enter) {
+			SceneManager.SetNextScene(NextScene::MainScene); // Enterキーが押されたらシーンをリセット
+		}
+		break;
 	}
-	if (InputSystem.Keyboard.wasPressedThisFrame.Space) {
-		gameManager_.GravityChange(); // スペースキーが押されたら重力の向きを変更
-	}
-	gameManager_.Update();
-	playerView_.Update(gameManager_.GetPlayerModel().GetPlayerPosition()); // プレイヤーの位置を更新
-	for (int i = 0; i < enemyData_.GetMoveEnemyCount(); i++)
-	{
-		moveEnemyView_[i].Update(gameManager_.GetMoveEnemy(i).GetEnemyPosition(), gameManager_.GetTimerModel().GetTimer());
-	}
-	for (int i = 0; i < enemyData_.GetSuitonEnemyCount(); i++)
-	{
-		suitonEnemyView_[i].Update(gameManager_.GetSuitonEnemy(i).GetIsActive(),gameManager_.GetSuitonEnemy(i).GetSuitonEnemyState());
-	}
-	MoniteringGameManager();
-
-
 	Scene::Update(deltaTime);
 }
 
 void MainScene::MoniteringGameManager()
 {
-	isGameOver_ = gameManager_.GetIsGameOver(); // ゲームオーバー状態を取得
+	gameState_ = gameManager_.GetGameState(); // ゲームオーバー状態を取得
 }

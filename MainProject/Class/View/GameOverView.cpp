@@ -21,14 +21,24 @@ void GameOverView::Initialize()
 	draftSprite_.params.color = HE::Color(255, 255, 255, 125); // 半透明の黒色
 	draftFont_.params.size = 72;
 	draftFont_.params.color = Color(0, 0, 0, 255); // 灰色のフォント
-	draftFont_.SetText("Game Over");
 	draftFont_.params.posX = RenderingPath->GetLogicalWidth() / 2,
 	draftFont_.params.posY = RenderingPath->GetLogicalHeight() / 2;
 	HideGameOver(); // ゲームオーバー画面を非表示にする
 }
 
-void GameOverView::ShowGameOver()
+void GameOverView::ShowGameOver(int gameState)
 {
+	if (gameState == 0) {
+		return; // ゲームオーバー状態でない場合は何もしない
+	}
+	else if (gameState == 1) {
+		draftFont_.params.color = Color(255, 0, 0, 255); // ゲームオーバーのフォント色を赤に変更
+		draftFont_.SetText("Game Over");
+	}
+	else if (gameState == 2) {
+		draftFont_.params.color = Color(0, 255, 0, 255); // ゲームクリアのフォント色を緑に変更
+		draftFont_.SetText("Game Clear");
+	}
 	draftFont_.SetHidden(false); // フォントを表示
 	draftSprite_.SetHidden(false); // ゲームオーバー画面のスプライトを表示
 }
