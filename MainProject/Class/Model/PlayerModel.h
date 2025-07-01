@@ -4,7 +4,7 @@
 
 class PlayerModel {
 public:
-	void Load(); //後でViewに移動し、プレイヤーの描画を記述
+	void Load(); //コライダーデバッグ用のスプライトをロード
 	void Initialize(HE::Math::Vector2 initialPos,float leftedge,float rightedge,bool isMovingToRightFirst,bool isGravityUpwardFirst,float playerWidth,float playerHeight);//初期位置はGameManagerで定義
 	void Update(float timer);
 	HE::Math::Rectangle GetCollision();
@@ -14,7 +14,7 @@ public:
 	void OnGroundCheck(); // 床に乗っているかどうかを確認する
 	void PlayerMoveX(float timer);
 	void PlayerMoveY(float timer);
-	void GravityChange(); // プレイヤーの移動方向を変更する、後でMainSceneにスクリプトを移動
+	void GravityChange(); // プレイヤーの移動方向を変更する
 
 
 private:

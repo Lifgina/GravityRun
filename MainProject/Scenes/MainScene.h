@@ -7,6 +7,7 @@
 #include "../Class/View/GameOverView.h"
 #include "../Class/View/PlayerView.h"
 #include "../Class/View/MoveEnemyView.h"
+#include "../Class/View/SuitonEnemyView.h"
 
 class MainScene : public HE::Scene
 {
@@ -42,5 +43,6 @@ private:
 	GameOverView gameOverView_; // ゲームオーバービューのインスタンス
 	PlayerView playerView_; // プレイヤーのビューのインスタンス
 	MoveEnemyView moveEnemyView_[2]; // 手裏剣のビューのインスタンス
+	SuitonEnemyView suitonEnemyView_[5]; // 水遁の術の敵のビューのインスタンス
 
 };

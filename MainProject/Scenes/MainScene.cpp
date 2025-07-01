@@ -31,6 +31,10 @@ void MainScene::Load()
 	{
 		moveEnemyView_[i].Load();
 	}
+	for (int i = 0; i < enemyData_.GetSuitonEnemyCount(); i++)
+	{
+		suitonEnemyView_[i].Load();
+	}
 	Scene::Load();
 }
 
@@ -39,7 +43,7 @@ void MainScene::Initialize()
 {
 	gameOverView_.Initialize(); // ゲームオーバービューの初期化
 	isGameOver_ = false; // ゲームオーバー状態を初期化
-	gameManager_.Initialize(timeLimit_);
+	gameManager_.Initialize(timeLimit_, floorData_.GetFloorCount(), enemyData_.GetSilentEnemyCount(), enemyData_.GetMoveEnemyCount(), enemyData_.GetSuitonEnemyCount(), enemyData_.GetSuitonAttackTimes());
 	gameManager_.PlayerSetup(initialPlayerPosition_, leftEdge, rightEdge, isMovingToRightFirst_, isGravityUpwardFirst_, playerWidth_, playerHeight_);
 	for (int i = 0; i <floorData_.GetFloorCount(); i++)
 	{
@@ -51,11 +55,14 @@ void MainScene::Initialize()
 	}
 	for (int i = 0; i < enemyData_.GetMoveEnemyCount(); i++)
 	{
+		moveEnemyView_[i].Initialize(enemyData_.GetMoveEnemyPosition(i), enemyData_.GetMoveEnemyTimeToActive(i));
 		gameManager_.MoveEnemySetup(i,enemyData_.GetMoveEnemyTimeToActive(i), enemyData_.GetMoveEnemySpeed(i),enemyData_.GetMoveEnemyDirection(i), enemyData_.GetMoveEnemyPosition(i), enemyData_.GetMoveEnemyMaxRange_X(i), enemyData_.GetMoveEnemyMinRange_X(i));
 	}
-	for (int i = 0; i < enemyData_.GetMoveEnemyCount(); i++)
+	for (int i = 0; i < enemyData_.GetSuitonEnemyCount(); i++)
 	{
-		moveEnemyView_[i].Initialize(enemyData_.GetMoveEnemyPosition(i), enemyData_.GetMoveEnemyTimeToActive(i));
+		gameManager_.SuitonEnemyPositionSetup(i, enemyData_.GetSuitonEnemyModelPosition(i));
+		gameManager_.SuitonEnemyAttackSetup(i, enemyData_.GetSuitonEnemyApeearTime(i), enemyData_.GetSuitonEnemyAttackTime(i), enemyData_.GetSuitonEnemyAttackDuration(i), enemyData_.GetSuitonEnemyAttackAfterTime(i), enemyData_.GetAttackSuitonEnemyAmount(i));
+		suitonEnemyView_[i].Initialize(enemyData_.GetSuitonEnemyViewPosition(i), enemyData_.GetSuitonEnemyModelPosition(i));
 	}
 }
 
@@ -83,6 +90,10 @@ void MainScene::Update(float deltaTime)
 	for (int i = 0; i < enemyData_.GetMoveEnemyCount(); i++)
 	{
 		moveEnemyView_[i].Update(gameManager_.GetMoveEnemy(i).GetEnemyPosition(), gameManager_.GetTimerModel().GetTimer());
+	}
+	for (int i = 0; i < enemyData_.GetSuitonEnemyCount(); i++)
+	{
+		suitonEnemyView_[i].Update(gameManager_.GetSuitonEnemy(i).GetIsActive(),gameManager_.GetSuitonEnemy(i).GetSuitonEnemyState());
 	}
 	MoniteringGameManager();
 

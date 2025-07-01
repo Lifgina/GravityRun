@@ -6,6 +6,8 @@ class EnemyData {
 public:
 	int GetSilentEnemyCount() const { return silentEnemyCount_; }
 	int GetMoveEnemyCount() const { return MoveEnemyCount_; }
+	int GetSuitonEnemyCount() const { return suitonEnemyCount_; }
+
 	// “G‚ÌˆÊ’u‚ğæ“¾
 	HE::Math::Vector2 GetSilentEnemyPosition(int index) const { return SilentenemyPosition_[index]; }
 	HE::Math::Vector2 GetMoveEnemyPosition(int index) const { return moveEnemyPosition_[index]; }
@@ -21,11 +23,32 @@ public:
 	// “G‚ªƒAƒNƒeƒBƒu‚É‚È‚é‚Ü‚Å‚ÌŠÔ‚ğæ“¾
 	float GetMoveEnemyTimeToActive(int index) const { return moveEnemyTimeToActive_[index]; }
 
+	// …“Ù”EÒ‚Ìƒf[ƒ^‚ğæ“¾
+	// …“Ù”EÒ‚ÌˆÊ’u‚ğæ“¾
+	HE::Math::Vector2 GetSuitonEnemyModelPosition(int index) const { return suitonEnemyModelPosition_[index]; }
+	HE::Math::Vector2 GetSuitonEnemyViewPosition(int index) const { return suitonEnemyViewPosition_[index]; }
+	// …“Ù”EÒ‚ÌŒü‚«‚ğæ“¾
+	int GetSuitonEnemyViewDirection(int index) const { return suitonEnemyViewDirection_[index]; }
+	// …“Ù”EÒ‚ÌUŒ‚‰ñ”‚ğæ“¾
+	int GetSuitonAttackTimes() const { return suitonAttackTimes_; }
+	// …“Ù”EÒ‚ÌoŒ»ŠÔ‚ğæ“¾
+	float GetSuitonEnemyApeearTime(int index) const { return suitonEnemyApeearTime_[index]; }
+	// …“Ù”EÒ‚ÌUŒ‚ŠÔ‚ğæ“¾
+	float GetSuitonEnemyAttackTime(int index) const { return suitonEnemyAttackTime_[index]; }
+	// …“Ù”EÒ‚ÌUŒ‚Œã‚Ì‘Ò‹@ŠÔ‚ğæ“¾
+	float GetSuitonEnemyAttackAfterTime(int index) const { return suitonEnemyAttackAfterTime_[index]; }
+	// …“Ù”EÒ‚ÌUŒ‚‚Ì‘±ŠÔ‚ğæ“¾
+	float GetSuitonEnemyAttackDuration(int index) const { return suitonEnemyAttackDuration_[index]; }
+	// …“Ù”EÒ‚ÌUŒ‚‚ÅoŒ»‚·‚é“G‚Ì”‚ğæ“¾
+	int GetAttackSuitonEnemyAmount(int index) const { return attackSuitonEnemyAmount_[index]; }
+
 private:
-	int silentEnemyCount_ = 12; // ‚Ü‚«‚Ñ‚µ‚Ì” 
-	int MoveEnemyCount_ = 2; // è— Œ•‚Ì”
+	
+	
 
 	//‚Ü‚«‚Ñ‚µ‚Ìƒf[ƒ^
+	int silentEnemyCount_ = 12; // ‚Ü‚«‚Ñ‚µ‚Ì” 
+	
 	// “G‚ÌˆÊ’u
 	HE::Math::Vector2 SilentenemyPosition_[12] = {
 		HE::Math::Vector2(410.0f,0.0f+10.0f),
@@ -47,6 +70,7 @@ private:
 	float silentEnemyDirection_[12] = {}; 
 
 	//è— Œ•‚Ìƒf[ƒ^
+	int MoveEnemyCount_ = 2; // è— Œ•‚Ì”
 	// “G‚Ì‰ŠúˆÊ’u
 	HE::Math::Vector2 moveEnemyPosition_[2] = {
 		HE::Math::Vector2(360.0f-16.0f, 284.0f-32.0f),
@@ -60,5 +84,36 @@ private:
 	// “G‚ÌˆÚ“®”ÍˆÍ
 	float moveEnemyMinRange_X_[2] = {310.0f,210.0f};
 	float moveEnemyMaxRange_X_[2] = { 1110.0f-32.0f , 1110.0f-32.0f};
+
+	//…“Ù”EÒ‚Ìƒf[ƒ^
+	int suitonEnemyCount_ = 5; // …“Ù”EÒ‚Ì”
+
+	// “G‚ÌˆÊ’u
+	HE::Math::Vector2 suitonEnemyModelPosition_[5] = {
+		HE::Math::Vector2(0,0.0f+10.0f),
+		HE::Math::Vector2(0,132.0f+20.0f),
+		HE::Math::Vector2(0,264.0f + 30.0f),
+		HE::Math::Vector2(0,396.0f + 40.0f),
+		HE::Math::Vector2(0,528.0f + 50.0f),
+	};
+	
+	HE::Math::Vector2 suitonEnemyViewPosition_[5] = {
+		HE::Math::Vector2(1110.0f + 10.0f),
+		HE::Math::Vector2(0,132.0f + 20.0f),
+		HE::Math::Vector2(1110.0f,264.0f + 30.0f),
+		HE::Math::Vector2(0,396.0f + 40.0f),
+		HE::Math::Vector2(1110.0f,528.0f + 50.0f),
+	};
+
+	int suitonEnemyViewDirection_[5] = { -1,1,-1,1,-1 }; // “G‚ÌŒü‚«@1:‰EŒü‚«@-1:¶Œü‚«AView‘¤‚Åg—p
+
+	//ˆÈ‰º‚Ì”z—ñ‚ÍŠÔ‚Æ•R‚Ã‚¯‚Äg—p‚·‚é
+	int suitonAttackTimes_ = 5; // …“Ù”EÒ‚ÌUŒ‚‚Ì‰ñ”
+	float suitonEnemyApeearTime_[5] = { 5.0f-3,40.0f-3,45.0f-3,50.0f-3,55.0f-3 }; // “G‚ª•\¦‚³‚ê‚éŠÔ
+	float suitonEnemyAttackTime_[5] = { 3.0f,3.0f,3.0f,3.0f,3.0f }; // “G‚ÌUŒ‚‚Ü‚Å‚ÌŠÔ
+	float suitonEnemyAttackDuration_[5] = { 1.0f,1.0f,1.0f,1.0f,1.0f }; // “G‚ÌUŒ‚‚Ì‘±ŠÔ
+	float suitonEnemyAttackAfterTime_[5] = { 0.2f,0.2f,0.2f,0.2f,0.2f }; // “G‚ÌUŒ‚Œã‚Ì‘Ò‹@ŠÔ
+	int attackSuitonEnemyAmount_[5] = { 2,1,1,2,3 }; // “G‚ÌUŒ‚‚Ì”
+
 	
 };
