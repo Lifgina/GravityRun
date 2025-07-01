@@ -29,6 +29,10 @@ public:
 	HE::Math::Vector2 GetSuitonEnemyViewPosition(int index) const { return suitonEnemyViewPosition_[index]; }
 	// …“Ù”EÒ‚ÌŒü‚«‚ğæ“¾
 	int GetSuitonEnemyViewDirection(int index) const { return suitonEnemyViewDirection_[index]; }
+	// …“Ù”EÒ‚ÌÕ“Ë”»’è‚Ì‚‚³‚ğæ“¾
+	float GetSuitonEnemyCollisionHeight() const { return suitonEnemyCollisionHeight_; }
+	// …“Ù”EÒ‚ÌÕ“Ë”»’è‚Ì•‚ğæ“¾
+	float GetSuitonEnemyCollisionWidth() const { return suitonEnemyCollisionWidth_; }
 	// …“Ù”EÒ‚ÌUŒ‚‰ñ”‚ğæ“¾
 	int GetSuitonAttackTimes() const { return suitonAttackTimes_; }
 	// …“Ù”EÒ‚ÌoŒ»ŠÔ‚ğæ“¾
@@ -43,9 +47,6 @@ public:
 	int GetAttackSuitonEnemyAmount(int index) const { return attackSuitonEnemyAmount_[index]; }
 
 private:
-	
-	
-
 	//‚Ü‚«‚Ñ‚µ‚Ìƒf[ƒ^
 	int silentEnemyCount_ = 12; // ‚Ü‚«‚Ñ‚µ‚Ì” 
 	
@@ -88,6 +89,9 @@ private:
 	//…“Ù”EÒ‚Ìƒf[ƒ^
 	int suitonEnemyCount_ = 5; // …“Ù”EÒ‚Ì”
 
+	float suitonEnemyCollisionHeight_ = 132.0f; // …“Ù”EÒ‚ÌÕ“Ë”»’è‚Ì‚‚³
+	float suitonEnemyCollisionWidth_ = 1280.0f; // …“Ù”EÒ‚ÌÕ“Ë”»’è‚Ì•
+
 	// “G‚ÌˆÊ’u
 	HE::Math::Vector2 suitonEnemyModelPosition_[5] = {
 		HE::Math::Vector2(0,0.0f+10.0f),
@@ -114,6 +118,8 @@ private:
 	float suitonEnemyAttackDuration_[5] = { 1.0f,1.0f,1.0f,1.0f,1.0f }; // “G‚ÌUŒ‚‚Ì‘±ŠÔ
 	float suitonEnemyAttackAfterTime_[5] = { 0.2f,0.2f,0.2f,0.2f,0.2f }; // “G‚ÌUŒ‚Œã‚Ì‘Ò‹@ŠÔ
 	int attackSuitonEnemyAmount_[5] = { 2,1,1,2,3 }; // “G‚ÌUŒ‚‚Ì”
+
+
 
 	
 };

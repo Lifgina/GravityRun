@@ -5,7 +5,7 @@
 class SuitonEnemy {
 public:
 	void Load();
-	void Initialize(HE::Math::Vector2 enemyPos);
+	void Initialize(HE::Math::Vector2 enemyPos,float collisionHeight,float collisonWidth);
 	void Update(float timer);
 	void Activate(float timer,float timeToAttack,float attackDuration,float attackAfterTime); // “G‚ğƒAƒNƒeƒBƒu‚É‚·‚é
 	HE::Math::Rectangle GetCollision();
@@ -22,6 +22,6 @@ private:
 	float attackDuration_ ; // UŒ‚‚Ì‘±ŠÔ
 	float attackAfterTime_ ; // UŒ‚Œã‚Ì‘Ò‹@ŠÔ
 
-	float collisionHeight_ = 132.0f; // “G‚ÌÕ“Ë”»’è‚Ì‚‚³
-	float collisionWidth_ = 1280.0f; // “G‚ÌÕ“Ë”»’è‚Ì•
+	float collisionHeight_ ; // “G‚ÌÕ“Ë”»’è‚Ì‚‚³
+	float collisionWidth_ ; // “G‚ÌÕ“Ë”»’è‚Ì•
 };

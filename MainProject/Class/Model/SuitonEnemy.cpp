@@ -11,9 +11,11 @@ void SuitonEnemy::Load()
 
 }
 
-void SuitonEnemy::Initialize(HE::Math::Vector2 enemyPos)
+void SuitonEnemy::Initialize(HE::Math::Vector2 enemyPos, float collisionHeight, float collisonWidth)
 {
 	enemyPosition_ = enemyPos; // 敵の初期位置を設定
+	collisionHeight_ = collisionHeight; // 敵の衝突判定の高さを設定
+	collisionWidth_ = collisonWidth; // 敵の衝突判定の幅を設定
 	isActive_ = false; // 敵は初期状態では非アクティブ
 	suitonEnemyState_ = 0; // 敵の状態を待機に設定
 }

@@ -18,7 +18,7 @@ public:
 	void FloorSetup(int floorID,HE::Math::Vector2 floorPos,float floorHeight,float floorWidth,bool isBreakable);
 	void MoveEnemySetup(int enemyID,float timeToActive, float enemySpeed, float firstDirection,HE::Math::Vector2 initialPos, float maxRange, float minRange);
 	void SilentEnemySetup(int enemyID, HE::Math::Vector2 initialPos);
-	void SuitonEnemyPositionSetup(int enemyID, HE::Math::Vector2 initialPos);
+	void SuitonEnemyPositionSetup(int enemyID, HE::Math::Vector2 initialPos,float collisionHeight,float collisionWidth);
 	void SuitonEnemyAttackSetup(int atkNo, float activateTime, float timeToAttack, float attackDuration, float attackAfterTime,float attackEnemyAmount);
 
 	const PlayerModel& GetPlayerModel() const { return playerModel_; }
