@@ -2,20 +2,20 @@
 
 #include "../../HuEngine.h"
 
-class SuitonEnemy {
+class JutsuEnemy {
 public:
 	void Load();
 	void Initialize(HE::Math::Vector2 enemyPos,float collisionHeight,float collisonWidth);
 	void Update(float timer);
 	void Activate(float timer,float timeToAttack,float attackDuration,float attackAfterTime); // 敵をアクティブにする
 	HE::Math::Rectangle GetCollision();
-	int GetSuitonEnemyState() const { return suitonEnemyState_; } // 敵の状態を取得
+	int GetSuitonEnemyState() const { return jutsuEnemyState_; } // 敵の状態を取得
 	bool GetIsActive() const { return isActive_; } // 敵がアクティブかどうかを取得
 
 
 private:
 	bool isActive_ ; // 敵がアクティブかどうか
-	int suitonEnemyState_ ; // 敵の状態（0: 待機, 1: 攻撃中, 2: 攻撃後）
+	int jutsuEnemyState_ ; // 敵の状態（0: 待機, 1: 攻撃中, 2: 攻撃後）
 	HE::Math::Vector2 enemyPosition_; // 敵の位置
 	float activateTime_; // 敵がアクティブになった時間
 	float timeToAttack_ ; // 攻撃までの時間

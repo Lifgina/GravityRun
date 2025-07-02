@@ -14,7 +14,7 @@ void GameManager::Load()
 	
 }
 
-void GameManager::Initialize(float timelimit,int floorCount, int silentEnemyCount, int moveEnemyCount, int suitonEnemyCount, int suitonAttackCount)
+void GameManager::Initialize(float timelimit,int floorCount, int silentEnemyCount, int moveEnemyCount, int suitonEnemyCount, int suitonAttackCount,int katonEnemyCount, int katonAttackCount)
 {
 	timerModel_.Initialize(timelimit);
 	floorCount_ = floorCount; // 床の数を設定
@@ -22,6 +22,8 @@ void GameManager::Initialize(float timelimit,int floorCount, int silentEnemyCoun
 	moveEnemyCount_ = moveEnemyCount; // 手裏剣の数を設定
 	suitonEnemyCount_ = suitonEnemyCount; // 水遁の術の敵の数を設定
 	suitonAttackCount_ = suitonAttackCount; // 水遁の術の攻撃の回数を設定
+	katonEnemyCount_ = katonEnemyCount; // 火遁の術の敵の数を設定
+	katonAttackCount_ = katonAttackCount; // 火遁の術の攻撃の回数を設定
 	gameState_ = 0; // ゲーム状態を初期化
 	onPlayerFloorID_ = -1; // プレイヤーが乗っている床のIDを初期化
 }
@@ -61,6 +63,21 @@ void GameManager::SuitonEnemyAttackSetup(int atkNo, float activateTime, float ti
 	isAtttackedSuitonEnemy_[atkNo] = false; // 攻撃が行われたかどうかを初期化
 }
 
+void GameManager::KatonEnemyPositionSetup(int enemyID, HE::Math::Vector2 initialPos, float collisionHeight, float collisionWidth)
+{
+	katonEnemy_[enemyID].Initialize(initialPos, collisionHeight, collisionWidth);
+}
+
+void GameManager::KatonEnemyAttackSetup(int atkNo, float activateTime, float timeToAttack, float attackDuration, float attackAfterTime, float attackEnemyAmount)
+{
+	katonEnemyActivateTime_[atkNo] = activateTime; // アクティブになる時間を設定
+	katonEnemyTimeToAttack_[atkNo] = timeToAttack; // 攻撃までの時間を設定
+	katonEnemyAttackDuration_[atkNo] = attackDuration; // 攻撃の持続時間を設定
+	katonEnemyAttackAfterTime_[atkNo] = attackAfterTime; // 攻撃後の待機時間を設定
+	attackKatonEnemyAmount_[atkNo] = attackEnemyAmount; // 攻撃で出現する敵の数を設定
+	isAtttackedKatonEnemy_[atkNo] = false; // 攻撃が行われたかどうかを初期化
+}
+
 void GameManager::Update()
 {
 	timerModel_.Update();
@@ -75,7 +92,12 @@ void GameManager::Update()
 	{
 		suitonEnemy_[i].Update(timerModel_.GetTimer());
 	}
+	for (int i = 0; i < katonEnemyCount_; i++)
+	{
+		katonEnemy_[i].Update(timerModel_.GetTimer());
+	}
 	SuitonEnemyAttack(); // 水遁の術の攻撃を更新
+	KatonEnemyAttack(); // 火遁の術の攻撃を更新
 	MonitorPlayerOnGround(); // プレイヤーが床に乗っているかどうかを監視
 
 }
@@ -122,7 +144,16 @@ void GameManager::EnemyCollisionCheck()
 		Math::Rectangle enemy_collision = suitonEnemy_[i].GetCollision();
 		if (player_collision.Intersects(enemy_collision))
 		{
-			gameState_ = true; // プレイヤーが水遁の術の敵に衝突した場合、ゲームオーバー状態にする
+			gameState_ = 1; // プレイヤーが水遁の術の敵に衝突した場合、ゲームオーバー状態にする
+			return;
+		}
+	}
+	for (int i = 0; i < katonEnemyCount_; i++)
+	{
+		Math::Rectangle enemy_collision = katonEnemy_[i].GetCollision();
+		if (player_collision.Intersects(enemy_collision))
+		{
+			gameState_ = 1; // プレイヤーが火遁の術の敵に衝突した場合、ゲームオーバー状態にする
 			return;
 		}
 	}
@@ -147,7 +178,7 @@ void GameManager::SuitonEnemyAttack()
 			std::vector<int> availableIndices;
 
 			// 利用可能なインデックス（0～suitonEnemyの配列サイズ-1）を初期化
-			for (int j = 0; j < std::size(suitonEnemy_); j++) {
+			for (int j = 0; j < suitonEnemyCount_; j++) {
 				availableIndices.push_back(j);
 			}
 
@@ -172,4 +203,36 @@ void GameManager::SuitonEnemyAttack()
 	}
 	
 
+}
+
+void GameManager::KatonEnemyAttack()
+{
+	for (int i = 0; i < katonAttackCount_; i++)
+	{
+		if (!isAtttackedKatonEnemy_[i] && timerModel_.GetTimer() >= katonEnemyActivateTime_[i]) // アクティブになったら
+		{
+			std::vector<int> selectedIndices;
+			std::vector<int> availableIndices;
+			// 利用可能なインデックス（0～katonEnemyの配列サイズ-1）を初期化
+			for (int j = 0; j < katonEnemyCount_; j++) {
+				availableIndices.push_back(j);
+			}
+			// attackKatonEnemyAmount_[i]個のランダムなインデックスを選択
+			for (int j = 0; j < attackKatonEnemyAmount_[i] && !availableIndices.empty(); j++) {
+				int randomIndex = rand() % availableIndices.size();
+				selectedIndices.push_back(availableIndices[randomIndex]);
+				availableIndices.erase(availableIndices.begin() + randomIndex);
+			}
+			// 選択されたインデックスのKatonEnemyをアクティブ化
+			for (int enemyIndex : selectedIndices) {
+				katonEnemy_[enemyIndex].Activate(
+					timerModel_.GetTimer(),
+					katonEnemyTimeToAttack_[i],
+					katonEnemyAttackDuration_[i],
+					katonEnemyAttackAfterTime_[i]
+				);
+			}
+			isAtttackedKatonEnemy_[i] = true; // 攻撃が行われたことを記録
+		}
+	}
 }

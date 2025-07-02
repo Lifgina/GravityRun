@@ -1,46 +1,46 @@
 //
-// SuitonEnemy.cpp
+// JutsuEnemy.cpp
 //
 
-#include "SuitonEnemy.h"
+#include "JutsuEnemy.h"
 
 using namespace HE;
 
-void SuitonEnemy::Load()
+void JutsuEnemy::Load()
 {
 
 }
 
-void SuitonEnemy::Initialize(HE::Math::Vector2 enemyPos, float collisionHeight, float collisonWidth)
+void JutsuEnemy::Initialize(HE::Math::Vector2 enemyPos, float collisionHeight, float collisonWidth)
 {
 	enemyPosition_ = enemyPos; // 敵の初期位置を設定
 	collisionHeight_ = collisionHeight; // 敵の衝突判定の高さを設定
 	collisionWidth_ = collisonWidth; // 敵の衝突判定の幅を設定
 	isActive_ = false; // 敵は初期状態では非アクティブ
-	suitonEnemyState_ = 0; // 敵の状態を待機に設定
+	jutsuEnemyState_ = 0; // 敵の状態を待機に設定
 }
 
-void SuitonEnemy::Update(float timer)
+void JutsuEnemy::Update(float timer)
 {
 	if (!isActive_) return;
 
 	// 敵がアクティブな場合の処理
-	switch (suitonEnemyState_)
+	switch (jutsuEnemyState_)
 	{
 	case 0: // 待機状態
 		if (timer - activateTime_ >= timeToAttack_) {
-			suitonEnemyState_ = 1; // 攻撃状態に移行
+			jutsuEnemyState_ = 1; // 攻撃状態に移行
 		}
 		break;
 	case 1: // 攻撃状態
 		if (timer - activateTime_ >= timeToAttack_ + attackDuration_) {
-			suitonEnemyState_ = 2; // 攻撃後状態に移行
+			jutsuEnemyState_ = 2; // 攻撃後状態に移行
 		}
 		break;
 	case 2: // 攻撃後状態
 		if (timer - activateTime_ >= timeToAttack_ + attackDuration_ + attackAfterTime_) {
 			isActive_ = false; // 敵を非アクティブにする
-			suitonEnemyState_ = 0; // 状態を待機に戻す
+			jutsuEnemyState_ = 0; // 状態を待機に戻す
 		}
 		break;
 
@@ -49,7 +49,7 @@ void SuitonEnemy::Update(float timer)
 
 }
 
-void SuitonEnemy::Activate(float timer,float timeToAttack,float attackDuration,float attackAfterTime)
+void JutsuEnemy::Activate(float timer,float timeToAttack,float attackDuration,float attackAfterTime)
 {
 	if (!isActive_) {
 		isActive_ = true; // 敵をアクティブにする
@@ -60,9 +60,9 @@ void SuitonEnemy::Activate(float timer,float timeToAttack,float attackDuration,f
 	}
 }
 
-Math::Rectangle SuitonEnemy::GetCollision()
+Math::Rectangle JutsuEnemy::GetCollision()
 {
-	if (isActive_&&suitonEnemyState_==1) {
+	if (isActive_&&jutsuEnemyState_==1) {
 		Math::Rectangle collision;
 		collision.x = enemyPosition_.x;
 		collision.y = enemyPosition_.y;

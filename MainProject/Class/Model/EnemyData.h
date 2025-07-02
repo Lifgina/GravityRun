@@ -7,6 +7,7 @@ public:
 	int GetSilentEnemyCount() const { return silentEnemyCount_; }
 	int GetMoveEnemyCount() const { return MoveEnemyCount_; }
 	int GetSuitonEnemyCount() const { return suitonEnemyCount_; }
+	int GetKatonEnemyCount() const { return katonEnemyCount_; }
 
 	// “G‚ÌˆÊ’u‚ğæ“¾
 	HE::Math::Vector2 GetSilentEnemyPosition(int index) const { return SilentenemyPosition_[index]; }
@@ -45,6 +46,27 @@ public:
 	float GetSuitonEnemyAttackDuration(int index) const { return suitonEnemyAttackDuration_[index]; }
 	// …“Ù”EÒ‚ÌUŒ‚‚ÅoŒ»‚·‚é“G‚Ì”‚ğæ“¾
 	int GetAttackSuitonEnemyAmount(int index) const { return attackSuitonEnemyAmount_[index]; }
+
+	//‰Î“Ù”EÒ‚Ìƒf[ƒ^‚ğæ“¾
+	//‰Î“Ù”EÒ‚ÌˆÊ’u‚ğæ“¾
+	HE::Math::Vector2 GetKatonEnemyModelPosition(int index) const { return katonEnemyModelPosition_[index]; }
+	HE::Math::Vector2 GetKatonEnemyViewPosition(int index) const { return katonEnemyViewPosition_[index]; }
+	//‰Î“Ù”EÒ‚ÌÕ“Ë”»’è‚Ì‚‚³‚ğæ“¾
+	float GetKatonEnemyCollisionHeight() const { return katonEnemyCollisionHeight_; }
+	//‰Î“Ù”EÒ‚ÌÕ“Ë”»’è‚Ì•‚ğæ“¾
+	float GetKatonEnemyCollisionWidth() const { return katonEnemyCollisionWidth_; }
+	//‰Î“Ù”EÒ‚ÌUŒ‚‰ñ”‚ğæ“¾
+	int GetKatonAttackTimes() const { return katonAttackTimes_; }
+	//‰Î“Ù”EÒ‚ÌoŒ»ŠÔ‚ğæ“¾
+	float GetKatonEnemyApeearTime(int index) const { return katonEnemyApeearTime_[index]; }
+	//‰Î“Ù”EÒ‚ÌUŒ‚ŠÔ‚ğæ“¾
+	float GetKatonEnemyAttackTime(int index) const { return katonEnemyAttackTime_[index]; }
+	//‰Î“Ù”EÒ‚ÌUŒ‚Œã‚Ì‘Ò‹@ŠÔ‚ğæ“¾
+	float GetKatonEnemyAttackAfterTime(int index) const { return katonEnemyAttackAfterTime_[index]; }
+	//‰Î“Ù”EÒ‚ÌUŒ‚‚Ì‘±ŠÔ‚ğæ“¾
+	float GetKatonEnemyAttackDuration(int index) const { return katonEnemyAttackDuration_[index]; }
+	//‰Î“Ù”EÒ‚ÌUŒ‚‚ÅoŒ»‚·‚é“G‚Ì”‚ğæ“¾
+	int GetAttackKatonEnemyAmount(int index) const { return attackKatonEnemyAmount_[index]; }
 
 private:
 	//‚Ü‚«‚Ñ‚µ‚Ìƒf[ƒ^
@@ -113,13 +135,48 @@ private:
 
 	//ˆÈ‰º‚Ì”z—ñ‚ÍŠÔ‚Æ•R‚Ã‚¯‚Äg—p‚·‚é
 	int suitonAttackTimes_ = 5; // …“Ù”EÒ‚ÌUŒ‚‚Ì‰ñ”
-	float suitonEnemyApeearTime_[5] = { 5.0f-3,40.0f-3,45.0f-3,50.0f-3,55.0f-3 }; // “G‚ª•\¦‚³‚ê‚éŠÔ
+	float suitonEnemyApeearTime_[5] = { 35.0f-3,40.0f-3,45.0f-3,50.0f-3,55.0f-3 }; // “G‚ª•\¦‚³‚ê‚éŠÔ
 	float suitonEnemyAttackTime_[5] = { 3.0f,3.0f,3.0f,3.0f,3.0f }; // “G‚ÌUŒ‚‚Ü‚Å‚ÌŠÔ
 	float suitonEnemyAttackDuration_[5] = { 1.0f,1.0f,1.0f,1.0f,1.0f }; // “G‚ÌUŒ‚‚Ì‘±ŠÔ
 	float suitonEnemyAttackAfterTime_[5] = { 0.2f,0.2f,0.2f,0.2f,0.2f }; // “G‚ÌUŒ‚Œã‚Ì‘Ò‹@ŠÔ
 	int attackSuitonEnemyAmount_[5] = { 2,1,1,2,3 }; // “G‚ÌUŒ‚‚Ì”
 
+	//‰Î“Ù”EÒ‚Ìƒf[ƒ^
+	int katonEnemyCount_ = 8; // ‰Î“Ù”EÒ‚Ì”
 
+	float katonEnemyCollisionHeight_ = 132.0f; // ‰Î“Ù”EÒ‚ÌÕ“Ë”»’è‚Ì‚‚³
+	float katonEnemyCollisionWidth_ = 100.0f; // ‰Î“Ù”EÒ‚ÌÕ“Ë”»’è‚Ì•
+
+	// “G‚ÌˆÊ’u
+	HE::Math::Vector2 katonEnemyModelPosition_[8] = {
+		HE::Math::Vector2(810.0f,142.0f - 132.0f),
+		HE::Math::Vector2(410.0f,284.0f - 132.0f),
+		HE::Math::Vector2(810.0f,284.0f - 132.0f),
+		HE::Math::Vector2(210.0f,426.0f - 132.0f),
+		HE::Math::Vector2(710.0f,426.0f - 132.0f),
+		HE::Math::Vector2(610.0f,528.0f - 132.0f),
+		HE::Math::Vector2(810.0f,528.0f - 132.0f),
+		HE::Math::Vector2(410.0f,710.0f - 132.0f),
+	};
+
+	HE::Math::Vector2 katonEnemyViewPosition_[8] = {
+		HE::Math::Vector2(810.0f,142.0f - 132.0f),
+		HE::Math::Vector2(410.0f,284.0f - 132.0f),
+		HE::Math::Vector2(810.0f,284.0f - 132.0f),
+		HE::Math::Vector2(210.0f,426.0f - 132.0f),
+		HE::Math::Vector2(710.0f,426.0f - 132.0f),
+		HE::Math::Vector2(610.0f,528.0f - 132.0f),
+		HE::Math::Vector2(810.0f,528.0f - 132.0f),
+		HE::Math::Vector2(410.0f,710.0f - 132.0f),
+	};
+
+	//ˆÈ‰º‚Ì”z—ñ‚ÍŠÔ‚Æ•R‚Ã‚¯‚Äg—p‚·‚é
+	int katonAttackTimes_ = 4; // ‰Î“Ù”EÒ‚ÌUŒ‚‚Ì‰ñ”
+	float katonEnemyApeearTime_[4] = { 5.0f - 3,40.0f - 3,45.0f - 3,50.0f - 3 }; // “G‚ª•\¦‚³‚ê‚éŠÔ
+	float katonEnemyAttackTime_[4] = { 3.0f,3.0f,3.0f,3.0f }; // “G‚ÌUŒ‚‚Ü‚Å‚ÌŠÔ
+	float katonEnemyAttackDuration_[4] = { 4.5f,4.5f,4.5f,4.5f }; // “G‚ÌUŒ‚‚Ì‘±ŠÔ
+	float katonEnemyAttackAfterTime_[4] = { 0.3f,0.3f,0.3f,0.3f, }; // “G‚ÌUŒ‚Œã‚Ì‘Ò‹@ŠÔ
+	int attackKatonEnemyAmount_[4] = { 2,1,2,1 }; // “G‚ÌUŒ‚‚Ì”
 
 	
 };

@@ -7,26 +7,29 @@
 #include "TimerModel.h"
 #include "MoveEnemy.h"
 #include "SilentEnemy.h"
-#include "SuitonEnemy.h"
+#include "JutsuEnemy.h"
 
 
 class GameManager {
 public:
 	void Load();
-	void Initialize(float timelimit,int floorCount,int silentEnemyCount,int moveEnemyCount,int suitonEnemyCount,int suitonAttackCount);
+	void Initialize(float timelimit,int floorCount,int silentEnemyCount,int moveEnemyCount,int suitonEnemyCount,int suitonAttackCount,int katonEnemyCount,int katonAttackCount);
 	void PlayerSetup(HE::Math::Vector2 initialPos, float leftEdge, float rightEdge, bool isMovingToRightFirst, bool isGravityUpwardFirst, float playerWidth, float playerHeight);
 	void FloorSetup(int floorID,HE::Math::Vector2 floorPos,float floorHeight,float floorWidth,bool isBreakable);
 	void MoveEnemySetup(int enemyID,float timeToActive, float enemySpeed, float firstDirection,HE::Math::Vector2 initialPos, float maxRange, float minRange);
 	void SilentEnemySetup(int enemyID, HE::Math::Vector2 initialPos);
 	void SuitonEnemyPositionSetup(int enemyID, HE::Math::Vector2 initialPos,float collisionHeight,float collisionWidth);
 	void SuitonEnemyAttackSetup(int atkNo, float activateTime, float timeToAttack, float attackDuration, float attackAfterTime,float attackEnemyAmount);
-
+	void KatonEnemyPositionSetup(int enemyID, HE::Math::Vector2 initialPos, float collisionHeight, float collisionWidth);
+	void KatonEnemyAttackSetup(int atkNo, float activateTime, float timeToAttack, float attackDuration, float attackAfterTime, float attackEnemyAmount);
 	const PlayerModel& GetPlayerModel() const { return playerModel_; }
 	const TimerModel& GetTimerModel() const { return timerModel_; }
 	const MoveEnemy& GetMoveEnemy(int enemyID) const { return moveEnemy_[enemyID]; }
-	const SuitonEnemy& GetSuitonEnemy(int enemyID) const { return suitonEnemy_[enemyID]; }
+	const JutsuEnemy& GetSuitonEnemy(int enemyID) const { return suitonEnemy_[enemyID]; }
+	const JutsuEnemy& GetKatonEnemy(int enemyID) const { return katonEnemy_[enemyID]; }
 	void Update();
 	void SuitonEnemyAttack(); // …“Ù‚Ìp‚ÌUŒ‚‚ğXV
+	void KatonEnemyAttack(); // ‰Î“Ù‚Ìp‚ÌUŒ‚‚ğXV
 	void GravityChange() { playerModel_.GravityChange(); } // ƒvƒŒƒCƒ„[‚ÌˆÚ“®•ûŒü‚ğ•ÏX‚·‚é
 	void GroundCollisionCheck();
 	void EnemyCollisionCheck(); 
@@ -42,13 +45,23 @@ private:
 	TimerModel timerModel_; // ƒ^ƒCƒ}[‚Ìƒ‚ƒfƒ‹
 	MoveEnemy moveEnemy_[2]; // è— Œ•‚Ìƒ‚ƒfƒ‹ ‘SƒXƒe[ƒW‚ÌÅ‘å‚Ì”‚ğ”z—ñ”‚É‹L“ü
 	SilentEnemy silentEnemy_[12]; // ‚Ü‚«‚Ñ‚µ‚Ìƒ‚ƒfƒ‹ ‘SƒXƒe[ƒW‚ÌÅ‘å‚Ì”‚ğ”z—ñ”‚É‹L“ü
-	SuitonEnemy suitonEnemy_[5]; // …“Ù‚Ìp‚Ìƒ‚ƒfƒ‹
+	JutsuEnemy suitonEnemy_[5]; // …“Ù‚Ìp‚Ìƒ‚ƒfƒ‹
+	JutsuEnemy katonEnemy_[8]; // ‰Î“Ù‚Ìp‚Ìƒ‚ƒfƒ‹
+
 	float suitonEnemyActivateTime_[5]; // …“Ù‚Ìp‚ªƒAƒNƒeƒBƒu‚É‚È‚éŠÔ
 	float suitonEnemyTimeToAttack_[5]; // …“Ù‚Ìp‚ÌUŒ‚‚Ü‚Å‚ÌŠÔ
 	float suitonEnemyAttackDuration_[5]; // …“Ù‚Ìp‚ÌUŒ‚‚Ì‘±ŠÔ
 	float suitonEnemyAttackAfterTime_[5]; // …“Ù‚Ìp‚ÌUŒ‚Œã‚Ì‘Ò‹@ŠÔ
 	int attackSuitonEnemyAmount_[5]; // …“Ù‚Ìp‚ÌUŒ‚‚ÅoŒ»‚·‚é“G‚Ì”
 	bool isAtttackedSuitonEnemy_[5]; // …“Ù‚Ìp‚ÌUŒ‚‚ªs‚í‚ê‚½‚©‚Ç‚¤‚©
+
+	float katonEnemyActivateTime_[4]; // ‰Î“Ù‚Ìp‚ªƒAƒNƒeƒBƒu‚É‚È‚éŠÔ
+	float katonEnemyTimeToAttack_[4]; // ‰Î“Ù‚Ìp‚ÌUŒ‚‚Ü‚Å‚ÌŠÔ
+	float katonEnemyAttackDuration_[4]; // ‰Î“Ù‚Ìp‚ÌUŒ‚‚Ì‘±ŠÔ
+	float katonEnemyAttackAfterTime_[4]; // ‰Î“Ù‚Ìp‚ÌUŒ‚Œã‚Ì‘Ò‹@ŠÔ
+	int attackKatonEnemyAmount_[4]; // ‰Î“Ù‚Ìp‚ÌUŒ‚‚ÅoŒ»‚·‚é“G‚Ì”
+	bool isAtttackedKatonEnemy_[4]; // ‰Î“Ù‚Ìp‚ÌUŒ‚‚ªs‚í‚ê‚½‚©‚Ç‚¤‚©
+
 	
 
 	int floorCount_ ; // °‚Ì”
@@ -56,6 +69,9 @@ private:
 	int moveEnemyCount_; // è— Œ•‚Ì”
 	int suitonEnemyCount_; // …“Ù‚Ìp‚Ì“G‚Ì”
 	int suitonAttackCount_; // …“Ù‚Ìp‚ÌUŒ‚‚Ì‰ñ”
+
+	int katonAttackCount_; // ‰Î“Ù‚Ìp‚ÌUŒ‚‚Ì‰ñ”
+	int katonEnemyCount_; // ‰Î“Ù‚Ìp‚Ì“G‚Ì”
 
 	int gameState_; // ƒQ[ƒ€‚Ìó‘ÔA0 = ƒQ[ƒ€’†@1 = ƒQ[ƒ€ƒI[ƒo[ 2 = ƒQ[ƒ€ƒNƒŠƒA
 	bool prevIsOnGround_ ; // ‘O‰ñ‚Ì°‚Éæ‚Á‚Ä‚¢‚éó‘Ô

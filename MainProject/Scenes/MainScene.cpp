@@ -35,6 +35,10 @@ void MainScene::Load()
 	{
 		suitonEnemyView_[i].Load();
 	}
+	for (int i = 0; i < enemyData_.GetKatonEnemyCount(); i++)
+	{
+		katonEnemyView_[i].Load();
+	}
 	Scene::Load();
 }
 
@@ -43,7 +47,7 @@ void MainScene::Initialize()
 {
 	gameOverView_.Initialize(); // ゲームオーバービューの初期化
 	gameState_= 0; // ゲームオーバー状態を初期化
-	gameManager_.Initialize(timeLimit_, floorData_.GetFloorCount(), enemyData_.GetSilentEnemyCount(), enemyData_.GetMoveEnemyCount(), enemyData_.GetSuitonEnemyCount(), enemyData_.GetSuitonAttackTimes());
+	gameManager_.Initialize(timeLimit_, floorData_.GetFloorCount(), enemyData_.GetSilentEnemyCount(), enemyData_.GetMoveEnemyCount(), enemyData_.GetSuitonEnemyCount(), enemyData_.GetSuitonAttackTimes(),enemyData_.GetKatonEnemyCount(),enemyData_.GetKatonAttackTimes());
 	gameManager_.PlayerSetup(initialPlayerPosition_, leftEdge, rightEdge, isMovingToRightFirst_, isGravityUpwardFirst_, playerWidth_, playerHeight_);
 	for (int i = 0; i <floorData_.GetFloorCount(); i++)
 	{
@@ -63,6 +67,12 @@ void MainScene::Initialize()
 		gameManager_.SuitonEnemyPositionSetup(i, enemyData_.GetSuitonEnemyModelPosition(i),enemyData_.GetSuitonEnemyCollisionHeight(),enemyData_.GetSuitonEnemyCollisionWidth());
 		gameManager_.SuitonEnemyAttackSetup(i, enemyData_.GetSuitonEnemyApeearTime(i), enemyData_.GetSuitonEnemyAttackTime(i), enemyData_.GetSuitonEnemyAttackDuration(i), enemyData_.GetSuitonEnemyAttackAfterTime(i), enemyData_.GetAttackSuitonEnemyAmount(i));
 		suitonEnemyView_[i].Initialize(enemyData_.GetSuitonEnemyViewPosition(i), enemyData_.GetSuitonEnemyModelPosition(i));
+	}
+	for (int i = 0; i < enemyData_.GetKatonEnemyCount(); i++)
+	{
+		gameManager_.KatonEnemyPositionSetup(i, enemyData_.GetKatonEnemyModelPosition(i), enemyData_.GetKatonEnemyCollisionHeight(), enemyData_.GetKatonEnemyCollisionWidth());
+		gameManager_.KatonEnemyAttackSetup(i, enemyData_.GetKatonEnemyApeearTime(i), enemyData_.GetKatonEnemyAttackTime(i), enemyData_.GetKatonEnemyAttackDuration(i), enemyData_.GetKatonEnemyAttackAfterTime(i), enemyData_.GetAttackKatonEnemyAmount(i));
+		katonEnemyView_[i].Initialize(enemyData_.GetKatonEnemyViewPosition(i), enemyData_.GetKatonEnemyModelPosition(i));
 	}
 }
 
@@ -91,6 +101,10 @@ void MainScene::Update(float deltaTime)
 		for (int i = 0; i < enemyData_.GetSuitonEnemyCount(); i++)
 		{
 			suitonEnemyView_[i].Update(gameManager_.GetSuitonEnemy(i).GetIsActive(), gameManager_.GetSuitonEnemy(i).GetSuitonEnemyState());
+		}
+		for (int i = 0; i < enemyData_.GetKatonEnemyCount(); i++)
+		{
+			katonEnemyView_[i].Update(gameManager_.GetKatonEnemy(i).GetIsActive(), gameManager_.GetKatonEnemy(i).GetSuitonEnemyState());
 		}
 		break;
 	case 1: // ゲームオーバー
