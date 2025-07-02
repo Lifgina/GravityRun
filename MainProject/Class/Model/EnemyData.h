@@ -172,7 +172,7 @@ private:
 
 	//ˆÈ‰º‚Ì”z—ñ‚ÍŠÔ‚Æ•R‚Ã‚¯‚Äg—p‚·‚é
 	int katonAttackTimes_ = 4; // ‰Î“Ù”EÒ‚ÌUŒ‚‚Ì‰ñ”
-	float katonEnemyApeearTime_[4] = { 5.0f - 3,40.0f - 3,45.0f - 3,50.0f - 3 }; // “G‚ª•\¦‚³‚ê‚éŠÔ
+	float katonEnemyApeearTime_[4] = { 30.0f - 3,40.0f - 3,45.0f - 3,50.0f - 3 }; // “G‚ª•\¦‚³‚ê‚éŠÔ
 	float katonEnemyAttackTime_[4] = { 3.0f,3.0f,3.0f,3.0f }; // “G‚ÌUŒ‚‚Ü‚Å‚ÌŠÔ
 	float katonEnemyAttackDuration_[4] = { 4.5f,4.5f,4.5f,4.5f }; // “G‚ÌUŒ‚‚Ì‘±ŠÔ
 	float katonEnemyAttackAfterTime_[4] = { 0.3f,0.3f,0.3f,0.3f, }; // “G‚ÌUŒ‚Œã‚Ì‘Ò‹@ŠÔ

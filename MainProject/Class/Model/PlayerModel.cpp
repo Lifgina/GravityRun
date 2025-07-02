@@ -26,7 +26,7 @@ void PlayerModel::Initialize(Math::Vector2 InitialPos, float leftedge, float rig
 
 	loopedVelocityY_ = 0.0f; // ループ待機時の落下速度
 	loopWaitStartTime_ = 0.0f; // ループ待機開始時のタイマー
-	isOnGround_ = false; // 初期状態では床に乗っていない
+	isOnGround_ = true; // 初期状態では床に乗っている
 	isLoopWaiting_ = false; // 初期状態ではループ待機していない
 	fallingSpeed_ = 0.0f; // 初期状態では落下速度は0
 

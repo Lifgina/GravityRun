@@ -9,6 +9,9 @@
 #include "SilentEnemy.h"
 #include "JutsuEnemy.h"
 
+/// <summary>
+/// GameManagerクラスはMainSceneからゲームの進行を管理する部分を切り離して作っているものなのでこれは実質的にMainScene
+/// </summary>
 
 class GameManager {
 public:
