@@ -41,26 +41,26 @@ public:
 
 private:
 	PlayerModel playerModel_; // プレイヤーのモデル
-	FloorModel floorModel_[23]; // 床のモデル 全ステージの最大の数を配列数に記入
+	FloorModel floorModel_[128]; // 床のモデル 全ステージの最大の数を配列数に記入
 	TimerModel timerModel_; // タイマーのモデル
-	MoveEnemy moveEnemy_[2]; // 手裏剣のモデル 全ステージの最大の数を配列数に記入
-	SilentEnemy silentEnemy_[12]; // まきびしのモデル 全ステージの最大の数を配列数に記入
+	MoveEnemy moveEnemy_[64]; // 手裏剣のモデル 全ステージの最大の数を配列数に記入
+	SilentEnemy silentEnemy_[64]; // まきびしのモデル 全ステージの最大の数を配列数に記入
 	JutsuEnemy suitonEnemy_[5]; // 水遁の術のモデル
-	JutsuEnemy katonEnemy_[8]; // 火遁の術のモデル
+	JutsuEnemy katonEnemy_[64]; // 火遁の術のモデル
 
-	float suitonEnemyActivateTime_[5]; // 水遁の術がアクティブになる時間
-	float suitonEnemyTimeToAttack_[5]; // 水遁の術の攻撃までの時間
-	float suitonEnemyAttackDuration_[5]; // 水遁の術の攻撃の持続時間
-	float suitonEnemyAttackAfterTime_[5]; // 水遁の術の攻撃後の待機時間
-	int attackSuitonEnemyAmount_[5]; // 水遁の術の攻撃で出現する敵の数
-	bool isAtttackedSuitonEnemy_[5]; // 水遁の術の攻撃が行われたかどうか
+	float suitonEnemyActivateTime_[32]; // 水遁の術がアクティブになる時間
+	float suitonEnemyTimeToAttack_[32]; // 水遁の術の攻撃までの時間
+	float suitonEnemyAttackDuration_[32]; // 水遁の術の攻撃の持続時間
+	float suitonEnemyAttackAfterTime_[32]; // 水遁の術の攻撃後の待機時間
+	int attackSuitonEnemyAmount_[32]; // 水遁の術の攻撃で出現する敵の数
+	bool isAtttackedSuitonEnemy_[32]; // 水遁の術の攻撃が行われたかどうか
 
-	float katonEnemyActivateTime_[4]; // 火遁の術がアクティブになる時間
-	float katonEnemyTimeToAttack_[4]; // 火遁の術の攻撃までの時間
-	float katonEnemyAttackDuration_[4]; // 火遁の術の攻撃の持続時間
-	float katonEnemyAttackAfterTime_[4]; // 火遁の術の攻撃後の待機時間
-	int attackKatonEnemyAmount_[4]; // 火遁の術の攻撃で出現する敵の数
-	bool isAtttackedKatonEnemy_[4]; // 火遁の術の攻撃が行われたかどうか
+	float katonEnemyActivateTime_[32]; // 火遁の術がアクティブになる時間
+	float katonEnemyTimeToAttack_[32]; // 火遁の術の攻撃までの時間
+	float katonEnemyAttackDuration_[32]; // 火遁の術の攻撃の持続時間
+	float katonEnemyAttackAfterTime_[32]; // 火遁の術の攻撃後の待機時間
+	int attackKatonEnemyAmount_[32]; // 火遁の術の攻撃で出現する敵の数
+	bool isAtttackedKatonEnemy_[32]; // 火遁の術の攻撃が行われたかどうか
 
 	
 

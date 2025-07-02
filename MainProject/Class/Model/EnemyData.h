@@ -154,8 +154,8 @@ private:
 		HE::Math::Vector2(810.0f,284.0f - 132.0f),
 		HE::Math::Vector2(210.0f,426.0f - 132.0f),
 		HE::Math::Vector2(710.0f,426.0f - 132.0f),
-		HE::Math::Vector2(610.0f,528.0f - 132.0f),
-		HE::Math::Vector2(810.0f,528.0f - 132.0f),
+		HE::Math::Vector2(610.0f,568.0f - 132.0f),
+		HE::Math::Vector2(810.0f,568.0f - 132.0f),
 		HE::Math::Vector2(410.0f,710.0f - 132.0f),
 	};
 
@@ -165,8 +165,8 @@ private:
 		HE::Math::Vector2(810.0f,284.0f - 132.0f),
 		HE::Math::Vector2(210.0f,426.0f - 132.0f),
 		HE::Math::Vector2(710.0f,426.0f - 132.0f),
-		HE::Math::Vector2(610.0f,528.0f - 132.0f),
-		HE::Math::Vector2(810.0f,528.0f - 132.0f),
+		HE::Math::Vector2(610.0f,568.0f - 132.0f),
+		HE::Math::Vector2(810.0f,568.0f - 132.0f),
 		HE::Math::Vector2(410.0f,710.0f - 132.0f),
 	};
 

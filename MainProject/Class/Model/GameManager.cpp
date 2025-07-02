@@ -4,6 +4,7 @@
 
 #include "GameManager.h"
 #include <array>
+#include <random>
 
 using namespace HE;
 
@@ -170,27 +171,24 @@ void GameManager::MonitorPlayerOnGround()
 
 void GameManager::SuitonEnemyAttack()
 {
+	static std::random_device rd;
+	static std::mt19937 gen(rd());
+
 	for (int i = 0; i < suitonAttackCount_; i++)
 	{
-		if (!isAtttackedSuitonEnemy_[i] && timerModel_.GetTimer() >= suitonEnemyActivateTime_[i]) // アクティブになったら
+		if (!isAtttackedSuitonEnemy_[i] && timerModel_.GetTimer() >= suitonEnemyActivateTime_[i])
 		{
-			std::vector<int> selectedIndices;
 			std::vector<int> availableIndices;
-
-			// 利用可能なインデックス（0～suitonEnemyの配列サイズ-1）を初期化
 			for (int j = 0; j < suitonEnemyCount_; j++) {
 				availableIndices.push_back(j);
 			}
 
-			// attackSuitonEnemyAmount_[i]個のランダムなインデックスを選択
-			for (int j = 0; j < attackSuitonEnemyAmount_[i] && !availableIndices.empty(); j++) {
-				int randomIndex = rand() % availableIndices.size();
-				selectedIndices.push_back(availableIndices[randomIndex]);
-				availableIndices.erase(availableIndices.begin() + randomIndex);
-			}
+			// シャッフルして先頭から選ぶ
+			std::shuffle(availableIndices.begin(), availableIndices.end(), gen);
 
-			// 選択されたインデックスのSuitonEnemyをアクティブ化
-			for (int enemyIndex : selectedIndices) {
+			int selectCount = std::min<int>(attackSuitonEnemyAmount_[i], availableIndices.size());
+			for (int j = 0; j < selectCount; j++) {
+				int enemyIndex = availableIndices[j];
 				suitonEnemy_[enemyIndex].Activate(
 					timerModel_.GetTimer(),
 					suitonEnemyTimeToAttack_[i],
@@ -198,33 +196,31 @@ void GameManager::SuitonEnemyAttack()
 					suitonEnemyAttackAfterTime_[i]
 				);
 			}
-			isAtttackedSuitonEnemy_[i] = true; // 攻撃が行われたことを記録
+			isAtttackedSuitonEnemy_[i] = true;
 		}
 	}
-	
-
 }
 
 void GameManager::KatonEnemyAttack()
 {
+	static std::random_device rd;
+	static std::mt19937 gen(rd());
+
 	for (int i = 0; i < katonAttackCount_; i++)
 	{
-		if (!isAtttackedKatonEnemy_[i] && timerModel_.GetTimer() >= katonEnemyActivateTime_[i]) // アクティブになったら
+		if (!isAtttackedKatonEnemy_[i] && timerModel_.GetTimer() >= katonEnemyActivateTime_[i])
 		{
-			std::vector<int> selectedIndices;
 			std::vector<int> availableIndices;
-			// 利用可能なインデックス（0～katonEnemyの配列サイズ-1）を初期化
 			for (int j = 0; j < katonEnemyCount_; j++) {
 				availableIndices.push_back(j);
 			}
-			// attackKatonEnemyAmount_[i]個のランダムなインデックスを選択
-			for (int j = 0; j < attackKatonEnemyAmount_[i] && !availableIndices.empty(); j++) {
-				int randomIndex = rand() % availableIndices.size();
-				selectedIndices.push_back(availableIndices[randomIndex]);
-				availableIndices.erase(availableIndices.begin() + randomIndex);
-			}
-			// 選択されたインデックスのKatonEnemyをアクティブ化
-			for (int enemyIndex : selectedIndices) {
+
+			// シャッフルして先頭から選ぶ
+			std::shuffle(availableIndices.begin(), availableIndices.end(), gen);
+
+			int selectCount = std::min<int>(attackKatonEnemyAmount_[i], availableIndices.size());
+			for (int j = 0; j < selectCount; j++) {
+				int enemyIndex = availableIndices[j];
 				katonEnemy_[enemyIndex].Activate(
 					timerModel_.GetTimer(),
 					katonEnemyTimeToAttack_[i],
@@ -232,7 +228,7 @@ void GameManager::KatonEnemyAttack()
 					katonEnemyAttackAfterTime_[i]
 				);
 			}
-			isAtttackedKatonEnemy_[i] = true; // 攻撃が行われたことを記録
+			isAtttackedKatonEnemy_[i] = true;
 		}
 	}
 }
