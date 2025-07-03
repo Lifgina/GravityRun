@@ -9,6 +9,7 @@
 #include "../Class/View/MoveEnemyView.h"
 #include "../Class/View/SuitonEnemyView.h"
 #include "../Class/View/KatonEnemyView.h"
+#include "../Class/View/TimerView.h"
 
 class MainScene : public HE::Scene
 {
@@ -46,5 +47,6 @@ private:
 	MoveEnemyView moveEnemyView_[2]; // 手裏剣のビューのインスタンス
 	SuitonEnemyView suitonEnemyView_[5]; // 水遁の術の敵のビューのインスタンス
 	KatonEnemyView katonEnemyView_[8]; // 火遁の術の敵のビューのインスタンス
+	TimerView timerView_; // タイマーのビューのインスタンス
 
 };

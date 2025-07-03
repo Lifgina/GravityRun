@@ -11,7 +11,6 @@ using namespace HE;
 void GameManager::Load()
 {
 	playerModel_.Load();
-	timerModel_.Load();
 	
 }
 

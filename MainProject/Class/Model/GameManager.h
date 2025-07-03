@@ -38,6 +38,7 @@ public:
 	void EnemyCollisionCheck(); 
 	void MonitorPlayerOnGround();
 	int GetGameState() const { return gameState_; } // ゲームの状態を取得
+	float GetTimer() const { return timerModel_.GetTimer(); } // タイマーの値を取得
 
 	
 
