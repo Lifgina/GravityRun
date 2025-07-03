@@ -30,7 +30,7 @@ public:
 private:
 
 	float timeLimit_ = 60.0f; // タイムリミット
-	HE::Math::Vector2 initialPlayerPosition_ = HE::Math::Vector2(710.0f-30, 284.0f - 60.0f); // 初期プレイヤー位置
+	HE::Math::Vector2 initialPlayerPosition_ = HE::Math::Vector2(610.0f-30, 284.0f - 60.0f); // 初期プレイヤー位置
 	float leftEdge = 10.0f; // ゲームウィンドウの左端の位置
 	float rightEdge = 1280.0f - 10.0f - 60.0f; // ゲームウィンドウの右端の位置
 	float playerWidth_ = 60.0f; // プレイヤーの幅

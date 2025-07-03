@@ -70,27 +70,25 @@ public:
 
 private:
 	//まきびしのデータ
-	int silentEnemyCount_ = 12; // まきびしの数 
+	int silentEnemyCount_ = 10; // まきびしの数 
 	
 	// 敵の位置
-	HE::Math::Vector2 SilentenemyPosition_[12] = {
+	HE::Math::Vector2 SilentenemyPosition_[10] = {
 		HE::Math::Vector2(410.0f,0.0f+10.0f),
-		HE::Math::Vector2(210.0f, 142.0f-32.0f),
-		HE::Math::Vector2(1010.0f-64.0f, 142.0f - 32.0f),
-		HE::Math::Vector2(910.0f - 64.0f, 142.0f +10.0f),
-		HE::Math::Vector2(410.0f, 284.0f-32.0f),
-		HE::Math::Vector2(610.0f, 284.0f + 10.0f),
-		HE::Math::Vector2(110.0f, 426.0f - 32.0f),
-		HE::Math::Vector2(1010.0f-64.0f, 426.0f - 32.0f),
-		HE::Math::Vector2(310.0f, 426.0f +10.0f),
-		HE::Math::Vector2(310.0f, 568.0f+10.0f),
-		HE::Math::Vector2(1010.0f, 568.0f + 10.0f),
+		HE::Math::Vector2(310.0f-64.0f, 142.0f-32.0f),
+		HE::Math::Vector2(110.0f, 142.0f +10.0f),
+		HE::Math::Vector2(610.0f, 284.0f +10.0f),
+        HE::Math::Vector2(110.0f, 426.0f-32.0f),
+        HE::Math::Vector2(1010.0f-64.0f, 426.0f - 32.0f),
+        HE::Math::Vector2(1010.0f, 426.0f + 10.0f),
+        HE::Math::Vector2(310.0f, 568.0f +10.0f),
+        HE::Math::Vector2(1010.0f, 568.0f +10.0f),
 		HE::Math::Vector2(610.0f, 710.0f-32.0f),
 	
 	};
 	//敵の向き　1:上向き　-1:下向き
 	//View側で使用
-	float silentEnemyDirection_[12] = {}; 
+	float silentEnemyDirection_[10] = {}; 
 
 	//手裏剣のデータ
 	int MoveEnemyCount_ = 2; // 手裏剣の数
