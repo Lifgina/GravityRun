@@ -26,8 +26,10 @@ void MainScene::Load()
 {
 	gameManager_.Load();
 	gameOverView_.Load();
+	bg_.Load();
 	playerView_.Load();
 	timerView_.Load();
+	pillar_.Load();
 	for (int i = 0; i < enemyData_.GetMoveEnemyCount(); i++)
 	{
 		moveEnemyView_[i].Load();
@@ -48,6 +50,8 @@ void MainScene::Initialize()
 {
 	gameOverView_.Initialize(); // ゲームオーバービューの初期化
 	timerView_.Initialize(); // タイマーの初期化
+	bg_.Initialize(); // 背景の初期化
+	pillar_.Initialize(); // 柱の初期化
 	gameState_= 0; // ゲームオーバー状態を初期化
 	gameManager_.Initialize(timeLimit_, floorData_.GetFloorCount(), enemyData_.GetSilentEnemyCount(), enemyData_.GetMoveEnemyCount(), enemyData_.GetSuitonEnemyCount(), enemyData_.GetSuitonAttackTimes(),enemyData_.GetKatonEnemyCount(),enemyData_.GetKatonAttackTimes());
 	gameManager_.PlayerSetup(initialPlayerPosition_, leftEdge, rightEdge, isMovingToRightFirst_, isGravityUpwardFirst_, playerWidth_, playerHeight_);

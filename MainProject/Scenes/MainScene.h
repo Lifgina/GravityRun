@@ -10,6 +10,8 @@
 #include "../Class/View/SuitonEnemyView.h"
 #include "../Class/View/KatonEnemyView.h"
 #include "../Class/View/TimerView.h"
+#include "../Class/View/BG.h"
+#include "../Class/View/Pillar.h"
 
 class MainScene : public HE::Scene
 {
@@ -45,7 +47,7 @@ private:
 
 	//ゲームの表示部分に関わる変更できる変数
 	int notificationCount_ = 2; // タイマーの通知のカウント
-	float notificationTime_[2] = {10.0f,50.0f}; // タイマーの通知を表示時間
+	float notificationTime_[2] = {30.0f,50.0f}; // タイマーの通知を表示時間
 	float notificatingTIme = 2.0f; // タイマーの通知を表示する時間
 
 
@@ -59,5 +61,7 @@ private:
 	SuitonEnemyView suitonEnemyView_[5]; // 水遁の術の敵のビューのインスタンス
 	KatonEnemyView katonEnemyView_[8]; // 火遁の術の敵のビューのインスタンス
 	TimerView timerView_; // タイマーのビューのインスタンス
+	BG bg_; // 背景のインスタンス
+	Pillar pillar_; // 柱のインスタンス
 
 };
