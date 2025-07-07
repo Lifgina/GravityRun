@@ -47,7 +47,7 @@ void MainScene::Load()
 void MainScene::Initialize()
 {
 	gameOverView_.Initialize(); // ゲームオーバービューの初期化
-	timerView_.Initialize(timeLimit_); // タイマーの初期化
+	timerView_.Initialize(); // タイマーの初期化
 	gameState_= 0; // ゲームオーバー状態を初期化
 	gameManager_.Initialize(timeLimit_, floorData_.GetFloorCount(), enemyData_.GetSilentEnemyCount(), enemyData_.GetMoveEnemyCount(), enemyData_.GetSuitonEnemyCount(), enemyData_.GetSuitonAttackTimes(),enemyData_.GetKatonEnemyCount(),enemyData_.GetKatonAttackTimes());
 	gameManager_.PlayerSetup(initialPlayerPosition_, leftEdge, rightEdge, isMovingToRightFirst_, isGravityUpwardFirst_, playerWidth_, playerHeight_);
@@ -95,20 +95,10 @@ void MainScene::Update(float deltaTime)
 			gameManager_.GravityChange(); // スペースキーが押されたら重力の向きを変更
 		}
 		gameManager_.Update();
-		timerView_.Update(gameManager_.GetTimerModel().GetTimer()); // タイマーの値を更新
 		playerView_.Update(gameManager_.GetPlayerModel().GetPlayerPosition()); // プレイヤーの位置を更新
-		for (int i = 0; i < enemyData_.GetMoveEnemyCount(); i++)
-		{
-			moveEnemyView_[i].Update(gameManager_.GetMoveEnemy(i).GetEnemyPosition(), gameManager_.GetTimerModel().GetTimer());
-		}
-		for (int i = 0; i < enemyData_.GetSuitonEnemyCount(); i++)
-		{
-			suitonEnemyView_[i].Update(gameManager_.GetSuitonEnemy(i).GetIsActive(), gameManager_.GetSuitonEnemy(i).GetSuitonEnemyState());
-		}
-		for (int i = 0; i < enemyData_.GetKatonEnemyCount(); i++)
-		{
-			katonEnemyView_[i].Update(gameManager_.GetKatonEnemy(i).GetIsActive(), gameManager_.GetKatonEnemy(i).GetSuitonEnemyState());
-		}
+		EnemyViewUpdate(); // 敵のビューを更新
+		NotificateTime(); // タイマーの通知を表示
+
 		break;
 	case 1: // ゲームオーバー
 		gameOverView_.ShowGameOver(1); // ゲームオーバー画面を表示
@@ -125,6 +115,41 @@ void MainScene::Update(float deltaTime)
 	}
 	Scene::Update(deltaTime);
 }
+
+
+void MainScene::EnemyViewUpdate() {
+	for (int i = 0; i < enemyData_.GetMoveEnemyCount(); i++)
+	{
+		moveEnemyView_[i].Update(gameManager_.GetMoveEnemy(i).GetEnemyPosition(), gameManager_.GetTimerModel().GetTimer());
+	}
+	for (int i = 0; i < enemyData_.GetSuitonEnemyCount(); i++)
+	{
+		suitonEnemyView_[i].Update(gameManager_.GetSuitonEnemy(i).GetIsActive(), gameManager_.GetSuitonEnemy(i).GetSuitonEnemyState());
+	}
+	for (int i = 0; i < enemyData_.GetKatonEnemyCount(); i++)
+	{
+		katonEnemyView_[i].Update(gameManager_.GetKatonEnemy(i).GetIsActive(), gameManager_.GetKatonEnemy(i).GetSuitonEnemyState());
+	}
+}
+
+void MainScene::NotificateTime()
+{
+	bool notified = false;
+	for (int i = 0; i < notificationCount_; i++)
+	{
+		if (gameManager_.GetTimer() >= notificationTime_[i] && gameManager_.GetTimer() < notificationTime_[i] + notificatingTIme)
+		{
+			timerView_.NotifiCateTime(timeLimit_ - notificationTime_[i]);
+			notified = true;
+			break; // 1つでも該当すれば通知
+		}
+	}
+	if (!notified)
+	{
+		timerView_.HideNotification();
+	}
+}
+
 
 void MainScene::MoniteringGameManager()
 {

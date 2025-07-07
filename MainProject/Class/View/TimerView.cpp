@@ -8,27 +8,23 @@ using namespace HE;
 
 void TimerView::Load()
 {
-	timerSprite_ = HE::Sprite(""); // タイマー表示用のスプライトを読み込み
-	RenderingPath->AddSprite(&timerSprite_, 100); // スプライトをレンダリングパスに追加
-
-	timerBackgroundSprite_ = HE::Sprite(""); // タイマー背景用のスプライトを読み込み
-	RenderingPath->AddSprite(&timerBackgroundSprite_, 99); // スプライトをレンダリングパスに追加
+	timerSprite_.params.style = Font::AddFontStyle("Fonts/meiryob004.ttf"); // フォントスタイルを追加
+	RenderingPath->AddFont(&timerSprite_, 1200); // フォントをレンダリングパスに追加
 }
 
-void TimerView::Initialize(float timeLimit)
+void TimerView::Initialize()
 {
-	timeLimit_ = timeLimit; // タイムリミットを設定
-	timerSprite_.params.color = HE::Color(0, 0, 255, 255); // タイマーの色を設定
-	timerSprite_.params.siz = Math::Vector2(60, 720); // スプライトのサイズを設定
-	timerSprite_.params.pos = Math::Vector2(RenderingPath->GetLogicalWidth() - 60, 0); // スプライトの位置を設定
+	timerSprite_.params.color = HE::Color(255, 255, 255, 200); // タイマーの色を設定
+	timerSprite_.params.size = 128; // タイマーのフォントサイズを設定
+	timerSprite_.params.posX = 300; // タイマーの表示位置X
+	timerSprite_.params.posY = 300; // タイマーの表示位置Y
 
-	timerBackgroundSprite_.params.color = HE::Color(255, 255, 255, 255); // タイマー背景の色を設定
-	timerBackgroundSprite_.params.siz = Math::Vector2(60, 720); // タイマー背景のサイズを設定
-	timerBackgroundSprite_.params.pos = Math::Vector2(RenderingPath->GetLogicalWidth() - 60, 0); // タイマー背景の位置を設定
+
 }
 
-void TimerView::Update(float timer)
+void TimerView::NotifiCateTime(float timer)
 {
-	timerSprite_.params.siz.y = 720.0f * (1 - timer/ timeLimit_); // タイマーの高さを更新
-	timerSprite_.params.pos.y = 720.0f * (timer / timeLimit_); // タイマーの位置を更新
+	timerSprite_.SetHidden(false); // タイマーの通知を表示する
+	//「残り○秒」と表示
+	timerSprite_.SetText( L"残り" + std::to_wstring(static_cast<int>(timer)) + L"秒！！");
 }

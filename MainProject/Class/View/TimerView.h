@@ -5,14 +5,11 @@
 class TimerView {
 public:
 	void Load();
-	void Initialize(float timeLimit_);
-	void Update(float timer);
+	void Initialize();
+	void NotifiCateTime(float timer);
+	void HideNotification() { timerSprite_.SetHidden(true); } // タイマーの通知を非表示にする
 
 
 private:
-	
-	float timeLimit_ ; // タイムリミット
-	HE::Sprite timerSprite_; // タイマー表示用のスプライト
-	HE::Sprite timerBackgroundSprite_; // タイマー背景用のスプライト
-
+	HE::SpriteFont timerSprite_; 
 };
