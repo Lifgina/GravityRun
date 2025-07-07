@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector> 
+#include <set>
 #include "../../HuEngine.h"
 #include "PlayerModel.h"
 #include "FloorModel.h"
@@ -16,9 +17,10 @@
 class GameManager {
 public:
 	void Load();
-	void Initialize(float timelimit,int floorCount,int silentEnemyCount,int moveEnemyCount,int suitonEnemyCount,int suitonAttackCount,int katonEnemyCount,int katonAttackCount);
+	void Initialize(float timelimit,int floorCount,int floorLinkCount,int silentEnemyCount,int moveEnemyCount,int suitonEnemyCount,int suitonAttackCount,int katonEnemyCount,int katonAttackCount);
 	void PlayerSetup(HE::Math::Vector2 initialPos, float leftEdge, float rightEdge, bool isMovingToRightFirst, bool isGravityUpwardFirst, float playerWidth, float playerHeight);
 	void FloorSetup(int floorID,HE::Math::Vector2 floorPos,float floorHeight,float floorWidth,bool isBreakable);
+	void FloorLinkSetup(int linkID, HE::Math::Vector2 linkedFloorID); // 床のリンクを設定
 	void MoveEnemySetup(int enemyID,float timeToActive, float enemySpeed, float firstDirection,HE::Math::Vector2 initialPos, float maxRange, float minRange);
 	void SilentEnemySetup(int enemyID, HE::Math::Vector2 initialPos);
 	void SuitonEnemyPositionSetup(int enemyID, HE::Math::Vector2 initialPos,float collisionHeight,float collisionWidth);
@@ -49,7 +51,7 @@ private:
 	TimerModel timerModel_; // タイマーのモデル
 	MoveEnemy moveEnemy_[64]; // 手裏剣のモデル 全ステージの最大の数を配列数に記入
 	SilentEnemy silentEnemy_[64]; // まきびしのモデル 全ステージの最大の数を配列数に記入
-	JutsuEnemy suitonEnemy_[5]; // 水遁の術のモデル
+	JutsuEnemy suitonEnemy_[4]; // 水遁の術のモデル
 	JutsuEnemy katonEnemy_[64]; // 火遁の術のモデル
 
 	float suitonEnemyActivateTime_[32]; // 水遁の術がアクティブになる時間
@@ -80,7 +82,14 @@ private:
 	int gameState_; // ゲームの状態、0 = ゲーム中　1 = ゲームオーバー 2 = ゲームクリア
 	bool prevIsOnGround_ ; // 前回の床に乗っている状態
 
+	int floorLinkCount_ ; // 床のリンク数
+	HE::Math::Vector2 linkedFloorIDs_[2]; // 床のリンク位置
+
 	int onPlayerFloorID_ ; // プレイヤーが乗っている床のID
+	int lastOnPlayerFloorID_; // 直前まで乗っていた床ID
+
+	std::set<int> currentOnFloors_; // 今フレームで接触している床ID群
+	std::set<int> prevOnFloors_;    // 前フレームで接触していた床ID群
 
 	float leftEdge ; // ゲームウィンドウの左端の位置
 	float rightEdge ; // ゲームウィンドウの右端の位置

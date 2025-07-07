@@ -53,12 +53,18 @@ void MainScene::Initialize()
 	bg_.Initialize(); // ”wŒi‚Ì‰Šú‰»
 	pillar_.Initialize(); // ’Œ‚Ì‰Šú‰»
 	gameState_= 0; // ƒQ[ƒ€ƒI[ƒo[ó‘Ô‚ğ‰Šú‰»
-	gameManager_.Initialize(timeLimit_, floorData_.GetFloorCount(), enemyData_.GetSilentEnemyCount(), enemyData_.GetMoveEnemyCount(), enemyData_.GetSuitonEnemyCount(), enemyData_.GetSuitonAttackTimes(),enemyData_.GetKatonEnemyCount(),enemyData_.GetKatonAttackTimes());
+	gameManager_.Initialize(timeLimit_, floorData_.GetFloorCount(),floorData_.GetFloorLinkCount(), enemyData_.GetSilentEnemyCount(), enemyData_.GetMoveEnemyCount(), enemyData_.GetSuitonEnemyCount(), enemyData_.GetSuitonAttackTimes(),enemyData_.GetKatonEnemyCount(),enemyData_.GetKatonAttackTimes());
 	gameManager_.PlayerSetup(initialPlayerPosition_, leftEdge, rightEdge, isMovingToRightFirst_, isGravityUpwardFirst_, playerWidth_, playerHeight_);
 	for (int i = 0; i <floorData_.GetFloorCount(); i++)
 	{
 		gameManager_.FloorSetup(i, floorData_.GetFloorPosition(i), floorData_.GetFloorHeight(i), floorData_.GetFloorWidth(i),floorData_.GetIsBreakable(i));
 	}
+	for (int i = 0; i < floorData_.GetFloorLinkCount(); i++)
+	{
+		gameManager_.FloorLinkSetup(i, floorData_.GetLinkedFloorID(i));
+
+	}
+
 	for (int i = 0; i < enemyData_.GetSilentEnemyCount(); i++)
 	{
 		gameManager_.SilentEnemySetup(i, enemyData_.GetSilentEnemyPosition(i));

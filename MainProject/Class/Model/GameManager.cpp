@@ -14,10 +14,11 @@ void GameManager::Load()
 	
 }
 
-void GameManager::Initialize(float timelimit,int floorCount, int silentEnemyCount, int moveEnemyCount, int suitonEnemyCount, int suitonAttackCount,int katonEnemyCount, int katonAttackCount)
+void GameManager::Initialize(float timelimit,int floorCount,int floorLinkCount, int silentEnemyCount, int moveEnemyCount, int suitonEnemyCount, int suitonAttackCount,int katonEnemyCount, int katonAttackCount)
 {
 	timerModel_.Initialize(timelimit);
 	floorCount_ = floorCount; // 床の数を設定
+	floorLinkCount_ = floorLinkCount; // 床のリンク数を設定
 	silentEnemyCount_ = silentEnemyCount; // まきびしの数を設定
 	moveEnemyCount_ = moveEnemyCount; // 手裏剣の数を設定
 	suitonEnemyCount_ = suitonEnemyCount; // 水遁の術の敵の数を設定
@@ -26,6 +27,7 @@ void GameManager::Initialize(float timelimit,int floorCount, int silentEnemyCoun
 	katonAttackCount_ = katonAttackCount; // 火遁の術の攻撃の回数を設定
 	gameState_ = 0; // ゲーム状態を初期化
 	onPlayerFloorID_ = -1; // プレイヤーが乗っている床のIDを初期化
+	lastOnPlayerFloorID_ = -1; // プレイヤーが最後に乗っていた床のIDを初期化
 }
 
 void GameManager::PlayerSetup(HE::Math::Vector2 initialPos, float leftEdge, float rightEdge, bool isMovingToRightFirst, bool isGravityUpwardFirst, float playerWidth, float playerHeight)
@@ -36,6 +38,13 @@ void GameManager::FloorSetup(int floorID, HE::Math::Vector2 floorPos, float floo
 { 
 	
 	floorModel_[floorID].Initialize(floorPos, floorWidth, floorHeight,isBreakable);
+}
+
+void GameManager::FloorLinkSetup(int linkID, HE::Math::Vector2 linkedFloorID)
+{
+	linkedFloorIDs_[linkID] = linkedFloorID; // 床のリンクを設定
+
+	printf("[Link] %d: (%d, %d)\n", linkID, (int)linkedFloorIDs_[linkID].x, (int)linkedFloorIDs_[linkID].y);
 }
 
 void GameManager::MoveEnemySetup(int enemyID, float timeToActive,float enemySpeed, float firstDirection,HE::Math::Vector2 initialPos, float maxRange, float minRange)
@@ -105,17 +114,16 @@ void GameManager::Update()
 void GameManager::GroundCollisionCheck()
 {
 	Math::Rectangle player_collision = playerModel_.GetCollision();
+	currentOnFloors_.clear();
 	for (int i = 0; i < floorCount_; i++)
 	{
 		Math::Rectangle floor_collision = floorModel_[i].GetCollision();
 		if (player_collision.Intersects(floor_collision))
 		{
 			playerModel_.OnCollisionGround(floorModel_[i].GetFloorPosition(), floorModel_[i].GetFloorHeight(), floorModel_[i].GetFloorWidth());
-			onPlayerFloorID_ = i; // プレイヤーが乗っている床のIDを更新
+			currentOnFloors_.insert(i);
 		}
 	}
-
-
 }
 
 void GameManager::EnemyCollisionCheck()
@@ -161,11 +169,27 @@ void GameManager::EnemyCollisionCheck()
 
 void GameManager::MonitorPlayerOnGround()
 {
-	bool isOnGround = playerModel_.GetIsOnGround();
-	if (prevIsOnGround_ && isOnGround != prevIsOnGround_) {
-		floorModel_[onPlayerFloorID_].BreakFloor(); 
+	for (int floorID : prevOnFloors_) {
+		if (currentOnFloors_.count(floorID) == 0) {
+			// 離れた床を壊す
+			printf("[BreakFloor] main: %d\n", floorID);
+			floorModel_[floorID].BreakFloor();
+			// リンク先も壊す
+			for (int i = 0; i < floorLinkCount_; i++) {
+				int idA = (int)linkedFloorIDs_[i].x;
+				int idB = (int)linkedFloorIDs_[i].y;
+				if (idA == floorID) {
+					printf("[BreakFloor] linked: %d\n", idB);
+					floorModel_[idB].BreakFloor();
+				}
+				else if (idB == floorID) {
+					printf("[BreakFloor] linked: %d\n", idA);
+					floorModel_[idA].BreakFloor();
+				}
+			}
+		}
 	}
-	prevIsOnGround_ = isOnGround; // 前回の床に乗っている状態を更新
+	prevOnFloors_ = currentOnFloors_;
 }
 
 void GameManager::SuitonEnemyAttack()
