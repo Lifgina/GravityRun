@@ -20,7 +20,7 @@ public:
 private:
 	//以下プランナーがいじっていい変数
 	float initialPlayerSpeed_ = 300.0f; // プレイヤーの移動速度
-	float afterPlayerSpeed_ = 450.0f; // プレイヤーの移動速度（速度変化後）
+	float afterPlayerSpeed_ = 400.0f; // プレイヤーの移動速度（速度変化後）
 	float speedChangeTime_ = 20.0f; // プレイヤーの速度変化まで時間
 	float gravity_ = 8000.0f; // 重力の強さ
 	float loopInterval_ = 0.5f; // 上下ループをした時に逆側から出てくるまでの時間補正

@@ -59,7 +59,7 @@ private:
 	PlayerView playerView_; // プレイヤーのビューのインスタンス
 	MoveEnemyView moveEnemyView_[2]; // 手裏剣のビューのインスタンス
 	SuitonEnemyView suitonEnemyView_[5]; // 水遁の術の敵のビューのインスタンス
-	KatonEnemyView katonEnemyView_[8]; // 火遁の術の敵のビューのインスタンス
+	KatonEnemyView katonEnemyView_[12]; // 火遁の術の敵のビューのインスタンス
 	TimerView timerView_; // タイマーのビューのインスタンス
 	BG bg_; // 背景のインスタンス
 	Pillar pillar_; // 柱のインスタンス
