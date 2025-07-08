@@ -9,6 +9,7 @@ public:
 	Vector2 GetFloorPosition(int floorID) const { return floorPosition_[floorID]; }
 	int GetFloorHeight(int floorID) const { return floorHeight_[floorID]; }
 	int GetFloorWidth(int floorID) const { return floorWidth_[floorID]; }
+	float GetBreakTime(int floorID) const { return breakTime_[floorID]; }
 	int GetFloorCount() const { return floorCount_; }
 	bool GetIsBreakable(int floorID) const { return isBreakable_[floorID]; }
 
@@ -17,43 +18,52 @@ private:
 	// 床を定義するためのデータ
 	// 見やすくするために改行を入れているだけで、実際の処理には影響しない。
 
-	int floorCount_ = 21; // 床の数
+	int floorCount_ = 25; // 床の数
 	// 床の位置
 	Vector2 floorPosition_[25] =
-	{ Vector2(40.0f,0.0f), /* Vector2(440.0f,0.0f),*/Vector2(540.0f,0.0f),/*Vector2(840.0f,0.0f),*/Vector2(940.0f,0.0f),
+	{ Vector2(40.0f,0.0f),  Vector2(440.0f,0.0f),Vector2(540.0f,0.0f),Vector2(840.0f,0.0f),Vector2(940.0f,0.0f),
 	 Vector2(140.0f,175.0f),Vector2(240.0f,175.0f),Vector2(340.0f,175.0f),Vector2(940.0f,175.0f),Vector2(1040.0f,175.0f),
 	 Vector2(40.0f,350.0f), Vector2(140.0f,350.0f),Vector2(240.0f,350.0f),Vector2(740.0f,350.0f),Vector2(840.0f,350.0f),
 	Vector2(140.0f,525.0f),Vector2(240.0f,525.0f),Vector2(340.0f,525.0f),Vector2(1040.0f,525.0f),Vector2(1140.0f,525.0f),
-	Vector2(40.0f,700.0f),  /*Vector2(440.0f,700.0f),*/Vector2(540.0f,700.0f),/*Vector2(840.0f,700.0f),*/Vector2(940.0f,700.0f),
+	Vector2(40.0f,700.0f),  Vector2(440.0f,700.0f),Vector2(540.0f,700.0f),Vector2(840.0f,700.0f),Vector2(940.0f,700.0f),
 	};
 
 
 	// 床の高さ
 	float floorHeight_[25] ={ 
-	20.0f,/*20.0f,*/20.0f,/*20.0f,*/20.0f,
 	20.0f,20.0f,20.0f,20.0f,20.0f,
 	20.0f,20.0f,20.0f,20.0f,20.0f,
 	20.0f,20.0f,20.0f,20.0f,20.0f,
-	20.0f,/*20.0f,*/20.0f,/*20.0f,*/20.0f
+	20.0f,20.0f,20.0f,20.0f,20.0f,
+	20.0f,20.0f,20.0f,20.0f,20.0f
 	};
 
 	// 床の幅
 	float floorWidth_[25] ={
-     400.0f,/*100.0f,*/300.0f,/*100.0f,*/200.0f,
+     400.0f,100.0f,300.0f,100.0f,200.0f,
 	 100.0f,100.0f,600.0f,100.0f,200.0f,
 	 100.0f,100.0f,500.0f,100.0f,300.0f,
 	 100.0f,100.0f,700.0f,100.0f,100.0f,
-	 400.0f,/*100.0f,*/300.0f,/*100.0f,*/200.0f,
+	 400.0f,100.0f,300.0f,100.0f,200.0f,
 	};
 
 	// 床が壊れるかどうか
 	bool isBreakable_[25] =
 	{
-		false,/*true,*/false,/*true,*/false,
+		false,true,false,true,false,
 		false, true,false,true,false,
 		false,true,false,true,false,
 		false,true,false,true,false,
-		false,/*true,*/false,/*true,*/false
+		false,true,false,true,false
+	};
+
+	//床が壊れる時間
+	float breakTime_[25] = {
+		0.0f, 20.0f, 0.0f, 20.0f, 0.0f,
+		0.0f, 20.0f, 0.0f, 20.0f, 0.0f,
+		0.0f, 20.0f, 0.0f, 20.0f, 0.0f,
+		0.0f, 20.0f, 0.0f, 20.0f, 0.0f,
+		0.5f, 20.0f, 0.0f, 20.0f, 0.0f
 	};
 
 };

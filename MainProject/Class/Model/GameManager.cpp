@@ -25,17 +25,16 @@ void GameManager::Initialize(float timelimit,int floorCount, int silentEnemyCoun
 	katonEnemyCount_ = katonEnemyCount; // 火遁の術の敵の数を設定
 	katonAttackCount_ = katonAttackCount; // 火遁の術の攻撃の回数を設定
 	gameState_ = 0; // ゲーム状態を初期化
-	onPlayerFloorID_ = -1; // プレイヤーが乗っている床のIDを初期化
 }
 
 void GameManager::PlayerSetup(HE::Math::Vector2 initialPos, float leftEdge, float rightEdge, bool isMovingToRightFirst, bool isGravityUpwardFirst, float playerWidth, float playerHeight)
 {
 	playerModel_.Initialize(initialPos, leftEdge, rightEdge, isMovingToRightFirst, isGravityUpwardFirst, playerWidth, playerHeight);
 }
-void GameManager::FloorSetup(int floorID, HE::Math::Vector2 floorPos, float floorHeight, float floorWidth,bool isBreakable)
+void GameManager::FloorSetup(int floorID, HE::Math::Vector2 floorPos, float floorHeight, float floorWidth,bool isBreakable,float breakTime)
 { 
 	
-	floorModel_[floorID].Initialize(floorPos, floorWidth, floorHeight,isBreakable);
+	floorModel_[floorID].Initialize(floorPos, floorWidth, floorHeight,isBreakable,breakTime);
 }
 
 void GameManager::MoveEnemySetup(int enemyID, float timeToActive,float enemySpeed, float firstDirection,HE::Math::Vector2 initialPos, float maxRange, float minRange)
@@ -84,6 +83,10 @@ void GameManager::Update()
 	playerModel_.Update(timerModel_.GetTimer());
 	GroundCollisionCheck();
 	EnemyCollisionCheck();
+	for (int i = 0; i < floorCount_; i++)
+	{
+		floorModel_[i].Update(timerModel_.GetTimer());
+	}
 	for (int i = 0; i < moveEnemyCount_; i++)
 	{
 		moveEnemy_[i].Update(timerModel_.GetTimer());
@@ -98,7 +101,6 @@ void GameManager::Update()
 	}
 	SuitonEnemyAttack(); // 水遁の術の攻撃を更新
 	KatonEnemyAttack(); // 火遁の術の攻撃を更新
-	MonitorPlayerOnGround(); // プレイヤーが床に乗っているかどうかを監視
 
 }
 
@@ -111,7 +113,6 @@ void GameManager::GroundCollisionCheck()
 		if (player_collision.Intersects(floor_collision))
 		{
 			playerModel_.OnCollisionGround(floorModel_[i].GetFloorPosition(), floorModel_[i].GetFloorHeight(), floorModel_[i].GetFloorWidth());
-			onPlayerFloorID_ = i; // プレイヤーが乗っている床のIDを更新
 		}
 	}
 
@@ -157,15 +158,6 @@ void GameManager::EnemyCollisionCheck()
 			return;
 		}
 	}
-}
-
-void GameManager::MonitorPlayerOnGround()
-{
-	bool isOnGround = playerModel_.GetIsOnGround();
-	if (prevIsOnGround_ && isOnGround != prevIsOnGround_) {
-		floorModel_[onPlayerFloorID_].BreakFloor(); 
-	}
-	prevIsOnGround_ = isOnGround; // 前回の床に乗っている状態を更新
 }
 
 void GameManager::SuitonEnemyAttack()
@@ -229,5 +221,13 @@ void GameManager::KatonEnemyAttack()
 			}
 			isAtttackedKatonEnemy_[i] = true;
 		}
+	}
+}
+
+void GameManager::ClearCheck()
+{
+	if (timerModel_.GetTimer() >= timerModel_.GetTimeLimit())
+	{
+		gameState_ = 2; // ゲームクリア状態にする
 	}
 }

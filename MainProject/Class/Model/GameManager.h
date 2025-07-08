@@ -18,7 +18,7 @@ public:
 	void Load();
 	void Initialize(float timelimit,int floorCount,int silentEnemyCount,int moveEnemyCount,int suitonEnemyCount,int suitonAttackCount,int katonEnemyCount,int katonAttackCount);
 	void PlayerSetup(HE::Math::Vector2 initialPos, float leftEdge, float rightEdge, bool isMovingToRightFirst, bool isGravityUpwardFirst, float playerWidth, float playerHeight);
-	void FloorSetup(int floorID,HE::Math::Vector2 floorPos,float floorHeight,float floorWidth,bool isBreakable);
+	void FloorSetup(int floorID,HE::Math::Vector2 floorPos,float floorHeight,float floorWidth,bool isBreakable,float breakTime);
 	void MoveEnemySetup(int enemyID,float timeToActive, float enemySpeed, float firstDirection,HE::Math::Vector2 initialPos, float maxRange, float minRange);
 	void SilentEnemySetup(int enemyID, HE::Math::Vector2 initialPos);
 	void SuitonEnemyPositionSetup(int enemyID, HE::Math::Vector2 initialPos,float collisionHeight,float collisionWidth);
@@ -36,9 +36,9 @@ public:
 	void GravityChange() { playerModel_.GravityChange(timerModel_.GetTimer()); } // プレイヤーの移動方向を変更する
 	void GroundCollisionCheck();
 	void EnemyCollisionCheck(); 
-	void MonitorPlayerOnGround();
 	int GetGameState() const { return gameState_; } // ゲームの状態を取得
 	float GetTimer() const { return timerModel_.GetTimer(); } // タイマーの値を取得
+	void ClearCheck(); // ゲームクリアのチェック
 
 	
 
@@ -78,9 +78,6 @@ private:
 	int katonEnemyCount_; // 火遁の術の敵の数
 
 	int gameState_; // ゲームの状態、0 = ゲーム中　1 = ゲームオーバー 2 = ゲームクリア
-	bool prevIsOnGround_ ; // 前回の床に乗っている状態
-
-	int onPlayerFloorID_ ; // プレイヤーが乗っている床のID
 
 	float leftEdge ; // ゲームウィンドウの左端の位置
 	float rightEdge ; // ゲームウィンドウの右端の位置
