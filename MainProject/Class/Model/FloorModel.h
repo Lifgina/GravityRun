@@ -21,6 +21,7 @@ private:
 	int touchCount_;
 
 	HE::Sprite draftSprite_; 
+	HE::SpriteFont floorHPDebug_;
 	HE::Math::Vector2 floorPosition_; // è∞ÇÃà íu
 	float floorWidth_; // è∞ÇÃïù
 	float floorHeight_; // è∞ÇÃçÇÇ≥

@@ -5,6 +5,7 @@
 class PlayerView {
 public:
 	void Load();
+	void Initialize(); // プレイヤーのスプライトを表示する
 	void Update(HE::Math::Vector2 playerPos);
 
 

@@ -15,10 +15,10 @@ void KatonEnemyView::Load()
 void KatonEnemyView::Initialize(Math::Vector2 ninjaPos, Math::Vector2 attackPos)
 {
 	katonEnemySprite_.params.pos = ninjaPos; // 水遁の術の敵の初期位置を設定
-	katonEnemySprite_.params.siz = Math::Vector2(100.0f, 132.0f); // 水遁の術の敵のサイズを設定
+	katonEnemySprite_.params.siz = Math::Vector2(100.0f, 155.0f); // 水遁の術の敵のサイズを設定
 	katonEnemySprite_.params.color = HE::Color(255, 255, 255, 255); // 水遁の術の敵の色を設定
 	katonEnemyAttackSprite_.params.pos = attackPos; // 水遁の術の攻撃の初期位置を設定
-	katonEnemyAttackSprite_.params.siz = Math::Vector2(100.0f, 132.0f); // 水遁の術の攻撃のサイズを設定
+	katonEnemyAttackSprite_.params.siz = Math::Vector2(100.0f, 155.0f); // 水遁の術の攻撃のサイズを設定
 	katonEnemyAttackSprite_.params.color = HE::Color(255, 0, 0, 200); // 水遁の術の攻撃の色を設定
 	RenderingPath->AddSprite(&katonEnemySprite_, 0); // 水遁の術の敵のスプライトをレンダリングパスに追加
 	RenderingPath->AddSprite(&katonEnemyAttackSprite_, 0); // 水遁の術の攻撃のスプライトをレンダリングパスに追加

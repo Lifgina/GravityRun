@@ -14,7 +14,7 @@ void TimerView::Load()
 
 void TimerView::Initialize()
 {
-	timerSprite_.params.color = HE::Color(255, 255, 255, 200); // タイマーの色を設定
+	timerSprite_.params.color = HE::Color(0, 0, 0, 200); // タイマーの色を設定
 	timerSprite_.params.size = 128; // タイマーのフォントサイズを設定
 	timerSprite_.params.posX = 300; // タイマーの表示位置X
 	timerSprite_.params.posY = 300; // タイマーの表示位置Y
