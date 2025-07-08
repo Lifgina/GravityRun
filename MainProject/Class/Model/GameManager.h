@@ -33,7 +33,7 @@ public:
 	void Update();
 	void SuitonEnemyAttack(); // 水遁の術の攻撃を更新
 	void KatonEnemyAttack(); // 火遁の術の攻撃を更新
-	void GravityChange() { playerModel_.GravityChange(); } // プレイヤーの移動方向を変更する
+	void GravityChange() { playerModel_.GravityChange(timerModel_.GetTimer()); } // プレイヤーの移動方向を変更する
 	void GroundCollisionCheck();
 	void EnemyCollisionCheck(); 
 	void MonitorPlayerOnGround();

@@ -8,7 +8,7 @@ using namespace HE;
 
 void BGMmanager::Load()
 {
-	bgm_[0] = Sound("mainBGM.wav", Sound::LoopCount::BGM);
+	bgm_[0] = Sound("mainBGM.wav", Sound::LoopCount::BGM); //ƒƒCƒ“ƒV[ƒ“‚ÌBGM
 	
 
 }

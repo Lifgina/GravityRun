@@ -8,7 +8,7 @@ using namespace HE;
 
 void SEmanager::Load()
 {
-	se_[0] = Sound("countdown.wav", Sound::LoopCount::SE);
+	se_[0] = Sound("countdown.wav", Sound::LoopCount::SE);// カウントダウンのSE
 
 
 }

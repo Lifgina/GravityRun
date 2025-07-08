@@ -29,6 +29,7 @@ void PlayerModel::Initialize(Math::Vector2 InitialPos, float leftedge, float rig
 	isOnGround_ = true; // 初期状態では床に乗っている
 	isLoopWaiting_ = false; // 初期状態ではループ待機していない
 	fallingSpeed_ = 0.0f; // 初期状態では落下速度は0
+	prevGravityChangeTime_ = -gravityChangeCooltime_; // 前回の重力変更時間を初期化
 
 }
 
@@ -159,12 +160,15 @@ void PlayerModel::PlayerMoveY(float timer)
 }
 
 
-void PlayerModel::GravityChange()
+void PlayerModel::GravityChange(float timer)
 {
 	if(!isOnGround_)
 		return; // 床に乗っていない場合は方向転換しない
-     isGravityUpward_ = !isGravityUpward_; // 方向を反転
-	 isOnGround_ = false; // 床から離れる
+	if (timer - prevGravityChangeTime_ >= gravityChangeCooltime_) {
+		isGravityUpward_ = !isGravityUpward_; // 方向を反転
+		isOnGround_ = false; // 床から離れる
+		prevGravityChangeTime_ = timer; // 前回の重力変更時間を更新
+	}
 	
 }
 

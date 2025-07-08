@@ -12,6 +12,8 @@
 #include "../Class/View/TimerView.h"
 #include "../Class/View/BG.h"
 #include "../Class/View/Pillar.h"
+#include "../Class/View/SEmanager.h"
+#include "../Class/View/BGMmanager.h"
 
 class MainScene : public HE::Scene
 {
@@ -63,5 +65,7 @@ private:
 	TimerView timerView_; // タイマーのビューのインスタンス
 	BG bg_; // 背景のインスタンス
 	Pillar pillar_; // 柱のインスタンス
+	SEmanager seManager_; // SEマネージャーのインスタンス
+	BGMmanager bgmManager_; // BGMマネージャーのインスタンス
 
 };

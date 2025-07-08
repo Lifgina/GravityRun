@@ -20,7 +20,7 @@ void PlayerView::Initialize()
 {
 	
 }
-void PlayerView::Update(Math::Vector2 playerPos)
+void PlayerView::Update(Math::Vector2 playerPos,bool isMovingRight)
 {
 	playerSprite_.params.pos = playerPos; // プレイヤーの位置を更新
 

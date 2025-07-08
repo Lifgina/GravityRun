@@ -30,6 +30,8 @@ void MainScene::Load()
 	playerView_.Load();
 	timerView_.Load();
 	pillar_.Load();
+	seManager_.Load();
+	bgmManager_.Load();
 	for (int i = 0; i < enemyData_.GetMoveEnemyCount(); i++)
 	{
 		moveEnemyView_[i].Load();
@@ -80,6 +82,7 @@ void MainScene::Initialize()
 		gameManager_.KatonEnemyAttackSetup(i, enemyData_.GetKatonEnemyApeearTime(i), enemyData_.GetKatonEnemyAttackTime(i), enemyData_.GetKatonEnemyAttackDuration(i), enemyData_.GetKatonEnemyAttackAfterTime(i), enemyData_.GetAttackKatonEnemyAmount(i));
 		katonEnemyView_[i].Initialize(enemyData_.GetKatonEnemyViewPosition(i), enemyData_.GetKatonEnemyModelPosition(i));
 	}
+	
 }
 
 // releasing resources required for termination.
@@ -99,7 +102,7 @@ void MainScene::Update(float deltaTime)
 			gameManager_.GravityChange(); // スペースキーが押されたら重力の向きを変更
 		}
 		gameManager_.Update();
-		playerView_.Update(gameManager_.GetPlayerModel().GetPlayerPosition()); // プレイヤーの位置を更新
+		playerView_.Update(gameManager_.GetPlayerModel().GetPlayerPosition(),gameManager_.GetPlayerModel().GetIsMovingToRight()); // プレイヤーの位置を更新
 		EnemyViewUpdate(); // 敵のビューを更新
 		NotificateTime(); // タイマーの通知を表示
 
