@@ -108,13 +108,13 @@ void MainScene::Update(float deltaTime)
 
 		break;
 	case 1: // ゲームオーバー
-		gameOverView_.ShowGameOver(1); // ゲームオーバー画面を表示
+		gameOverView_.ShowGameOver(1,gameManager_.GetTimerModel().GetTimer()); // ゲームオーバー画面を表示
 		if (InputSystem.Keyboard.wasPressedThisFrame.Enter) {
 			SceneManager.SetNextScene(NextScene::MainScene); // Enterキーが押されたらシーンをリセット
 		}
 		break;
 	case 2: // ゲームクリア
-		gameOverView_.ShowGameOver(2); // ゲームクリア画面を表示
+		gameOverView_.ShowGameOver(2, gameManager_.GetTimerModel().GetTimer()); // ゲームクリア画面を表示
 		if (InputSystem.Keyboard.wasPressedThisFrame.Enter) {
 			SceneManager.SetNextScene(NextScene::MainScene); // Enterキーが押されたらシーンをリセット
 		}

@@ -26,7 +26,7 @@ void GameOverView::Initialize()
 	HideGameOver(); // ゲームオーバー画面を非表示にする
 }
 
-void GameOverView::ShowGameOver(int gameState)
+void GameOverView::ShowGameOver(int gameState,float aliveTime)
 {
 	if (gameState == 0) {
 		return; // ゲームオーバー状態でない場合は何もしない
