@@ -124,8 +124,8 @@ private:
 
 	//ˆÈ‰º‚Ì”z—ñ‚ÍŠÔ‚Æ•R‚Ã‚¯‚Äg—p‚·‚é
 	int suitonAttackTimes_ = 4; // …“Ù”EÒ‚ÌUŒ‚‚Ì‰ñ”
-	float suitonEnemyApeearTime_[4] = { 30.0f-3,35.0f-3,50.0f-3,55.0f-3 }; // “G‚ª•\¦‚³‚ê‚éŠÔ
-	float suitonEnemyAttackTime_[4] = { 3.0f,3.0f,3.0f,3.0f }; // “G‚ÌUŒ‚‚Ü‚Å‚ÌŠÔ
+	float suitonEnemyApeearTime_[4] = { 30.0f-3,35.0f-3,50.0f-3,55.0f-3 }; // “G‚ª•\¦‚³‚ê‚éŠÔ(—\’›‚ğn‚ß‚éŠÔ)
+	float suitonEnemyAttackTime_[4] = { 3.0f,3.0f,3.0f,3.0f }; // “G‚ÌUŒ‚‚Ü‚Å‚ÌŠÔ(—\’›‰‰o‚ÌŠÔ)
 	float suitonEnemyAttackDuration_[4] = { 1.0f,1.0f,1.0f,1.0f }; // “G‚ÌUŒ‚‚Ì‘±ŠÔ
 	float suitonEnemyAttackAfterTime_[4] = { 0.2f,0.2f,0.2f,0.2f }; // “G‚ÌUŒ‚Œã‚Ì‘Ò‹@ŠÔ
 	int attackSuitonEnemyAmount_[4] = { 1,1,1,2 }; // “G‚ÌUŒ‚‚Ì”
