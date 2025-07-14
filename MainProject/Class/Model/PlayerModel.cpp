@@ -8,6 +8,7 @@ using namespace HE;
 
 void PlayerModel::Load()
 {
+	if (!isDebugMode_) 	return; // デバッグモードでない場合は何もしない
 	collision_sprite_ = HE::Sprite("");
 	collision_sprite_.params.color =  HE::Color(255, 0, 0, 100); // 衝突範囲表示用のスプライト
 	RenderingPath->AddSprite(&collision_sprite_, 10);

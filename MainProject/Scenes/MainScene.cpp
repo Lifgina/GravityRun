@@ -51,6 +51,7 @@ void MainScene::Load()
 void MainScene::Initialize()
 {
 	gameOverView_.Initialize(); // ゲームオーバービューの初期化
+	playerView_.Initialize(); // プレイヤーの初期化
 	timerView_.Initialize(); // タイマーの初期化
 	bg_.Initialize(); // 背景の初期化
 	pillar_.Initialize(); // 柱の初期化
@@ -102,7 +103,7 @@ void MainScene::Update(float deltaTime)
 			gameManager_.GravityChange(); // スペースキーが押されたら重力の向きを変更
 		}
 		gameManager_.Update();
-		playerView_.Update(gameManager_.GetPlayerModel().GetPlayerPosition(),gameManager_.GetPlayerModel().GetIsMovingToRight()); // プレイヤーの位置を更新
+		playerView_.Update(gameManager_.GetPlayerModel().GetPlayerPosition(),gameManager_.GetPlayerModel().GetIsMovingToRight(),gameManager_.GetPlayerModel().GetIsGravityUpward()); // プレイヤーの位置を更新
 		EnemyViewUpdate(); // 敵のビューを更新
 		NotificateTime(); // タイマーの通知を表示
 

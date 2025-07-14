@@ -10,6 +10,7 @@ public:
 	HE::Math::Rectangle GetCollision();
 	bool GetIsOnGround() const { return isOnGround_; } // 床に乗っているかどうかを取得
 	bool GetIsMovingToRight() const { return isMovingToRight_; } // プレイヤーが右に移動中かどうかを取得
+	bool GetIsGravityUpward() const { return isGravityUpward_; } // プレイヤーが上に重力を受けているかどうかを取得
 	HE::Math::Vector2 GetPlayerPosition() const { return playerPosition_; } // プレイヤーの位置を取得
 	void OnCollisionGround(HE::Math::Vector2 floorPos,float floorHeight,float floorWidth);
 	void OnGroundCheck(); // 床に乗っているかどうかを確認する
@@ -33,6 +34,8 @@ private:
 	float collisionPositionCorrection_y_ = 0.0f; // 衝突判定の位置補正
 	//プランナーがいじっていい変数ここまで
 	
+	//以下デバッグ用
+	bool isDebugMode_ = false; // デバッグモードかどうか
 
 
 	//以下クラス内で使用する変数。

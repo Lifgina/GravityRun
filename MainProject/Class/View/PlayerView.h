@@ -6,7 +6,7 @@ class PlayerView {
 public:
 	void Load();
 	void Initialize(); // プレイヤーのスプライトを表示する
-	void Update(HE::Math::Vector2 playerPos,bool isMovingRight);
+	void Update(HE::Math::Vector2 playerPos, bool isMovingRight, bool isGravityUp);
 
 
 private:

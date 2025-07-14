@@ -10,7 +10,7 @@
 #include "../Class/View/SuitonEnemyView.h"
 #include "../Class/View/KatonEnemyView.h"
 #include "../Class/View/TimerView.h"
-#include "../Class/View/BG.h"
+#include "../Class/View/MainBG.h"
 #include "../Class/View/Pillar.h"
 #include "../Class/View/SEmanager.h"
 #include "../Class/View/BGMmanager.h"
@@ -63,7 +63,7 @@ private:
 	SuitonEnemyView suitonEnemyView_[5]; // 水遁の術の敵のビューのインスタンス
 	KatonEnemyView katonEnemyView_[12]; // 火遁の術の敵のビューのインスタンス
 	TimerView timerView_; // タイマーのビューのインスタンス
-	BG bg_; // 背景のインスタンス
+	MainBG bg_; // 背景のインスタンス
 	Pillar pillar_; // 柱のインスタンス
 	SEmanager seManager_; // SEマネージャーのインスタンス
 	BGMmanager bgmManager_; // BGMマネージャーのインスタンス

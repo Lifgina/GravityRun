@@ -2,7 +2,7 @@
 
 #include "../../HuEngine.h"
 
-class BG {
+class MainBG {
 public:
 	void Load();
 	void Initialize();
