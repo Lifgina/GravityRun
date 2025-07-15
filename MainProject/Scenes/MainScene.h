@@ -7,6 +7,7 @@
 #include "../Class/View/GameOverView.h"
 #include "../Class/View/PlayerView.h"
 #include "../Class/View/FloorView.h"
+#include "../Class/View/SilentEnemyView.h"
 #include "../Class/View/MoveEnemyView.h"
 #include "../Class/View/SuitonEnemyView.h"
 #include "../Class/View/KatonEnemyView.h"
@@ -62,6 +63,7 @@ private:
 	GameOverView gameOverView_; // ゲームオーバービューのインスタンス
 	PlayerView playerView_; // プレイヤーのビューのインスタンス
 	FloorView floorView_[25]; // 床のビューのインスタンス 
+	SilentEnemyView silentEnemyView_[4]; // まきびしのビューのインスタンス
 	MoveEnemyView moveEnemyView_[2]; // 手裏剣のビューのインスタンス
 	SuitonEnemyView suitonEnemyView_[5]; // 水遁の術の敵のビューのインスタンス
 	KatonEnemyView katonEnemyView_[12]; // 火遁の術の敵のビューのインスタンス

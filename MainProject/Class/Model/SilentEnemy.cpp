@@ -8,10 +8,10 @@ using namespace HE;
 
 void SilentEnemy::Load()
 {
-	draftSprite_ = HE::Sprite("");
-	draftSprite_.params.siz = Math::Vector2(enemyWidth_, enemyHeight_);
-	draftSprite_.params.color = HE::Color(255, 0, 0, 255); // 赤色のスプライト
-	RenderingPath->AddSprite(&draftSprite_, 0);
+	//draftSprite_ = HE::Sprite("");
+	//draftSprite_.params.siz = Math::Vector2(enemyWidth_, enemyHeight_);
+	//draftSprite_.params.color = HE::Color(255, 0, 0, 255); // 赤色のスプライト
+	//RenderingPath->AddSprite(&draftSprite_, 0);
 }
 
 void SilentEnemy::Initialize(Math::Vector2 initialPos)

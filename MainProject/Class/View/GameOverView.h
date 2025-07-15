@@ -12,6 +12,6 @@ public:
 
 
 private:
-	HE::SpriteFont draftFont_; // フォントスプライト
+	HE::SpriteFont gameOverFont_[2]; // フォントスプライト
 	HE::Sprite draftSprite_; // ゲームオーバー画面のスプライト
 };

@@ -114,10 +114,10 @@ private:
 	};
 	
 	HE::Math::Vector2 suitonEnemyViewPosition_[4] = {
-		HE::Math::Vector2(1140.0f,175.0f-155.0f),
-		HE::Math::Vector2(40,350.0f-155.0f),
-		HE::Math::Vector2(1140.0f,525.0f -155.0f),
-		HE::Math::Vector2(0,700.0f -155.0f),
+		HE::Math::Vector2(1140.0f+18,175.0f-64.0f),
+		HE::Math::Vector2(40+18,350.0f-64.0f),
+		HE::Math::Vector2(1140.0f+18,525.0f -64.0f),
+		HE::Math::Vector2(40+18,700.0f -64.0f),
 	};
 
 	int suitonEnemyViewDirection_[4] = { -1,1,-1,1 }; // 敵の向き　1:右向き　-1:左向き、View側で使用
@@ -153,18 +153,18 @@ private:
 	};
 
 	HE::Math::Vector2 katonEnemyViewPosition_[12] = {
-		HE::Math::Vector2(340.0f,175.0f - 155.0f),
-		HE::Math::Vector2(540.0f,175.0f - 155.0f),
-		HE::Math::Vector2(740.0f,175.0f - 155.0f),
-		HE::Math::Vector2(440.0f,350.0f - 155.0f),
-		HE::Math::Vector2(840.0f,350.0f - 155.0f),
-		HE::Math::Vector2(1040.0f,350.0f - 155.0f),
-		HE::Math::Vector2(340.0f,525.0f - 155.0f),
-		HE::Math::Vector2(640.0f,525.0f - 155.0f),
-		HE::Math::Vector2(940.0f,525.0f - 155.0f),
-		HE::Math::Vector2(340.0f,700.0f - 155.0f),
-		HE::Math::Vector2(640.0f,700.0f - 155.0f),
-		HE::Math::Vector2(940.0f,700.0f - 155.0f)
+		HE::Math::Vector2(340.0f+18,175.0f - 64.0f),
+		HE::Math::Vector2(540.0f+18,175.0f - 64.0f),
+		HE::Math::Vector2(740.0f+18,175.0f - 64.0f),
+		HE::Math::Vector2(440.0f+18,350.0f - 64.0f),
+		HE::Math::Vector2(840.0f+18,350.0f - 64.0f),
+		HE::Math::Vector2(1040.0f+18,350.0f - 64.0f),
+		HE::Math::Vector2(340.0f+18,525.0f - 64.0f),
+		HE::Math::Vector2(640.0f+18,525.0f - 64.0f),
+		HE::Math::Vector2(940.0f+18,525.0f - 64.0f),
+		HE::Math::Vector2(340.0f+18,700.0f - 64.0f),
+		HE::Math::Vector2(640.0f+18,700.0f - 64.0f),
+		HE::Math::Vector2(940.0f+18,700.0f - 64.0f)
 	};
 
 	//以下の配列は時間と紐づけて使用する

@@ -36,6 +36,10 @@ void MainScene::Load()
 	{
 		floorView_[i].Load(floorData_.GetIsBreakable(i)); 
 	}
+	for (int i = 0; i < enemyData_.GetSilentEnemyCount(); i++)
+	{
+		silentEnemyView_[i].Load();
+	}
 	for (int i = 0; i < enemyData_.GetMoveEnemyCount(); i++)
 	{
 		moveEnemyView_[i].Load();
@@ -69,6 +73,7 @@ void MainScene::Initialize()
 	}
 	for (int i = 0; i < enemyData_.GetSilentEnemyCount(); i++)
 	{
+		silentEnemyView_[i].Initialize(enemyData_.GetSilentEnemyPosition(i),enemyData_.GetSilentEnemyDirection(i));
 		gameManager_.SilentEnemySetup(i, enemyData_.GetSilentEnemyPosition(i));
 	}
 	for (int i = 0; i < enemyData_.GetMoveEnemyCount(); i++)
@@ -80,7 +85,7 @@ void MainScene::Initialize()
 	{
 		gameManager_.SuitonEnemyPositionSetup(i, enemyData_.GetSuitonEnemyModelPosition(i),enemyData_.GetSuitonEnemyCollisionHeight(),enemyData_.GetSuitonEnemyCollisionWidth());
 		gameManager_.SuitonEnemyAttackSetup(i, enemyData_.GetSuitonEnemyApeearTime(i), enemyData_.GetSuitonEnemyAttackTime(i), enemyData_.GetSuitonEnemyAttackDuration(i), enemyData_.GetSuitonEnemyAttackAfterTime(i), enemyData_.GetAttackSuitonEnemyAmount(i));
-		suitonEnemyView_[i].Initialize(enemyData_.GetSuitonEnemyViewPosition(i), enemyData_.GetSuitonEnemyModelPosition(i));
+		suitonEnemyView_[i].Initialize(enemyData_.GetSuitonEnemyViewPosition(i), enemyData_.GetSuitonEnemyModelPosition(i),enemyData_.GetSuitonEnemyViewDirection(i));
 	}
 	for (int i = 0; i < enemyData_.GetKatonEnemyCount(); i++)
 	{
@@ -115,12 +120,22 @@ void MainScene::Update(float deltaTime)
 		break;
 	case 1: // ゲームオーバー
 		gameOverView_.ShowGameOver(1,gameManager_.GetTimerModel().GetTimer()); // ゲームオーバー画面を表示
+		playerView_.AnimStop(); // プレイヤーのアニメーションを停止
+		for (int i = 0; i < enemyData_.GetMoveEnemyCount(); i++)
+		{
+			moveEnemyView_[i].AnimStop(); // 手裏剣のアニメーションを停止
+		}
 		if (InputSystem.Keyboard.wasPressedThisFrame.Enter) {
 			SceneManager.SetNextScene(NextScene::MainScene); // Enterキーが押されたらシーンをリセット
 		}
 		break;
 	case 2: // ゲームクリア
 		gameOverView_.ShowGameOver(2, gameManager_.GetTimerModel().GetTimer()); // ゲームクリア画面を表示
+		playerView_.AnimStop(); // プレイヤーのアニメーションを停止
+		for (int i = 0; i < enemyData_.GetMoveEnemyCount(); i++)
+		{
+			moveEnemyView_[i].AnimStop(); // 手裏剣のアニメーションを停止
+		}
 		if (InputSystem.Keyboard.wasPressedThisFrame.Enter) {
 			SceneManager.SetNextScene(NextScene::MainScene); // Enterキーが押されたらシーンをリセット
 		}

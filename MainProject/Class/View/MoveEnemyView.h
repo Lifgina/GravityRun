@@ -7,6 +7,7 @@ public:
 	void Load();
 	void Initialize(HE::Math::Vector2 initialPos,float apeearTime); // 初期化メソッド
 	void Update(HE::Math::Vector2 enemyPos,float timer);
+	void AnimStop() { moveEnemySprite_.anim.drawRectAnim.frameRate = 0; } // アニメーションを停止する
 
 
 private:

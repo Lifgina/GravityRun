@@ -35,7 +35,7 @@ private:
 	//プランナーがいじっていい変数ここまで
 	
 	//以下デバッグ用
-	bool isDebugMode_ = true; // デバッグモードかどうか
+	bool isDebugMode_ = false; // デバッグモードかどうか
 
 
 	//以下クラス内で使用する変数。

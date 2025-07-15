@@ -11,6 +11,6 @@ public:
 
 private:
 	
-	HE::Sprite katonEnemySprite_; // 水遁の術の敵のスプライト
-	HE::Sprite katonEnemyAttackSprite_; // 水遁の術の攻撃のスプライト
+	HE::Sprite katonEnemySprite_; // 火遁の術の敵のスプライト
+	HE::Sprite katonEnemyAttackSprite_; // 火遁の術の攻撃のスプライト
 };

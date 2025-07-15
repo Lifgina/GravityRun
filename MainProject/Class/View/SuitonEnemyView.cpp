@@ -8,19 +8,23 @@ using namespace HE;
 
 void SuitonEnemyView::Load()
 {
-	suitonEnemySprite_ = HE::Sprite("");
+	suitonEnemySprite_ = HE::Sprite("SuitonEnemy.png");
 	suitonEnemyAttackSprite_ = HE::Sprite("suiton.png");
 }
 
-void SuitonEnemyView::Initialize(Math::Vector2 ninjaPos, Math::Vector2 attackPos)
+void SuitonEnemyView::Initialize(Math::Vector2 ninjaPos, Math::Vector2 attackPos,float attackDirection)
 {
 	suitonEnemySprite_.params.pos = ninjaPos; // 水遁の術の敵の初期位置を設定
-	suitonEnemySprite_.params.siz = Math::Vector2(60.0f, 60.0f); // 水遁の術の敵のサイズを設定
-	suitonEnemySprite_.params.color = HE::Color(255, 255, 255, 255); // 水遁の術の敵の色を設定
+	suitonEnemySprite_.params.siz = Math::Vector2(64.0f, 64.0f); // 水遁の術の敵のサイズを設定
 	suitonEnemyAttackSprite_.params.pos = attackPos; // 水遁の術の攻撃の初期位置を設定
+	if (attackDirection == 1) {
+		suitonEnemyAttackSprite_.params.enableMirror(); // 攻撃方向が右の場合、スプライトを反転
+	}
+	else if(attackDirection==-1) {
+		suitonEnemyAttackSprite_.params.disableMirror(); // 攻撃方向が左の場合、スプライトを反転しない
+	}
 	suitonEnemyAttackSprite_.params.siz = Math::Vector2(1280.0f, 132.0f); // 水遁の術の攻撃のサイズを設定
-	suitonEnemyAttackSprite_.params.color = HE::Color(0, 0, 255, 200); // 水遁の術の攻撃の色を設定
-	RenderingPath->AddSprite(&suitonEnemySprite_, 0); // 水遁の術の敵のスプライトをレンダリングパスに追加
+	RenderingPath->AddSprite(&suitonEnemySprite_, 10); // 水遁の術の敵のスプライトをレンダリングパスに追加
 	RenderingPath->AddSprite(&suitonEnemyAttackSprite_, 0); // 水遁の術の攻撃のスプライトをレンダリングパスに追加
 }
 
