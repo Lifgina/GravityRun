@@ -27,6 +27,7 @@ public:
 	void KatonEnemyAttackSetup(int atkNo, float activateTime, float timeToAttack, float attackDuration, float attackAfterTime, float attackEnemyAmount);
 	const PlayerModel& GetPlayerModel() const { return playerModel_; }
 	const TimerModel& GetTimerModel() const { return timerModel_; }
+	const FloorModel& GetFloorModel(int floorID) const { return floorModel_[floorID]; } // 床のモデルを取得
 	const MoveEnemy& GetMoveEnemy(int enemyID) const { return moveEnemy_[enemyID]; }
 	const JutsuEnemy& GetSuitonEnemy(int enemyID) const { return suitonEnemy_[enemyID]; }
 	const JutsuEnemy& GetKatonEnemy(int enemyID) const { return katonEnemy_[enemyID]; }
@@ -37,6 +38,7 @@ public:
 	void GroundCollisionCheck();
 	void EnemyCollisionCheck(); 
 	int GetGameState() const { return gameState_; } // ゲームの状態を取得
+	int GetFloorCount() const { return floorCount_; } // 床の数を取得
 	float GetTimer() const { return timerModel_.GetTimer(); } // タイマーの値を取得
 	void ClearCheck(); // ゲームクリアのチェック
 

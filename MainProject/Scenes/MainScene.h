@@ -6,6 +6,7 @@
 #include "../Class/Model/EnemyData.h"
 #include "../Class/View/GameOverView.h"
 #include "../Class/View/PlayerView.h"
+#include "../Class/View/FloorView.h"
 #include "../Class/View/MoveEnemyView.h"
 #include "../Class/View/SuitonEnemyView.h"
 #include "../Class/View/KatonEnemyView.h"
@@ -35,6 +36,7 @@ public:
 
 	void NotificateTime();
 
+
 private:
 
 	//ゲームの処理部分に関わる変更できる変数
@@ -59,6 +61,7 @@ private:
 	EnemyData enemyData_; // 敵データのインスタンス
 	GameOverView gameOverView_; // ゲームオーバービューのインスタンス
 	PlayerView playerView_; // プレイヤーのビューのインスタンス
+	FloorView floorView_[25]; // 床のビューのインスタンス 
 	MoveEnemyView moveEnemyView_[2]; // 手裏剣のビューのインスタンス
 	SuitonEnemyView suitonEnemyView_[5]; // 水遁の術の敵のビューのインスタンス
 	KatonEnemyView katonEnemyView_[12]; // 火遁の術の敵のビューのインスタンス

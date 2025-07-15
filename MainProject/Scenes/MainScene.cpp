@@ -32,6 +32,10 @@ void MainScene::Load()
 	pillar_.Load();
 	seManager_.Load();
 	bgmManager_.Load();
+	for (int i = 0; i < floorData_.GetFloorCount(); i++)
+	{
+		floorView_[i].Load(floorData_.GetIsBreakable(i)); 
+	}
 	for (int i = 0; i < enemyData_.GetMoveEnemyCount(); i++)
 	{
 		moveEnemyView_[i].Load();
@@ -60,6 +64,7 @@ void MainScene::Initialize()
 	gameManager_.PlayerSetup(initialPlayerPosition_, leftEdge, rightEdge, isMovingToRightFirst_, isGravityUpwardFirst_, playerWidth_, playerHeight_);
 	for (int i = 0; i <floorData_.GetFloorCount(); i++)
 	{
+		floorView_[i].Initialize(floorData_.GetFloorPosition(i), floorData_.GetFloorHeight(i), floorData_.GetFloorWidth(i)); 
 		gameManager_.FloorSetup(i, floorData_.GetFloorPosition(i), floorData_.GetFloorHeight(i), floorData_.GetFloorWidth(i),floorData_.GetIsBreakable(i),floorData_.GetBreakTime(i));
 	}
 	for (int i = 0; i < enemyData_.GetSilentEnemyCount(); i++)
@@ -162,4 +167,9 @@ void MainScene::NotificateTime()
 void MainScene::MoniteringGameManager()
 {
 	gameState_ = gameManager_.GetGameState(); // ゲームオーバー状態を取得
+	for (int i = 0; i < gameManager_.GetFloorCount(); i++) {
+		if (gameManager_.GetFloorModel(i).GetIsBroken()) {
+			floorView_[i].FloorBreak(); // 床が壊れたら床のビューを更新
+		}
+	}
 }

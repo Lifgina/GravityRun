@@ -81,7 +81,7 @@ private:
 	};
 	//敵の向き　1:上向き　-1:下向き
 	//View側で使用
-	float silentEnemyDirection_[10] = {}; 
+	float silentEnemyDirection_[4] = {-1,-1,-1,-1}; 
 
 	//手裏剣のデータ
 	int MoveEnemyCount_ = 2; // 手裏剣の数

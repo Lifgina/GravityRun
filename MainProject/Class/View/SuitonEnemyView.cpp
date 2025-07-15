@@ -9,7 +9,7 @@ using namespace HE;
 void SuitonEnemyView::Load()
 {
 	suitonEnemySprite_ = HE::Sprite("");
-	suitonEnemyAttackSprite_ = HE::Sprite("");
+	suitonEnemyAttackSprite_ = HE::Sprite("suiton.png");
 }
 
 void SuitonEnemyView::Initialize(Math::Vector2 ninjaPos, Math::Vector2 attackPos)

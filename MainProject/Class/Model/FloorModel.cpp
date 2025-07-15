@@ -16,16 +16,16 @@ void FloorModel::Initialize(Math::Vector2 floorPosition, float floorWidth, float
 
 	isBroken_ = false; // 初期状態では壊れていない
 
-	draftSprite_ = HE::Sprite("");
-	draftSprite_.params.pos = floorPosition_;
-	draftSprite_.params.siz = Math::Vector2(floorWidth_, floorHeight_);
+	//draftSprite_ = HE::Sprite("");
+	//draftSprite_.params.pos = floorPosition_;
+	//draftSprite_.params.siz = Math::Vector2(floorWidth_, floorHeight_);
 
-	if (isBreakable_) {
-	    //壊れる床は黄色
-		draftSprite_.params.color = HE::Color(255, 255, 0, 255); // 黄色のスプライト
-	}
+	//if (isBreakable_) {
+	//    //壊れる床は黄色
+	//	draftSprite_.params.color = HE::Color(255, 255, 0, 255); // 黄色のスプライト
+	//}
 
-	RenderingPath->AddSprite(&draftSprite_, 0);
+	//RenderingPath->AddSprite(&draftSprite_, 0);
 
 
 }
@@ -55,7 +55,7 @@ void FloorModel::BreakFloor()
 {
 	if (!isBroken_ ) {
 		isBroken_ = true; // 床を壊れた状態にする
-		draftSprite_.SetHidden(true); // スプライトを非表示にする
+		//draftSprite_.SetHidden(true); // スプライトを非表示にする
 	}
 	else {
 		return; 

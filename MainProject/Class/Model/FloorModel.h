@@ -9,6 +9,7 @@ public:
 	HE::Math::Vector2 GetFloorPosition() const { return floorPosition_; } // °‚ÌˆÊ’u‚ğæ“¾
 	float GetFloorWidth() const { return floorWidth_; } // °‚Ì•‚ğæ“¾
 	float GetFloorHeight() const { return floorHeight_; } // °‚Ì‚‚³‚ğæ“¾
+	bool GetIsBroken() const { return isBroken_; } // °‚ª‰ó‚ê‚½‚©‚Ç‚¤‚©‚ğæ“¾
 	HE::Math::Rectangle GetCollision();
 	void Update(float timer);
 	void BreakFloor();
