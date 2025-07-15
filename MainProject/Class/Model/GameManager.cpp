@@ -48,9 +48,9 @@ void GameManager::SilentEnemySetup(int enemyID, HE::Math::Vector2 initialPos)
 	silentEnemy_[enemyID].Initialize(initialPos);
 }
 
-void GameManager::SuitonEnemyPositionSetup(int enemyID, HE::Math::Vector2 initialPos, float collisionHeight, float collisionWidth)
+void GameManager::SuitonEnemyPositionSetup(int enemyID, float posY, float collisionHeight, float collisionWidth,float attackDirection)
 {
-	suitonEnemy_[enemyID].Initialize(initialPos,collisionHeight,collisionWidth);
+	suitonEnemy_[enemyID].Initialize(posY,collisionHeight,collisionWidth,attackDirection);
 }
 void GameManager::SuitonEnemyAttackSetup(int atkNo, float activateTime, float timeToAttack, float attackDuration, float attackAfterTime,float attackEnemyAmount)
 {

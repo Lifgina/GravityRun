@@ -5,8 +5,8 @@
 class SuitonEnemyView {
 public:
 	void Load();
-	void Initialize(HE::Math::Vector2 ninjaPos, HE::Math::Vector2 attackPos,float attackDirection);
-	void Update(bool isActive,int suitonEnemyState);
+	void Initialize(HE::Math::Vector2 ninjaPos,float attackDirection);
+	void Update(bool isActive, int suitonEnemyState, HE::Math::Vector2 suitonAttackPos);
 
 
 private:

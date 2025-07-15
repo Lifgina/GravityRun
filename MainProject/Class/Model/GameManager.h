@@ -7,7 +7,8 @@
 #include "TimerModel.h"
 #include "MoveEnemy.h"
 #include "SilentEnemy.h"
-#include "JutsuEnemy.h"
+#include "KatonEnemy.h"
+#include "SuitonEnemy.h"
 
 /// <summary>
 /// GameManagerクラスはMainSceneからゲームの進行を管理する部分を切り離して作っているものなのでこれは実質的にMainScene
@@ -21,7 +22,7 @@ public:
 	void FloorSetup(int floorID,HE::Math::Vector2 floorPos,float floorHeight,float floorWidth,bool isBreakable,float breakTime);
 	void MoveEnemySetup(int enemyID,float timeToActive, float enemySpeed, float firstDirection,HE::Math::Vector2 initialPos, float maxRange, float minRange);
 	void SilentEnemySetup(int enemyID, HE::Math::Vector2 initialPos);
-	void SuitonEnemyPositionSetup(int enemyID, HE::Math::Vector2 initialPos,float collisionHeight,float collisionWidth);
+	void SuitonEnemyPositionSetup(int enemyID,float posY,float collisionHeight,float collisionWidth,float attackDirection);
 	void SuitonEnemyAttackSetup(int atkNo, float activateTime, float timeToAttack, float attackDuration, float attackAfterTime,float attackEnemyAmount);
 	void KatonEnemyPositionSetup(int enemyID, HE::Math::Vector2 initialPos, float collisionHeight, float collisionWidth);
 	void KatonEnemyAttackSetup(int atkNo, float activateTime, float timeToAttack, float attackDuration, float attackAfterTime, float attackEnemyAmount);
@@ -29,8 +30,8 @@ public:
 	const TimerModel& GetTimerModel() const { return timerModel_; }
 	const FloorModel& GetFloorModel(int floorID) const { return floorModel_[floorID]; } // 床のモデルを取得
 	const MoveEnemy& GetMoveEnemy(int enemyID) const { return moveEnemy_[enemyID]; }
-	const JutsuEnemy& GetSuitonEnemy(int enemyID) const { return suitonEnemy_[enemyID]; }
-	const JutsuEnemy& GetKatonEnemy(int enemyID) const { return katonEnemy_[enemyID]; }
+	const SuitonEnemy& GetSuitonEnemy(int enemyID) const { return suitonEnemy_[enemyID]; }
+	const KatonEnemy& GetKatonEnemy(int enemyID) const { return katonEnemy_[enemyID]; }
 	void Update();
 	void SuitonEnemyAttack(); // 水遁の術の攻撃を更新
 	void KatonEnemyAttack(); // 火遁の術の攻撃を更新
@@ -51,8 +52,8 @@ private:
 	TimerModel timerModel_; // タイマーのモデル
 	MoveEnemy moveEnemy_[64]; // 手裏剣のモデル 全ステージの最大の数を配列数に記入
 	SilentEnemy silentEnemy_[64]; // まきびしのモデル 全ステージの最大の数を配列数に記入
-	JutsuEnemy suitonEnemy_[5]; // 水遁の術のモデル
-	JutsuEnemy katonEnemy_[64]; // 火遁の術のモデル
+	SuitonEnemy suitonEnemy_[5]; // 水遁の術のモデル
+	KatonEnemy katonEnemy_[64]; // 火遁の術のモデル
 
 	float suitonEnemyActivateTime_[32]; // 水遁の術がアクティブになる時間
 	float suitonEnemyTimeToAttack_[32]; // 水遁の術の攻撃までの時間

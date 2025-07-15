@@ -16,8 +16,8 @@ void KatonEnemyView::Initialize(Math::Vector2 ninjaPos, Math::Vector2 attackPos)
 {
 	katonEnemySprite_.params.pos = ninjaPos; // 火遁の術の敵の初期位置を設定
 	katonEnemySprite_.params.siz = Math::Vector2(64.0f, 64.0f); // 火遁の術の敵のサイズを設定
-	katonEnemyAttackSprite_.params.pos = attackPos; // 火遁の術の攻撃の初期位置を設定
-	katonEnemyAttackSprite_.params.siz = Math::Vector2(100.0f, 155.0f); // 火遁の術の攻撃のサイズを設定
+	katonEnemyAttackSprite_.params.pos = attackPos+Math::Vector2(-27.5f,0); // 火遁の術の攻撃の初期位置を設定
+	katonEnemyAttackSprite_.params.siz = Math::Vector2(155.0f, 155.0f); // 火遁の術の攻撃のサイズを設定
 	RenderingPath->AddSprite(&katonEnemySprite_, 10); // 火遁の術の敵のスプライトをレンダリングパスに追加
 	RenderingPath->AddSprite(&katonEnemyAttackSprite_, 0); // 火遁の術の攻撃のスプライトをレンダリングパスに追加
 }

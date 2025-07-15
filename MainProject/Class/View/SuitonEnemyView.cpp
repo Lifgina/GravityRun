@@ -12,11 +12,10 @@ void SuitonEnemyView::Load()
 	suitonEnemyAttackSprite_ = HE::Sprite("suiton.png");
 }
 
-void SuitonEnemyView::Initialize(Math::Vector2 ninjaPos, Math::Vector2 attackPos,float attackDirection)
+void SuitonEnemyView::Initialize(Math::Vector2 ninjaPos,float attackDirection)
 {
 	suitonEnemySprite_.params.pos = ninjaPos; // 水遁の術の敵の初期位置を設定
 	suitonEnemySprite_.params.siz = Math::Vector2(64.0f, 64.0f); // 水遁の術の敵のサイズを設定
-	suitonEnemyAttackSprite_.params.pos = attackPos; // 水遁の術の攻撃の初期位置を設定
 	if (attackDirection == 1) {
 		suitonEnemyAttackSprite_.params.enableMirror(); // 攻撃方向が右の場合、スプライトを反転
 	}
@@ -28,8 +27,9 @@ void SuitonEnemyView::Initialize(Math::Vector2 ninjaPos, Math::Vector2 attackPos
 	RenderingPath->AddSprite(&suitonEnemyAttackSprite_, 0); // 水遁の術の攻撃のスプライトをレンダリングパスに追加
 }
 
-void SuitonEnemyView::Update(bool isActive, int suitonEnemyState)
+void SuitonEnemyView::Update(bool isActive, int suitonEnemyState,Math::Vector2 suitonAttackPos)
 {
+	suitonEnemyAttackSprite_.params.pos = suitonAttackPos;
 	if (!isActive) {
 		suitonEnemySprite_.SetHidden(true);
 		suitonEnemyAttackSprite_.SetHidden(true);
