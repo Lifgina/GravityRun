@@ -26,7 +26,7 @@ private:
 	float speedChangeTime_ = 20.0f; // プレイヤーの速度変化まで時間
 	float gravity_ = 8000.0f; // 重力の強さ
 	float loopInterval_ = 0.5f; // 上下ループをした時に逆側から出てくるまでの時間補正
-	float gravityChangeCooltime_ = 0.4f; // 重力変更のクール時間
+	float gravityChangeCooltime_ = 0.1f; // 重力変更のクール時間
 
 	float collisionSizeCorrection_x_ = 0.0f; // 衝突判定のサイズ補正
 	float collisionSizeCorrection_y_ = 0.0f; // 衝突判定のサイズ補正

@@ -74,10 +74,10 @@ private:
 	
 	// “G‚ÌˆÊ’u
 	HE::Math::Vector2 SilentenemyPosition_[4] = {
-		HE::Math::Vector2(740.0f-64.0f,0.0f+20.0f),
-		HE::Math::Vector2(340.0f, 175.0f+20.0f),
-		HE::Math::Vector2(940.0f-64.0f, 350.0f +20.0f),
-		HE::Math::Vector2(640.0f-64.0f, 525.0f +20.0f),
+		HE::Math::Vector2(540.0f,20.0f),
+		HE::Math::Vector2(340.0f,195.0f),
+		HE::Math::Vector2(875.0f,370.0f),
+		HE::Math::Vector2(840.0f,545.0f),
 	};
 	//“G‚ÌŒü‚«@1:ãŒü‚«@-1:‰ºŒü‚«
 	//View‘¤‚Åg—p
@@ -87,7 +87,7 @@ private:
 	int MoveEnemyCount_ = 2; // è— Œ•‚Ì”
 	// “G‚Ì‰ŠúˆÊ’u
 	HE::Math::Vector2 moveEnemyPosition_[2] = {
-		HE::Math::Vector2(890.0f-16.0f, 350.0f-32.0f),
+		HE::Math::Vector2(940.0f+50-16, 350.0f-32.0f),
 		HE::Math::Vector2(390.0f-16.0f ,  525.0f-32.0f),
 	};
 	float moveEnemyTimeToActive_[2] = {10.0f,10.0f}; // “G‚ªƒAƒNƒeƒBƒu‚É‚È‚é‚Ü‚Å‚ÌŠÔ
@@ -124,46 +124,38 @@ private:
 
 	//ˆÈ‰º‚Ì”z—ñ‚ÍŠÔ‚Æ•R‚Ã‚¯‚Äg—p‚·‚é
 	int suitonAttackTimes_ = 4; // …“Ù”EÒ‚ÌUŒ‚‚Ì‰ñ”
-	float suitonEnemyApeearTime_[4] = { 5.0f-3,35.0f-3,50.0f-3,55.0f-3 }; // “G‚ª•\¦‚³‚ê‚éŠÔ(—\’›‚ğn‚ß‚éŠÔ)
+	float suitonEnemyApeearTime_[4] = { 30.0f-3,35.0f-3,50.0f-3,55.0f-3 }; // “G‚ª•\¦‚³‚ê‚éŠÔ(—\’›‚ğn‚ß‚éŠÔ)
 	float suitonEnemyAttackTime_[4] = { 3.0f,3.0f,3.0f,3.0f }; // “G‚ÌUŒ‚‚Ü‚Å‚ÌŠÔ(—\’›‰‰o‚ÌŠÔ)
 	float suitonEnemyAttackDuration_[4] = { 1.0f,1.0f,1.0f,1.0f }; // “G‚ÌUŒ‚‚Ì‘±ŠÔ
 	float suitonEnemyAttackAfterTime_[4] = { 0.2f,0.2f,0.2f,0.2f }; // “G‚ÌUŒ‚Œã‚Ì‘Ò‹@ŠÔ
 	int attackSuitonEnemyAmount_[4] = { 1,1,1,2 }; // “G‚ÌUŒ‚‚Ì”
 
 	//‰Î“Ù”EÒ‚Ìƒf[ƒ^
-	int katonEnemyCount_ = 12; // ‰Î“Ù”EÒ‚Ì”
+	int katonEnemyCount_ = 8; // ‰Î“Ù”EÒ‚Ì”
 
 	float katonEnemyCollisionHeight_ = 155.0f; // ‰Î“Ù”EÒ‚ÌÕ“Ë”»’è‚Ì‚‚³
 	float katonEnemyCollisionWidth_ = 100.0f; // ‰Î“Ù”EÒ‚ÌÕ“Ë”»’è‚Ì•
 
 	// “G‚ÌˆÊ’u
-	HE::Math::Vector2 katonEnemyModelPosition_[12] = {
+	HE::Math::Vector2 katonEnemyModelPosition_[8] = {
 		HE::Math::Vector2(340.0f,175.0f - 155.0f),
-		HE::Math::Vector2(540.0f,175.0f - 155.0f),
 		HE::Math::Vector2(740.0f,175.0f - 155.0f),
 		HE::Math::Vector2(440.0f,350.0f - 155.0f),
-		HE::Math::Vector2(840.0f,350.0f - 155.0f),
-		HE::Math::Vector2(1040.0f,350.0f - 155.0f),
+		HE::Math::Vector2(940.0f,350.0f - 155.0f),
 		HE::Math::Vector2(340.0f,525.0f - 155.0f),
 		HE::Math::Vector2(640.0f,525.0f - 155.0f),
-		HE::Math::Vector2(940.0f,525.0f - 155.0f),
 		HE::Math::Vector2(340.0f,700.0f - 155.0f),
-		HE::Math::Vector2(640.0f,700.0f - 155.0f),
 		HE::Math::Vector2(940.0f,700.0f - 155.0f)
 	};
 
-	HE::Math::Vector2 katonEnemyViewPosition_[12] = {
+	HE::Math::Vector2 katonEnemyViewPosition_[8] = {
 		HE::Math::Vector2(340.0f+18,175.0f - 64.0f),
-		HE::Math::Vector2(540.0f+18,175.0f - 64.0f),
 		HE::Math::Vector2(740.0f+18,175.0f - 64.0f),
 		HE::Math::Vector2(440.0f+18,350.0f - 64.0f),
-		HE::Math::Vector2(840.0f+18,350.0f - 64.0f),
-		HE::Math::Vector2(1040.0f+18,350.0f - 64.0f),
+		HE::Math::Vector2(940.0f+18,350.0f - 64.0f),
 		HE::Math::Vector2(340.0f+18,525.0f - 64.0f),
 		HE::Math::Vector2(640.0f+18,525.0f - 64.0f),
-		HE::Math::Vector2(940.0f+18,525.0f - 64.0f),
 		HE::Math::Vector2(340.0f+18,700.0f - 64.0f),
-		HE::Math::Vector2(640.0f+18,700.0f - 64.0f),
 		HE::Math::Vector2(940.0f+18,700.0f - 64.0f)
 	};
 

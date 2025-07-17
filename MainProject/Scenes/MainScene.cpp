@@ -120,6 +120,7 @@ void MainScene::Update(float deltaTime)
 		break;
 	case 1: // ゲームオーバー
 		gameOverView_.ShowGameOver(1,gameManager_.GetTimerModel().GetTimer()); // ゲームオーバー画面を表示
+		timerView_.HideNotification(); // タイマーの通知を非表示
 		playerView_.AnimStop(); // プレイヤーのアニメーションを停止
 		for (int i = 0; i < enemyData_.GetMoveEnemyCount(); i++)
 		{
@@ -131,6 +132,7 @@ void MainScene::Update(float deltaTime)
 		break;
 	case 2: // ゲームクリア
 		gameOverView_.ShowGameOver(2, gameManager_.GetTimerModel().GetTimer()); // ゲームクリア画面を表示
+		timerView_.HideNotification(); // タイマーの通知を非表示s
 		playerView_.AnimStop(); // プレイヤーのアニメーションを停止
 		for (int i = 0; i < enemyData_.GetMoveEnemyCount(); i++)
 		{
@@ -139,6 +141,8 @@ void MainScene::Update(float deltaTime)
 		if (InputSystem.Keyboard.wasPressedThisFrame.Enter) {
 			SceneManager.SetNextScene(NextScene::MainScene); // Enterキーが押されたらシーンをリセット
 		}
+		break;
+	case 3://ゲーム開始前
 		break;
 	}
 	Scene::Update(deltaTime);

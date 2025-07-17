@@ -101,6 +101,7 @@ void GameManager::Update()
 	}
 	SuitonEnemyAttack(); // 水遁の術の攻撃を更新
 	KatonEnemyAttack(); // 火遁の術の攻撃を更新
+	ClearCheck(); // ゲームクリアのチェック
 
 }
 

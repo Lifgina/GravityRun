@@ -21,7 +21,7 @@ void PlayerView::Initialize()
 	// アニメーションの設定
 	playerSprite_.anim = Sprite::Anim();
 	playerSprite_.anim.repeatable = true;                       // ループするかしないか
-	playerSprite_.anim.drawRectAnim.frameRate = 10;             // アニメーションの速度
+	playerSprite_.anim.drawRectAnim.frameRate = 15;             // アニメーションの速度
 	playerSprite_.anim.drawRectAnim.frameCount = 6;             // 画像にアニメーションが何コマあるか
 	playerSprite_.anim.drawRectAnim.horizontalFrameCount = 6;   // 横に並んでいるコマ数
 }

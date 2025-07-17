@@ -14,12 +14,6 @@ void SuitonEnemy::Load()
 void SuitonEnemy::Initialize(float enemyPosY, float collisionHeight, float collisionWidth,float attackDirection)
 {
 	attackDirection_ = attackDirection; // 攻撃の方向を設定（1: 右, -1: 左）
-	if (attackDirection_ == 1) {
-		enemyPosition_.x = -collisionWidth;
-	}
-	else if (attackDirection == -1) {
-		enemyPosition_.x = RenderingPath->GetLogicalWidth();
-	}
 	enemyPosition_.y = enemyPosY; // 敵の初期位置を設定
 	collisionHeight_ = collisionHeight; // 敵の衝突判定の高さを設定
 	collisionWidth_ = collisionWidth; // 敵の衝突判定の幅を設定
@@ -59,6 +53,12 @@ void SuitonEnemy::Update(float timer)
 
 void SuitonEnemy::Activate(float timer,float timeToAttack,float attackDuration,float attackAfterTime)
 {
+	if (attackDirection_ == 1) {
+		enemyPosition_.x = -collisionWidth_;
+	}
+	else if (attackDirection_ == -1) {
+		enemyPosition_.x = RenderingPath->GetLogicalWidth();
+	}
 	if (!isActive_) {
 		isActive_ = true; // 敵をアクティブにする
 		activateTime_ = timer; // アクティブになった時間を記録
