@@ -9,6 +9,7 @@
 #include "SilentEnemy.h"
 #include "KatonEnemy.h"
 #include "SuitonEnemy.h"
+#include "PlayerInvincible.h"
 
 /// <summary>
 /// GameManagerクラスはMainSceneからゲームの進行を管理する部分を切り離して作っているものなのでこれは実質的にMainScene
@@ -48,6 +49,7 @@ public:
 
 private:
 	PlayerModel playerModel_; // プレイヤーのモデル
+	PlayerInvincible playerInvincible_; // プレイヤーの無敵状態のモデル
 	FloorModel floorModel_[128]; // 床のモデル 全ステージの最大の数を配列数に記入
 	TimerModel timerModel_; // タイマーのモデル
 	MoveEnemy moveEnemy_[64]; // 手裏剣のモデル 全ステージの最大の数を配列数に記入

@@ -26,8 +26,8 @@ void MoveEnemyView::Initialize(Math::Vector2 initialPos,float appearTime)
 	moveEnemySprite_.anim = Sprite::Anim();
 	moveEnemySprite_.anim.repeatable = true;                       // ループするかしないか
 	moveEnemySprite_.anim.drawRectAnim.frameRate = 0;             // アニメーションの速度
-	moveEnemySprite_.anim.drawRectAnim.frameCount = 6;             // 画像にアニメーションが何コマあるか
-	moveEnemySprite_.anim.drawRectAnim.horizontalFrameCount = 6;   // 横に並んでいるコマ数
+	moveEnemySprite_.anim.drawRectAnim.frameCount = 5;             // 画像にアニメーションが何コマあるか
+	moveEnemySprite_.anim.drawRectAnim.horizontalFrameCount = 5;   // 横に並んでいるコマ数
 	
 }
 

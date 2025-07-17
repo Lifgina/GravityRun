@@ -17,6 +17,7 @@ void GameManager::Load()
 void GameManager::Initialize(float timelimit,int floorCount, int silentEnemyCount, int moveEnemyCount, int suitonEnemyCount, int suitonAttackCount,int katonEnemyCount, int katonAttackCount)
 {
 	timerModel_.Initialize(timelimit);
+	playerInvincible_.Initialize(); // プレイヤーの無敵状態を初期化
 	floorCount_ = floorCount; // 床の数を設定
 	silentEnemyCount_ = silentEnemyCount; // まきびしの数を設定
 	moveEnemyCount_ = moveEnemyCount; // 手裏剣の数を設定
@@ -128,6 +129,7 @@ void GameManager::EnemyCollisionCheck()
 		Math::Rectangle enemy_collision = moveEnemy_[i].GetCollision();
 		if (player_collision.Intersects(enemy_collision))
 		{
+			if (playerInvincible_.GetIsInvincible())return;
 			gameState_ = 1; // プレイヤーが手裏剣に衝突した場合、ゲームオーバー状態にする
 			return;
 		}
@@ -137,6 +139,7 @@ void GameManager::EnemyCollisionCheck()
 		Math::Rectangle enemy_collision = silentEnemy_[i].GetCollision();
 		if (player_collision.Intersects(enemy_collision))
 		{
+			if (playerInvincible_.GetIsInvincible())return;
 			gameState_ = 1; // プレイヤーがまきびしに衝突した場合、ゲームオーバー状態にする
 			return;
 		}
@@ -146,6 +149,7 @@ void GameManager::EnemyCollisionCheck()
 		Math::Rectangle enemy_collision = suitonEnemy_[i].GetCollision();
 		if (player_collision.Intersects(enemy_collision))
 		{
+			if (playerInvincible_.GetIsInvincible())return;
 			gameState_ = 1; // プレイヤーが水遁の術の敵に衝突した場合、ゲームオーバー状態にする
 			return;
 		}
@@ -155,6 +159,7 @@ void GameManager::EnemyCollisionCheck()
 		Math::Rectangle enemy_collision = katonEnemy_[i].GetCollision();
 		if (player_collision.Intersects(enemy_collision))
 		{
+			if (playerInvincible_.GetIsInvincible())return;
 			gameState_ = 1; // プレイヤーが火遁の術の敵に衝突した場合、ゲームオーバー状態にする
 			return;
 		}
