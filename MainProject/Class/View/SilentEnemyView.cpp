@@ -22,3 +22,7 @@ void SilentEnemyView::Initialize(Math::Vector2 pos, float spriteDirection)
 	}
 
 }
+void SilentEnemyView::Update(bool isActive)
+{
+	silentEnemySprite_.SetHidden(!isActive); // ‚Ü‚«‚Ñ‚µ‚Ì•\¦/”ñ•\¦‚ğØ‚è‘Ö‚¦‚é
+}

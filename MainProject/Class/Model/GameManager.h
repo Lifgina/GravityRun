@@ -10,6 +10,7 @@
 #include "KatonEnemy.h"
 #include "SuitonEnemy.h"
 #include "PlayerInvincible.h"
+#include "InvincibleItemModel.h"
 
 /// <summary>
 /// GameManagerクラスはMainSceneからゲームの進行を管理する部分を切り離して作っているものなのでこれは実質的にMainScene
@@ -22,7 +23,7 @@ public:
 	void PlayerSetup(HE::Math::Vector2 initialPos, float leftEdge, float rightEdge, bool isMovingToRightFirst, bool isGravityUpwardFirst, float playerWidth, float playerHeight);
 	void FloorSetup(int floorID,HE::Math::Vector2 floorPos,float floorHeight,float floorWidth,bool isBreakable,float breakTime);
 	void MoveEnemySetup(int enemyID,float timeToActive, float enemySpeed, float firstDirection,HE::Math::Vector2 initialPos, float maxRange, float minRange);
-	void SilentEnemySetup(int enemyID, HE::Math::Vector2 initialPos);
+	void SilentEnemySetup(int enemyID, HE::Math::Vector2 initialPos,float activateTime,float activateDuration);
 	void SuitonEnemyPositionSetup(int enemyID,float posY,float collisionHeight,float collisionWidth,float attackDirection);
 	void SuitonEnemyAttackSetup(int atkNo, float activateTime, float timeToAttack, float attackDuration, float attackAfterTime,float attackEnemyAmount);
 	void KatonEnemyPositionSetup(int enemyID, HE::Math::Vector2 initialPos, float collisionHeight, float collisionWidth);
@@ -33,12 +34,17 @@ public:
 	const MoveEnemy& GetMoveEnemy(int enemyID) const { return moveEnemy_[enemyID]; }
 	const SuitonEnemy& GetSuitonEnemy(int enemyID) const { return suitonEnemy_[enemyID]; }
 	const KatonEnemy& GetKatonEnemy(int enemyID) const { return katonEnemy_[enemyID]; }
+	const SilentEnemy& GetSilentEnemy(int enemyID) const { return silentEnemy_[enemyID]; }
+	const InvincibleItemModel& GetInvincibleItemModel() const { return invincibleItemModel_; } // 無敵アイテムのモデルを取得
+	const PlayerInvincible& GetPlayerInvincible() const { return playerInvincible_; } // プレイヤーの無敵状態のモデルを取得
 	void Update();
 	void SuitonEnemyAttack(); // 水遁の術の攻撃を更新
 	void KatonEnemyAttack(); // 火遁の術の攻撃を更新
+	void InvincibleItemAperance(); // 無敵アイテムの出現処理
 	void GravityChange() { playerModel_.GravityChange(timerModel_.GetTimer()); } // プレイヤーの移動方向を変更する
 	void GroundCollisionCheck();
 	void EnemyCollisionCheck(); 
+	void ItemCollisionCheck(); // アイテムとの衝突チェック
 	int GetGameState() const { return gameState_; } // ゲームの状態を取得
 	int GetFloorCount() const { return floorCount_; } // 床の数を取得
 	float GetTimer() const { return timerModel_.GetTimer(); } // タイマーの値を取得
@@ -49,6 +55,7 @@ public:
 
 private:
 	PlayerModel playerModel_; // プレイヤーのモデル
+	InvincibleItemModel invincibleItemModel_; // 無敵アイテムのモデル
 	PlayerInvincible playerInvincible_; // プレイヤーの無敵状態のモデル
 	FloorModel floorModel_[128]; // 床のモデル 全ステージの最大の数を配列数に記入
 	TimerModel timerModel_; // タイマーのモデル
@@ -71,7 +78,7 @@ private:
 	int attackKatonEnemyAmount_[32]; // 火遁の術の攻撃で出現する敵の数
 	bool isAtttackedKatonEnemy_[32]; // 火遁の術の攻撃が行われたかどうか
 
-	
+	bool isInvincibleItemAppered_; // 無敵アイテムが出現したかどうか 
 
 	int floorCount_ ; // 床の数
 	int silentEnemyCount_; // まきびしの数

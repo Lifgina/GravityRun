@@ -22,7 +22,11 @@ public:
 	float GetMoveEnemyMaxRange_X(int index) const { return moveEnemyMaxRange_X_[index]; }
 
 	// 敵がアクティブになるまでの時間を取得
+	float GetSilentEnemyTimeToActive(int index) const { return silentEnemyTimeToActive_[index]; }
 	float GetMoveEnemyTimeToActive(int index) const { return moveEnemyTimeToActive_[index]; }
+
+	// 敵がアクティブになっている時間を取得
+	float GetSilentEnemyActiveDuration(int index) const { return silentEnemyActiveDuration_[index]; }
 
 	// 水遁忍者のデータを取得
 	// 水遁忍者の位置を取得
@@ -79,6 +83,10 @@ private:
 		HE::Math::Vector2(875.0f,370.0f),
 		HE::Math::Vector2(840.0f,545.0f),
 	};
+
+	//敵の存在時間
+	float silentEnemyTimeToActive_[4] = { 0.0f,0.0f,0.0f,0.0f }; // 敵がアクティブになるまでの時間
+	float silentEnemyActiveDuration_[4] = { 10.0f,99.0f,99.0f,99.0f }; // 敵がアクティブになっている時間、ずっと残す場合は制限時間以上を設定する
 	//敵の向き　1:上向き　-1:下向き
 	//View側で使用
 	float silentEnemyDirection_[4] = {-1,-1,-1,-1}; 

@@ -6,7 +6,7 @@ class PlayerView {
 public:
 	void Load();
 	void Initialize(); // プレイヤーのスプライトを表示する
-	void Update(HE::Math::Vector2 playerPos, bool isMovingRight, bool isGravityUp);
+	void Update(HE::Math::Vector2 playerPos, bool isMovingRight, bool isGravityUp,bool isInvincible);
 	void AnimStop() { playerSprite_.anim.drawRectAnim.frameRate = 0; ; } // アニメーションを停止する
 
 

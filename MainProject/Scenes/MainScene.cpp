@@ -30,6 +30,7 @@ void MainScene::Load()
 	playerView_.Load();
 	timerView_.Load();
 	pillar_.Load();
+	invincibleItemView_.Load();
 	seManager_.Load();
 	bgmManager_.Load();
 	for (int i = 0; i < floorData_.GetFloorCount(); i++)
@@ -63,6 +64,7 @@ void MainScene::Initialize()
 	timerView_.Initialize(); // タイマーの初期化
 	bg_.Initialize(); // 背景の初期化
 	pillar_.Initialize(); // 柱の初期化
+	invincibleItemView_.Initialize(); // 無敵アイテムの初期化
 	gameState_= 3; // ゲームオーバー状態を初期化
 	gameManager_.Initialize(timeLimit_, floorData_.GetFloorCount(), enemyData_.GetSilentEnemyCount(), enemyData_.GetMoveEnemyCount(), enemyData_.GetSuitonEnemyCount(), enemyData_.GetSuitonAttackTimes(),enemyData_.GetKatonEnemyCount(),enemyData_.GetKatonAttackTimes());
 	gameManager_.PlayerSetup(initialPlayerPosition_, leftEdge, rightEdge, isMovingToRightFirst_, isGravityUpwardFirst_, playerWidth_, playerHeight_);
@@ -74,7 +76,7 @@ void MainScene::Initialize()
 	for (int i = 0; i < enemyData_.GetSilentEnemyCount(); i++)
 	{
 		silentEnemyView_[i].Initialize(enemyData_.GetSilentEnemyPosition(i),enemyData_.GetSilentEnemyDirection(i));
-		gameManager_.SilentEnemySetup(i, enemyData_.GetSilentEnemyPosition(i));
+		gameManager_.SilentEnemySetup(i, enemyData_.GetSilentEnemyPosition(i),enemyData_.GetSilentEnemyTimeToActive(i),enemyData_.GetSilentEnemyActiveDuration(i));
 	}
 	for (int i = 0; i < enemyData_.GetMoveEnemyCount(); i++)
 	{
@@ -113,7 +115,8 @@ void MainScene::Update(float deltaTime)
 			gameManager_.GravityChange(); // スペースキーが押されたら重力の向きを変更
 		}
 		gameManager_.Update();
-		playerView_.Update(gameManager_.GetPlayerModel().GetPlayerPosition(),gameManager_.GetPlayerModel().GetIsMovingToRight(),gameManager_.GetPlayerModel().GetIsGravityUpward()); // プレイヤーの位置を更新
+		playerView_.Update(gameManager_.GetPlayerModel().GetPlayerPosition(),gameManager_.GetPlayerModel().GetIsMovingToRight(),gameManager_.GetPlayerModel().GetIsGravityUpward(),gameManager_.GetPlayerInvincible().GetIsInvincible()); // プレイヤーの位置を更新
+		invincibleItemView_.Update(gameManager_.GetInvincibleItemModel().GetItemPosition(),gameManager_.GetInvincibleItemModel().GetIsActive()); // 無敵アイテムの位置を更新
 		EnemyViewUpdate(); // 敵のビューを更新
 		NotificateTime(); // タイマーの通知を表示
 
@@ -150,6 +153,9 @@ void MainScene::Update(float deltaTime)
 
 
 void MainScene::EnemyViewUpdate() {
+	for (int i = 0; i < enemyData_.GetSilentEnemyCount(); i++) {
+		silentEnemyView_[i].Update(gameManager_.GetSilentEnemy(i).GetIsActive());
+	}
 	for (int i = 0; i < enemyData_.GetMoveEnemyCount(); i++)
 	{
 		moveEnemyView_[i].Update(gameManager_.GetMoveEnemy(i).GetEnemyPosition(), gameManager_.GetTimerModel().GetTimer());

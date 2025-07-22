@@ -25,7 +25,7 @@ void PlayerView::Initialize()
 	playerSprite_.anim.drawRectAnim.frameCount = 6;             // 画像にアニメーションが何コマあるか
 	playerSprite_.anim.drawRectAnim.horizontalFrameCount = 6;   // 横に並んでいるコマ数
 }
-void PlayerView::Update(Math::Vector2 playerPos,bool isMovingRight,bool isGravityUp)
+void PlayerView::Update(Math::Vector2 playerPos,bool isMovingRight,bool isGravityUp,bool isInvincible)
 {
 	playerSprite_.params.pos.x = playerPos.x; // プレイヤーの位置を更新
 	if (isGravityUp) {
@@ -45,6 +45,11 @@ void PlayerView::Update(Math::Vector2 playerPos,bool isMovingRight,bool isGravit
 		playerSprite_.params.disableMirror();
 	}
 
-
+	if (isInvincible) {
+		playerSprite_.params.color = HE::Color(255, 255, 255, 150); // 無敵状態の時は透明にする
+	}
+	else {
+		playerSprite_.params.color = HE::Color(255, 255, 255, 255); 
+	}
 
 }

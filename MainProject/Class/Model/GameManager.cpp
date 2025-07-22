@@ -26,6 +26,7 @@ void GameManager::Initialize(float timelimit,int floorCount, int silentEnemyCoun
 	katonEnemyCount_ = katonEnemyCount; // 火遁の術の敵の数を設定
 	katonAttackCount_ = katonAttackCount; // 火遁の術の攻撃の回数を設定
 	gameState_ = 0; // ゲーム状態を初期化
+	isInvincibleItemAppered_ = false; // 無敵アイテムが出現していない状態を初期化
 }
 
 void GameManager::PlayerSetup(HE::Math::Vector2 initialPos, float leftEdge, float rightEdge, bool isMovingToRightFirst, bool isGravityUpwardFirst, float playerWidth, float playerHeight)
@@ -43,10 +44,10 @@ void GameManager::MoveEnemySetup(int enemyID, float timeToActive,float enemySpee
 	moveEnemy_[enemyID].Initialize(timeToActive,enemySpeed, firstDirection,initialPos, maxRange, minRange);
 }
 
-void GameManager::SilentEnemySetup(int enemyID, HE::Math::Vector2 initialPos)
+void GameManager::SilentEnemySetup(int enemyID, HE::Math::Vector2 initialPos, float activateTime, float activateDuration)
 {
 	silentEnemy_[enemyID].Load();
-	silentEnemy_[enemyID].Initialize(initialPos);
+	silentEnemy_[enemyID].Initialize(initialPos,activateTime,activateDuration);
 }
 
 void GameManager::SuitonEnemyPositionSetup(int enemyID, float posY, float collisionHeight, float collisionWidth,float attackDirection)
@@ -82,11 +83,18 @@ void GameManager::Update()
 {
 	timerModel_.Update();
 	playerModel_.Update(timerModel_.GetTimer());
+	playerInvincible_.Update(timerModel_.GetTimer()); // プレイヤーの無敵状態を更新
+	invincibleItemModel_.Update(timerModel_.GetTimer()); // 無敵アイテムの更新
 	GroundCollisionCheck();
 	EnemyCollisionCheck();
+	ItemCollisionCheck(); // アイテムとの衝突チェック
 	for (int i = 0; i < floorCount_; i++)
 	{
 		floorModel_[i].Update(timerModel_.GetTimer());
+	}
+	for (int i = 0; i < silentEnemyCount_; i++)
+	{
+		silentEnemy_[i].Update(timerModel_.GetTimer());
 	}
 	for (int i = 0; i < moveEnemyCount_; i++)
 	{
@@ -102,6 +110,7 @@ void GameManager::Update()
 	}
 	SuitonEnemyAttack(); // 水遁の術の攻撃を更新
 	KatonEnemyAttack(); // 火遁の術の攻撃を更新
+	InvincibleItemAperance(); // 無敵アイテムの出現処理
 	ClearCheck(); // ゲームクリアのチェック
 
 }
@@ -123,13 +132,13 @@ void GameManager::GroundCollisionCheck()
 
 void GameManager::EnemyCollisionCheck()
 {
+	if (playerInvincible_.GetIsInvincible())return;
 	Math::Rectangle player_collision = playerModel_.GetCollision();
 	for (int i = 0; i < moveEnemyCount_; i++)
 	{
 		Math::Rectangle enemy_collision = moveEnemy_[i].GetCollision();
 		if (player_collision.Intersects(enemy_collision))
 		{
-			if (playerInvincible_.GetIsInvincible())return;
 			gameState_ = 1; // プレイヤーが手裏剣に衝突した場合、ゲームオーバー状態にする
 			return;
 		}
@@ -139,7 +148,6 @@ void GameManager::EnemyCollisionCheck()
 		Math::Rectangle enemy_collision = silentEnemy_[i].GetCollision();
 		if (player_collision.Intersects(enemy_collision))
 		{
-			if (playerInvincible_.GetIsInvincible())return;
 			gameState_ = 1; // プレイヤーがまきびしに衝突した場合、ゲームオーバー状態にする
 			return;
 		}
@@ -149,7 +157,6 @@ void GameManager::EnemyCollisionCheck()
 		Math::Rectangle enemy_collision = suitonEnemy_[i].GetCollision();
 		if (player_collision.Intersects(enemy_collision))
 		{
-			if (playerInvincible_.GetIsInvincible())return;
 			gameState_ = 1; // プレイヤーが水遁の術の敵に衝突した場合、ゲームオーバー状態にする
 			return;
 		}
@@ -159,10 +166,20 @@ void GameManager::EnemyCollisionCheck()
 		Math::Rectangle enemy_collision = katonEnemy_[i].GetCollision();
 		if (player_collision.Intersects(enemy_collision))
 		{
-			if (playerInvincible_.GetIsInvincible())return;
 			gameState_ = 1; // プレイヤーが火遁の術の敵に衝突した場合、ゲームオーバー状態にする
 			return;
 		}
+	}
+}
+void GameManager::ItemCollisionCheck()
+{
+	Math::Rectangle player_collision = playerModel_.GetCollision();
+	Math::Rectangle item_collision = invincibleItemModel_.GetCollision();
+	if (player_collision.Intersects(item_collision))
+	{
+		playerInvincible_.SetInvincible(timerModel_.GetTimer()); // プレイヤーを無敵状態にする
+		invincibleItemModel_.SetInactive(); // アイテムを非アクティブにする
+		
 	}
 }
 
@@ -227,6 +244,15 @@ void GameManager::KatonEnemyAttack()
 			}
 			isAtttackedKatonEnemy_[i] = true;
 		}
+	}
+}
+
+void GameManager::InvincibleItemAperance()
+{
+	if (timerModel_.GetTimer() >= 10.0f &&!isInvincibleItemAppered_) 
+	{
+		isInvincibleItemAppered_ = true; 
+		invincibleItemModel_.SetActive(Math::Vector2 (340.0f,370.0f),timerModel_.GetTimer()); // 10秒経過したら無敵アイテムを出現させる
 	}
 }
 

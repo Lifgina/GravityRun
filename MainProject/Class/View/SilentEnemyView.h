@@ -6,6 +6,7 @@ class SilentEnemyView {
 public:
 	void Load();
 	void Initialize(HE::Math::Vector2 pos,float spriteDirection);
+	void Update(bool isActive);
 
 
 private:

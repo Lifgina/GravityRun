@@ -14,6 +14,7 @@
 #include "../Class/View/TimerView.h"
 #include "../Class/View/MainBG.h"
 #include "../Class/View/Pillar.h"
+#include "../Class/View/InvincibleItemView.h"
 #include "../Class/View/SEmanager.h"
 #include "../Class/View/BGMmanager.h"
 
@@ -67,6 +68,7 @@ private:
 	MoveEnemyView moveEnemyView_[2]; // 手裏剣のビューのインスタンス
 	SuitonEnemyView suitonEnemyView_[5]; // 水遁の術の敵のビューのインスタンス
 	KatonEnemyView katonEnemyView_[12]; // 火遁の術の敵のビューのインスタンス
+	InvincibleItemView invincibleItemView_; // 無敵アイテムのビューのインスタンス
 	TimerView timerView_; // タイマーのビューのインスタンス
 	MainBG bg_; // 背景のインスタンス
 	Pillar pillar_; // 柱のインスタンス
