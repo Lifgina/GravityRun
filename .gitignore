@@ -366,6 +366,7 @@ FodyWeavers.xsd
 .vs/
 Assets/Fonts/unitettc.exe
 Assets/Fonts/*.ttc
+Assets/Fonts/*.ttf
 Assets/Shaders/
 Assets/log.txt
 Build/
@@ -383,4 +384,5 @@ MainProject/stdafx.*
 MainProject/targetver.h
 packages/
 SAKANIN.sln
-.wav
+*.wav
+
