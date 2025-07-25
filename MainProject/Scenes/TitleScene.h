@@ -3,6 +3,7 @@
 #include "../HuEngine.h"
 #include "../Class/View/TitleBG.h"
 #include "../Class/View/MarkerView.h"
+#include "../Class/View/TutorialView.h"
 
 class TitleScene : public HE::Scene
 {
@@ -17,13 +18,15 @@ public:
 	void Terminate() override;
 
 	void Update(float deltaTime) override;
-	void SelectMenu() ;
+	void SelectMenu();
 	void MarkerUpdate();
 
 private:
 
 	TitleBG bg_;
 	MarkerView markerView_; // メニュー選択用のマーカー	
-	int selectedMenu_ ; // 0: Start, 1: Tutorial
-	int menuCount_ = 2; // メニューの数
+	TutorialView tutorialView_; // チュートリアル表示用のビュー
+	int selectedMenu_; // 0: Start, 1: Tutorial, 2: Exit
+	int titleState_ = 0; // タイトル画面の状態（0: メニュー選択, 1: チュートリアル表示)
+	int menuCount_ = 3; // メニューの数
 };

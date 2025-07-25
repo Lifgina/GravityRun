@@ -48,11 +48,15 @@ void MainScene::Load()
 	for (int i = 0; i < enemyData_.GetSuitonEnemyCount(); i++)
 	{
 		suitonEnemyView_[i].Load();
+		suitonFusumaView_[i].Load(0,1);
+		
 	}
 	for (int i = 0; i < enemyData_.GetKatonEnemyCount(); i++)
 	{
 		katonEnemyView_[i].Load();
+		katonFusumaView_[i].Load(1, 0);
 	}
+
 	Scene::Load();
 }
 
@@ -87,13 +91,17 @@ void MainScene::Initialize()
 	{
 		gameManager_.SuitonEnemyPositionSetup(i, enemyData_.GetSuitonEnemyModelPosition(i).y,enemyData_.GetSuitonEnemyCollisionHeight(),enemyData_.GetSuitonEnemyCollisionWidth(),enemyData_.GetSuitonEnemyDirection(i));
 		gameManager_.SuitonEnemyAttackSetup(i, enemyData_.GetSuitonEnemyApeearTime(i), enemyData_.GetSuitonEnemyAttackTime(i), enemyData_.GetSuitonEnemyAttackDuration(i), enemyData_.GetSuitonEnemyAttackAfterTime(i), enemyData_.GetAttackSuitonEnemyAmount(i));
-		suitonEnemyView_[i].Initialize(enemyData_.GetSuitonEnemyViewPosition(i), enemyData_.GetSuitonEnemyDirection(i));
+		suitonEnemyView_[i].Initialize(enemyData_.GetSuitonEnemyViewPosition(i), enemyData_.GetSuitonEnemyDirection(i),enemyData_.GetSuitonEnemyModelPosition(i));
+		suitonFusumaView_[i].Initialize(enemyData_.GetSuitonFusumaPosition(i)); // ふすまの初期化
+		isPrevSuitonEnemyActive_[i] = false; // 前の水遁の術の敵がアクティブだったかどうか
 	}
 	for (int i = 0; i < enemyData_.GetKatonEnemyCount(); i++)
 	{
 		gameManager_.KatonEnemyPositionSetup(i, enemyData_.GetKatonEnemyModelPosition(i), enemyData_.GetKatonEnemyCollisionHeight(), enemyData_.GetKatonEnemyCollisionWidth());
 		gameManager_.KatonEnemyAttackSetup(i, enemyData_.GetKatonEnemyApeearTime(i), enemyData_.GetKatonEnemyAttackTime(i), enemyData_.GetKatonEnemyAttackDuration(i), enemyData_.GetKatonEnemyAttackAfterTime(i), enemyData_.GetAttackKatonEnemyAmount(i));
 		katonEnemyView_[i].Initialize(enemyData_.GetKatonEnemyViewPosition(i), enemyData_.GetKatonEnemyModelPosition(i));
+		katonFusumaView_[i].Initialize(enemyData_.GetKatonFusumaPosition(i)); // ふすまの初期化
+		isPrevKatonEnemyActive_[i] = false; // 前の火遁の術の敵がアクティブだったかどうか
 	}
 	
 }
@@ -163,10 +171,19 @@ void MainScene::EnemyViewUpdate() {
 	for (int i = 0; i < enemyData_.GetSuitonEnemyCount(); i++)
 	{
 		suitonEnemyView_[i].Update(gameManager_.GetSuitonEnemy(i).GetIsActive(), gameManager_.GetSuitonEnemy(i).GetSuitonEnemyState(),gameManager_.GetSuitonEnemy(i).GetSuitonEnemyPosition());
+		if (isPrevSuitonEnemyActive_[i] != gameManager_.GetSuitonEnemy(i).GetIsActive()) {
+			suitonFusumaView_[i].Update(gameManager_.GetSuitonEnemy(i).GetIsActive()); // ふすまの表示を更新
+			isPrevSuitonEnemyActive_[i] = gameManager_.GetSuitonEnemy(i).GetIsActive(); // 前の水遁の術の敵がアクティブだったかどうかを更新
+		}
+	
 	}
 	for (int i = 0; i < enemyData_.GetKatonEnemyCount(); i++)
 	{
 		katonEnemyView_[i].Update(gameManager_.GetKatonEnemy(i).GetIsActive(), gameManager_.GetKatonEnemy(i).GetSuitonEnemyState());
+		if (isPrevKatonEnemyActive_[i] != gameManager_.GetKatonEnemy(i).GetIsActive()) {
+			katonFusumaView_[i].Update(gameManager_.GetKatonEnemy(i).GetIsActive()); // ふすまの表示を更新
+			isPrevKatonEnemyActive_[i] = gameManager_.GetKatonEnemy(i).GetIsActive(); // 前の火遁の術の敵がアクティブだったかどうかを更新
+		}
 	}
 }
 
@@ -175,7 +192,7 @@ void MainScene::NotificateTime()
 	bool notified = false;
 	for (int i = 0; i < notificationCount_; i++)
 	{
-		if (gameManager_.GetTimer() >= notificationTime_[i] && gameManager_.GetTimer() < notificationTime_[i] + notificatingTIme)
+		if (gameManager_.GetTimer() >= notificationTime_[i] && gameManager_.GetTimer() < notificationTime_[i] + notificatingTime)
 		{
 			timerView_.NotifiCateTime(timeLimit_ - notificationTime_[i]);
 			notified = true;

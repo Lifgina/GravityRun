@@ -11,4 +11,7 @@ public:
 
 private:
 	HE::Sprite backgroundSprite_; // 背景のスプライト
+	HE::Sprite ruleButtonSprite_; // ルールボタンのスプライト
+	HE::Sprite startButtonSprite_; // スタートボタンのスプライト
+	HE::Sprite exitButtonSprite_; // 終了ボタンのスプライト
 };

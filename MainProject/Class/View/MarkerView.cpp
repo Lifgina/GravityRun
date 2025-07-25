@@ -8,13 +8,10 @@ using namespace HE;
 
 void MarkerView::Load()
 {
-	markerSprite_ = Sprite("syuriken.png");
-	markerSprite_.params.enableDrawRect(Rectf(
-		0.0f, 0.0f, 512.0f, 512.0f
-	));
+	markerSprite_ = Sprite("cursor.png");
 
 	RenderingPath->AddSprite(&markerSprite_, 0); // レンダリングパスに追加
-	markerSprite_.params.siz = Math::Vector2(50.0f, 50.0f); // マーカーのサイズを設定
+	markerSprite_.params.siz = Math::Vector2(135.0f, 46.0f); // マーカーのサイズを設定
 	markerSprite_.params.pos = Math::Vector2(-1000.0f, 0.0f); // 初期位置を設定
 
 }

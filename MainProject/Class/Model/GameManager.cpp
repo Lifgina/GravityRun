@@ -26,7 +26,8 @@ void GameManager::Initialize(float timelimit,int floorCount, int silentEnemyCoun
 	katonEnemyCount_ = katonEnemyCount; // 火遁の術の敵の数を設定
 	katonAttackCount_ = katonAttackCount; // 火遁の術の攻撃の回数を設定
 	gameState_ = 0; // ゲーム状態を初期化
-	isInvincibleItemAppered_ = false; // 無敵アイテムが出現していない状態を初期化
+	isInvincibleItemAppered_[0] = false; // 無敵アイテムが出現していない状態を初期化
+	isInvincibleItemAppered_[1] = false; // 無敵アイテムが出現していない状態を初期化
 }
 
 void GameManager::PlayerSetup(HE::Math::Vector2 initialPos, float leftEdge, float rightEdge, bool isMovingToRightFirst, bool isGravityUpwardFirst, float playerWidth, float playerHeight)
@@ -132,7 +133,7 @@ void GameManager::GroundCollisionCheck()
 
 void GameManager::EnemyCollisionCheck()
 {
-	if (playerInvincible_.GetIsInvincible())return;
+	if (playerInvincible_.GetIsInvincible())return; // プレイヤーが無敵状態の場合、敵との衝突チェックをスキップ
 	Math::Rectangle player_collision = playerModel_.GetCollision();
 	for (int i = 0; i < moveEnemyCount_; i++)
 	{
@@ -249,10 +250,15 @@ void GameManager::KatonEnemyAttack()
 
 void GameManager::InvincibleItemAperance()
 {
-	if (timerModel_.GetTimer() >= 10.0f &&!isInvincibleItemAppered_) 
+	if (timerModel_.GetTimer() >= 15.0f &&!isInvincibleItemAppered_[0])
 	{
-		isInvincibleItemAppered_ = true; 
-		invincibleItemModel_.SetActive(Math::Vector2 (340.0f,370.0f),timerModel_.GetTimer()); // 10秒経過したら無敵アイテムを出現させる
+		isInvincibleItemAppered_[0] = true;
+		invincibleItemModel_.SetActive(Math::Vector2 (610.0f,202.5f),timerModel_.GetTimer()); // 15秒経過したら無敵アイテムを出現させる
+	}
+	if (timerModel_.GetTimer() >= 35.0f && !isInvincibleItemAppered_[1])
+	{
+		isInvincibleItemAppered_[1] = true;
+		invincibleItemModel_.SetActive(Math::Vector2(610.0f, 202.5f), timerModel_.GetTimer()); // 35秒経過したらもう一つの無敵アイテムを出現させる
 	}
 }
 

@@ -13,7 +13,7 @@ void PlayerView::Load()
 		0.0f, 0.0f, 1000.0f,1000.0f
 	));
 	playerSprite_.params.siz = Math::Vector2(playerWidth_, playerHeight_);
-	RenderingPath->AddSprite(&playerSprite_, 0); // スプライトをレンダリングパスに追加
+	RenderingPath->AddSprite(&playerSprite_, 120); // スプライトをレンダリングパスに追加
 }
 
 void PlayerView::Initialize()

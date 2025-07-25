@@ -11,6 +11,7 @@
 #include "../Class/View/MoveEnemyView.h"
 #include "../Class/View/SuitonEnemyView.h"
 #include "../Class/View/KatonEnemyView.h"
+#include "../Class/View/FusumaView.h"
 #include "../Class/View/TimerView.h"
 #include "../Class/View/MainBG.h"
 #include "../Class/View/Pillar.h"
@@ -54,8 +55,9 @@ private:
 	//ゲームの表示部分に関わる変更できる変数
 	int notificationCount_ = 2; // タイマーの通知のカウント
 	float notificationTime_[2] = {30.0f,50.0f}; // タイマーの通知を表示時間
-	float notificatingTIme = 2.0f; // タイマーの通知を表示する時間
-
+	float notificatingTime = 5.0f; // タイマーの通知を表示する時間
+	bool isPrevSuitonEnemyActive_[4] ; // 前の水遁の術の敵がアクティブだったかどうか
+	bool isPrevKatonEnemyActive_[8]; // 前の火遁の術の敵がアクティブだったかどうか
 
 	int gameState_ ; // ゲームの状態
 	GameManager gameManager_; // ゲームマネージャーのインスタンス
@@ -66,9 +68,11 @@ private:
 	FloorView floorView_[25]; // 床のビューのインスタンス 
 	SilentEnemyView silentEnemyView_[4]; // まきびしのビューのインスタンス
 	MoveEnemyView moveEnemyView_[2]; // 手裏剣のビューのインスタンス
-	SuitonEnemyView suitonEnemyView_[5]; // 水遁の術の敵のビューのインスタンス
-	KatonEnemyView katonEnemyView_[12]; // 火遁の術の敵のビューのインスタンス
+	SuitonEnemyView suitonEnemyView_[4]; // 水遁の術の敵のビューのインスタンス
+	KatonEnemyView katonEnemyView_[8]; // 火遁の術の敵のビューのインスタンス
 	InvincibleItemView invincibleItemView_; // 無敵アイテムのビューのインスタンス
+	FusumaView suitonFusumaView_[4]; // ふすまのビューのインスタンス
+	FusumaView katonFusumaView_[8]; // ふすまのビューのインスタンス
 	TimerView timerView_; // タイマーのビューのインスタンス
 	MainBG bg_; // 背景のインスタンス
 	Pillar pillar_; // 柱のインスタンス

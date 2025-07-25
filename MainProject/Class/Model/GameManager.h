@@ -78,7 +78,7 @@ private:
 	int attackKatonEnemyAmount_[32]; // 火遁の術の攻撃で出現する敵の数
 	bool isAtttackedKatonEnemy_[32]; // 火遁の術の攻撃が行われたかどうか
 
-	bool isInvincibleItemAppered_; // 無敵アイテムが出現したかどうか 
+	bool isInvincibleItemAppered_[2]; // 無敵アイテムが出現したかどうか 
 
 	int floorCount_ ; // 床の数
 	int silentEnemyCount_; // まきびしの数

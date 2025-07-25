@@ -13,4 +13,5 @@ private:
 	
 	HE::Sprite katonEnemySprite_; // 火遁の術の敵のスプライト
 	HE::Sprite katonEnemyAttackSprite_; // 火遁の術の攻撃のスプライト
+	HE::Sprite katonHitRangeSprite_; // 火遁の術の攻撃のヒット範囲のスプライト
 };

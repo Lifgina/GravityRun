@@ -32,6 +32,8 @@ public:
 	// 水遁忍者の位置を取得
 	HE::Math::Vector2 GetSuitonEnemyModelPosition(int index) const { return suitonEnemyModelPosition_[index]; }
 	HE::Math::Vector2 GetSuitonEnemyViewPosition(int index) const { return suitonEnemyViewPosition_[index]; }
+	// 水遁忍者のふすまの位置を取得
+	HE::Math::Vector2 GetSuitonFusumaPosition(int index) const { return suitonFusumaPosition_[index]; }
 	// 水遁忍者の向きを取得
 	int GetSuitonEnemyDirection(int index) const { return suitonEnemyDirection_[index]; }
 	// 水遁忍者の衝突判定の高さを取得
@@ -55,6 +57,8 @@ public:
 	//火遁忍者の位置を取得
 	HE::Math::Vector2 GetKatonEnemyModelPosition(int index) const { return katonEnemyModelPosition_[index]; }
 	HE::Math::Vector2 GetKatonEnemyViewPosition(int index) const { return katonEnemyViewPosition_[index]; }
+	//火遁忍者のふすまの位置を取得
+	HE::Math::Vector2 GetKatonFusumaPosition(int index) const { return katonFusumaPosition_[index]; }
 	//火遁忍者の衝突判定の高さを取得
 	float GetKatonEnemyCollisionHeight() const { return katonEnemyCollisionHeight_; }
 	//火遁忍者の衝突判定の幅を取得
@@ -86,7 +90,7 @@ private:
 
 	//敵の存在時間
 	float silentEnemyTimeToActive_[4] = { 0.0f,0.0f,0.0f,0.0f }; // 敵がアクティブになるまでの時間
-	float silentEnemyActiveDuration_[4] = { 10.0f,99.0f,99.0f,99.0f }; // 敵がアクティブになっている時間、ずっと残す場合は制限時間以上を設定する
+	float silentEnemyActiveDuration_[4] = { 99.0f,99.0f,99.0f,99.0f }; // 敵がアクティブになっている時間、ずっと残す場合は制限時間以上を設定する
 	//敵の向き　1:上向き　-1:下向き
 	//View側で使用
 	float silentEnemyDirection_[4] = {-1,-1,-1,-1}; 
@@ -128,6 +132,13 @@ private:
 		HE::Math::Vector2(40+18,700.0f -64.0f),
 	};
 
+	HE::Math::Vector2 suitonFusumaPosition_[4] = {
+		HE::Math::Vector2(1050.0f, 175.0f-187.5f),
+		HE::Math::Vector2(-30.0f, 350.0f-187.5f),
+		HE::Math::Vector2(1050.0f, 525.0f-187.5f),
+		HE::Math::Vector2(-30.0f, 700.0f-187.5f)
+	};
+
 	int suitonEnemyDirection_[4] = { -1,1,-1,1 }; // 敵の向き　1:右向き　-1:左向き、View側で使用
 
 	//以下の配列は時間と紐づけて使用する
@@ -165,6 +176,17 @@ private:
 		HE::Math::Vector2(640.0f+18,525.0f - 64.0f),
 		HE::Math::Vector2(340.0f+18,700.0f - 64.0f),
 		HE::Math::Vector2(940.0f+18,700.0f - 64.0f)
+	};
+
+	HE::Math::Vector2 katonFusumaPosition_[8] = {
+		HE::Math::Vector2(260.0f, 175.0f - 187.5f),
+		HE::Math::Vector2(660.0f, 175.0f - 187.5f),
+		HE::Math::Vector2(360.0f, 350.0f - 187.5f),
+		HE::Math::Vector2(860.0f, 350.0f - 187.5f),
+		HE::Math::Vector2(260.0f, 525.0f - 187.5f),
+		HE::Math::Vector2(560.0f, 525.0f - 187.5f),
+		HE::Math::Vector2(260.0f, 700.0f - 187.5f),
+		HE::Math::Vector2(860.0f, 700.0f - 187.5f)
 	};
 
 	//以下の配列は時間と紐づけて使用する

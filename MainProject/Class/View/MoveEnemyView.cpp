@@ -9,7 +9,7 @@ using namespace HE;
 void MoveEnemyView::Load()
 {
 	moveEnemySprite_ = HE::Sprite("syuriken.png");
-	RenderingPath->AddSprite(&moveEnemySprite_, 0); // スプライトをレンダリングパスに追加
+	RenderingPath->AddSprite(&moveEnemySprite_, 100); // スプライトをレンダリングパスに追加
 }
 
 void MoveEnemyView::Initialize(Math::Vector2 initialPos,float appearTime)

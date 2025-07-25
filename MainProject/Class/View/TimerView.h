@@ -7,9 +7,10 @@ public:
 	void Load();
 	void Initialize();
 	void NotifiCateTime(float timer);
-	void HideNotification() { timerSprite_.SetHidden(true); } // タイマーの通知を非表示にする
+	void HideNotification();// タイマーの通知を非表示にする
 
 
 private:
-	HE::SpriteFont timerSprite_; 
+	HE::Sprite timerSprite_10; 
+	HE::Sprite timerSprite_30; // タイマーのスプライト
 };
