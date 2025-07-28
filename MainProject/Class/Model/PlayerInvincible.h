@@ -8,6 +8,12 @@ public:
 	void Update(float timer);
 	void SetInvincible(float timer);
 	bool GetIsInvincible() const { return isInvincible_; } // ƒvƒŒƒCƒ„[‚ª–³“Gó‘Ô‚©‚Ç‚¤‚©‚ğæ“¾
+	float GetInvincibleRemainingTime(float timer) const {
+		if (isInvincible_) {
+			return invincibleDuration_ - (timer - invincibleStartTime_);
+		}
+		return 0.0f; // –³“Gó‘Ô‚Å‚È‚¢ê‡‚Í0‚ğ•Ô‚·
+	}
 
 private:
 	float invincibleDuration_ = 7.0f; // –³“Gó‘Ô‚Ì‘±ŠÔ

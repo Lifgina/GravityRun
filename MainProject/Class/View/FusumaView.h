@@ -6,7 +6,8 @@ class FusumaView {
 public:
 	void Load(int fusumaPattern,int fusumaColor);
 	void Initialize(HE::Math::Vector2 fusumaPos);
-	void Update(bool isOpened);
+	void FusumaMove(bool isOpened);
+	void Update();
 
 
 private:

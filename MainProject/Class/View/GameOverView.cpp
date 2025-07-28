@@ -8,58 +8,60 @@ using namespace HE;
 
 void GameOverView::Load()
 {
-    for (int i = 0; i < 2; i++) {
-        gameOverFont_[i].params.style = Font::AddFontStyle("Fonts/meiryob004.ttf");
-        RenderingPath->AddFont(&gameOverFont_[i], 1200);
-    }
-    draftSprite_ = HE::Sprite("");
-    RenderingPath->AddSprite(&draftSprite_, 1000);
+	genin_resultSprite_ = HE::Sprite("genin_result.png");
+	tyunin_resultSprite_ = HE::Sprite("tyunin_result.png");
+	jonin_resultSprite_ = HE::Sprite("jonin_result.png");
+	sakanin_resultSprite_ = HE::Sprite("sakanin_result.png");
+	RenderingPath->AddSprite(&genin_resultSprite_, 1000); // ゲームオーバー画面のスプライトをレンダリングパスに追加
+	RenderingPath->AddSprite(&tyunin_resultSprite_, 1000); // ゲームオーバー画面のスプライトをレンダリングパスに追加
+	RenderingPath->AddSprite(&jonin_resultSprite_, 1000); // ゲームオーバー画面のスプライトをレンダリングパスに追加
+	RenderingPath->AddSprite(&sakanin_resultSprite_, 1000); // ゲームオーバー画面のスプライトをレンダリングパスに追加
+
 }
 
 void GameOverView::Initialize()
 {
-    draftSprite_.params.siz = Math::Vector2(RenderingPath->GetLogicalWidth(), RenderingPath->GetLogicalHeight());
-    draftSprite_.params.color = HE::Color(255, 255, 255, 125); // 半透明の黒色
+	genin_resultSprite_.params.siz = HE::Math::Vector2(1280.0f, 720.0f); // ゲームオーバー画面のサイズを設定
+	tyunin_resultSprite_.params.siz = HE::Math::Vector2(1280.0f, 720.0f); // ゲームオーバー画面のサイズを設定
+	jonin_resultSprite_.params.siz = HE::Math::Vector2(1280.0f, 720.0f); // ゲームオーバー画面のサイズを設定
+	sakanin_resultSprite_.params.siz = HE::Math::Vector2(1280.0f, 720.0f); // ゲームオーバー画面のサイズを設定
 
-
-        gameOverFont_[0].params.size = 128;
-        gameOverFont_[0].params.posX = RenderingPath->GetLogicalWidth() / 2-320;
-        gameOverFont_[0].params.posY = RenderingPath->GetLogicalHeight() / 2-200;
-        gameOverFont_[1].params.size = 72;
-        gameOverFont_[1].params.posX = RenderingPath->GetLogicalWidth() / 2-250;
-        gameOverFont_[1].params.posY = RenderingPath->GetLogicalHeight() / 2 +64;
-        
-    
     HideGameOver(); // ゲームオーバー画面を非表示にする
 }
 
 void GameOverView::ShowGameOver(int gameState, float aliveTime)
 {
-    if (gameState == 0) {
-        return; // ゲームオーバー状態でない場合は何もしない
-    }
-    else if (gameState == 1) {
-        for (int i = 0; i < 2; i++) {
-            gameOverFont_[i].params.color = Color(255, 0, 0, 255); // ゲームオーバーのフォント色を赤に変更
-            gameOverFont_[i].SetHidden(false); // フォントを表示
-        }
-        gameOverFont_[0].SetText(L"Game Over");
-		gameOverFont_[1].SetText(std::to_wstring(static_cast<int>(aliveTime)) + L"秒生き残りました。"); // 生存時間を表示
-    }
-    else if (gameState == 2) {
-        for (int i = 0; i < 2; i++) {
-            gameOverFont_[i].params.color = Color(0, 255, 0, 255); // ゲームクリアのフォント色を緑に変更
-            gameOverFont_[i].SetHidden(false); // フォントを表示
-        }
-        gameOverFont_[0].SetText(L"Game Clear");
-    }
-    draftSprite_.SetHidden(false); // ゲームオーバー画面のスプライトを表示
+	switch (gameState)
+	{
+	case 0:
+		break;
+	case 1: // ゲームオーバー状態1
+		if (aliveTime < 20.0f) {
+			genin_resultSprite_.SetHidden(false); // ゲームオーバー画面を表示
+			break;
+		}
+		else if (aliveTime < 40.0f) {
+			tyunin_resultSprite_.SetHidden(false); // ゲームオーバー画面を表示
+			break;
+		}
+		else if (aliveTime < 60.0f) {
+			jonin_resultSprite_.SetHidden(false); // ゲームオーバー画面を表示
+			break;
+		}
+	
+	case 2:
+		sakanin_resultSprite_.SetHidden(false);
+		break;
+	case 3:
+		break;
+	}
+
 }
 
 void GameOverView::HideGameOver()
 {
-    for (int i = 0; i < 2; i++) {
-        gameOverFont_[i].SetHidden(true); // フォントを非表示
-    }
-    draftSprite_.SetHidden(true); // ゲームオーバー画面のスプライトを非表示
+	genin_resultSprite_.SetHidden(true); 
+	tyunin_resultSprite_.SetHidden(true); 
+	jonin_resultSprite_.SetHidden(true); 
+	sakanin_resultSprite_.SetHidden(true); 
 }

@@ -12,6 +12,11 @@ public:
 
 
 private:
-	HE::SpriteFont gameOverFont_[2]; // フォントスプライト
-	HE::Sprite draftSprite_; // ゲームオーバー画面のスプライト
+	
+	HE::Sprite genin_resultSprite_;
+	HE::Sprite tyunin_resultSprite_;
+	HE::Sprite jonin_resultSprite_;
+	HE::Sprite sakanin_resultSprite_; 
+
+
 };
