@@ -78,22 +78,30 @@ public:
 
 private:
 	//まきびしのデータ
-	int silentEnemyCount_ = 4; // まきびしの数 
+	int silentEnemyCount_ = 12; // まきびしの数 
 	
-	// 敵の位置
-	HE::Math::Vector2 SilentenemyPosition_[4] = {
+	// 敵の位置 高さ32px,幅64px
+	HE::Math::Vector2 SilentenemyPosition_[12] = {
 		HE::Math::Vector2(540.0f,20.0f),
-		HE::Math::Vector2(340.0f,195.0f),
-		HE::Math::Vector2(875.0f,370.0f),
+		HE::Math::Vector2(940.0f-64.0f,175.0f-32.0f),
+		HE::Math::Vector2(440.0f,195.0f),
+		HE::Math::Vector2(840.0f,195.0f),
+		HE::Math::Vector2(240.0f,350.0f-32.0f),
+		HE::Math::Vector2(1140.0f-64.0f,350.0f - 32.0f),
+		HE::Math::Vector2(440.0f-64.0f,370.0f),
+		HE::Math::Vector2(740.0f,370.0f),
+		HE::Math::Vector2(640.0f-64.0f,525.0f-32.0f),
+		HE::Math::Vector2(1040.0f - 64.0f,525.0f - 32.0f),
 		HE::Math::Vector2(840.0f,545.0f),
+		HE::Math::Vector2(540.0f,700.0f-32.0f),
 	};
 
 	//敵の存在時間
-	float silentEnemyTimeToActive_[4] = { 0.0f,0.0f,0.0f,0.0f }; // 敵がアクティブになるまでの時間
-	float silentEnemyActiveDuration_[4] = { 99.0f,99.0f,99.0f,99.0f }; // 敵がアクティブになっている時間、ずっと残す場合は制限時間以上を設定する
+	float silentEnemyTimeToActive_[12] = { 0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f, 0.0f,0.0f,0.0f,0.0f}; // 敵がアクティブになるまでの時間
+	float silentEnemyActiveDuration_[12] = { 99.0f,99.0f,10.0f,10.0f,10.0f,10.0f,10.0f,10.0f,10.0f,10.0f,99.0f,99.0f }; // 敵がアクティブになっている時間、ずっと残す場合は制限時間以上を設定する
 	//敵の向き　1:上向き　-1:下向き
 	//View側で使用
-	float silentEnemyDirection_[4] = {-1,-1,-1,-1}; 
+	float silentEnemyDirection_[12] = {-1,1,-1,-1,1,1,-1,-1,1,1,-1,1}; 
 
 	//手裏剣のデータ
 	int MoveEnemyCount_ = 2; // 手裏剣の数

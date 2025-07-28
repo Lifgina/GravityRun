@@ -65,8 +65,8 @@ private:
 	EnemyData enemyData_; // 敵データのインスタンス
 	GameOverView gameOverView_; // ゲームオーバービューのインスタンス
 	PlayerView playerView_; // プレイヤーのビューのインスタンス
-	FloorView floorView_[25]; // 床のビューのインスタンス 
-	SilentEnemyView silentEnemyView_[4]; // まきびしのビューのインスタンス
+	FloorView floorView_[26]; // 床のビューのインスタンス 
+	SilentEnemyView silentEnemyView_[12]; // まきびしのビューのインスタンス
 	MoveEnemyView moveEnemyView_[2]; // 手裏剣のビューのインスタンス
 	SuitonEnemyView suitonEnemyView_[4]; // 水遁の術の敵のビューのインスタンス
 	KatonEnemyView katonEnemyView_[8]; // 火遁の術の敵のビューのインスタンス
