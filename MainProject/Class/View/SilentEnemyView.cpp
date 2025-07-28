@@ -9,17 +9,23 @@ using namespace HE;
 void SilentEnemyView::Load()
 {
 	silentEnemySprite_ = HE::Sprite("makibisi.png"); // まきびしのスプライトを読み込む
-	RenderingPath->AddSprite(&silentEnemySprite_, 10); // スプライトをレンダリングパスに追加
+	RenderingPath->AddSprite(&silentEnemySprite_, 200); // スプライトをレンダリングパスに追加
 }
 
 void SilentEnemyView::Initialize(Math::Vector2 pos, float spriteDirection)
 {
 	silentEnemySprite_.params.siz = Math::Vector2(spriteWidth_, spriteHeight_); // まきびしのサイズを設定
-	silentEnemySprite_.params.pos = pos+Math::Vector2(-8,-2); // まきびしの位置を設定
+	
 	if (spriteDirection == -1) {
+		silentEnemySprite_.params.pos = pos + Math::Vector2(-8, -8); // まきびしの位置を設定
 		silentEnemySprite_.params.scale.y = -1; // まきびしの向きを下向きに設定
 		silentEnemySprite_.params.pos.y += spriteHeight_; // 位置を調整
+		
 	}
+	else if (spriteDirection == 1) {
+		silentEnemySprite_.params.pos = pos + Math::Vector2(-8, 8); // まきびしの位置を設定
+	}
+
 
 }
 void SilentEnemyView::Update(bool isActive)

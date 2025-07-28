@@ -14,7 +14,7 @@ void InvincibleItemView::Load()
 
 void InvincibleItemView::Initialize()
 {
-	invincibleItemSprite_.params.siz = HE::Math::Vector2(100.0f, 155.0f); // 無敵アイテムのサイズを設定
+	invincibleItemSprite_.params.siz = HE::Math::Vector2(155.0f, 155.0f); // 無敵アイテムのサイズを設定
 
 
 }
