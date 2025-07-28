@@ -16,6 +16,8 @@ private:
 
 	bool isBlack; // プレイヤーのスプライトが黒くなるかどうか
 	float prevColorChangeTime ; // 前回の色変更時間
+	float startBlinkTime_ = 2.0f; // 点滅開始時間
+	float blinkinterval_ = 0.2f; // 点滅間隔
 
 	HE::Sprite playerSprite_; // プレイヤーのスプライト
 };

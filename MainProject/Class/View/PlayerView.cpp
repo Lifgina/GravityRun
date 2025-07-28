@@ -50,8 +50,8 @@ void PlayerView::Update(Math::Vector2 playerPos,bool isMovingRight,bool isGravit
 	if (isInvincible) {
 		
 		
-		if  (invincibleRemainingTime <= 2.0f) {
-			if (prevColorChangeTime - invincibleRemainingTime >= 0.2f)
+		if  (invincibleRemainingTime <= startBlinkTime_) {
+			if (prevColorChangeTime - invincibleRemainingTime >=blinkinterval_ )
 			{
 				isBlack = !isBlack; // –³“Gó‘Ô‚Ìc‚èŠÔ‚ª2•bˆÈ‰º‚Ìê‡A•‚­“_–Å‚·‚é
 				prevColorChangeTime = invincibleRemainingTime; 

@@ -33,6 +33,7 @@ void MainScene::Load()
 	invincibleItemView_.Load();
 	seManager_.Load();
 	bgmManager_.Load();
+	markerView_.Load();
 	for (int i = 0; i < floorData_.GetFloorCount(); i++)
 	{
 		floorView_[i].Load(floorData_.GetIsBreakable(i)); 
@@ -103,6 +104,7 @@ void MainScene::Initialize()
 		katonFusumaView_[i].Initialize(enemyData_.GetKatonFusumaPosition(i)); // ふすまの初期化
 		isPrevKatonEnemyActive_[i] = false; // 前の火遁の術の敵がアクティブだったかどうか
 	}
+	markerView_.MarkerDelete(); // マーカーを削除
 	
 }
 
@@ -138,9 +140,8 @@ void MainScene::Update(float deltaTime)
 		{
 			moveEnemyView_[i].AnimStop(); // 手裏剣のアニメーションを停止
 		}
-		if (InputSystem.Keyboard.wasPressedThisFrame.Enter) {
-			SceneManager.SetNextScene(NextScene::MainScene); // Enterキーが押されたらシーンをリセット
-		}
+		SelectMenu(); // メニューを選択する
+		MarkerUpdate(); // マーカーを更新
 		break;
 	case 2: // ゲームクリア
 		gameOverView_.ShowGameOver(2, gameManager_.GetTimerModel().GetTimer()); // ゲームクリア画面を表示
@@ -150,9 +151,8 @@ void MainScene::Update(float deltaTime)
 		{
 			moveEnemyView_[i].AnimStop(); // 手裏剣のアニメーションを停止
 		}
-		if (InputSystem.Keyboard.wasPressedThisFrame.Enter) {
-			SceneManager.SetNextScene(NextScene::MainScene); // Enterキーが押されたらシーンをリセット
-		}
+		SelectMenu(); // メニューを選択する
+		MarkerUpdate(); // マーカーを更新
 		break;
 	case 3://ゲーム開始前
 
@@ -219,3 +219,43 @@ void MainScene::MoniteringGameManager()
 		}
 	}
 }
+
+void MainScene::SelectMenu()
+{
+	if (InputSystem.Keyboard.wasPressedThisFrame.Up) {
+		selectedMenu_--; // 上キーでメニューを上に移動
+	}
+	if (InputSystem.Keyboard.wasPressedThisFrame.Down) {
+		selectedMenu_++; // 下キーでメニューを下に移動
+	}
+	if (selectedMenu_ <= 0)
+	{
+		selectedMenu_ = 0; // 上限を0に制限
+	}
+	if (selectedMenu_ >= menuCount_)
+	{
+		selectedMenu_ = menuCount_ - 1; // 下限をメニュー数-1に制限
+	}
+	if (InputSystem.Keyboard.wasPressedThisFrame.Enter) {
+		if (selectedMenu_ == 0) {
+			SceneManager.SetNextScene(NextScene::MainScene);
+		}
+		else if (selectedMenu_ == 1) {
+			SceneManager.SetNextScene(NextScene::TitleScene); 
+		}
+	}
+}
+
+void MainScene::MarkerUpdate()
+{
+	switch (selectedMenu_)
+	{
+	case 0:
+		markerView_.UpdateMarker(Math::Vector2(340.0f, 490.0f)); // Start menu position
+		break;
+	case 1:
+		markerView_.UpdateMarker(Math::Vector2(340.0f, 605.0f)); // Tutorial menu position
+		break;
+	}
+}
+

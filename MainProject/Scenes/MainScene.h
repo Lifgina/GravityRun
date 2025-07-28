@@ -18,6 +18,7 @@
 #include "../Class/View/InvincibleItemView.h"
 #include "../Class/View/SEmanager.h"
 #include "../Class/View/BGMmanager.h"
+#include "../Class/View/MarkerView.h"
 
 class MainScene : public HE::Scene
 {
@@ -39,6 +40,9 @@ public:
 
 	void NotificateTime();
 
+	void SelectMenu();
+	void MarkerUpdate();
+
 
 private:
 
@@ -51,6 +55,9 @@ private:
 	float playerHeight_ = 60.0f; // プレイヤーの高さ
 	bool isMovingToRightFirst_ = true; // プレイヤーの初期移動方向
 	bool isGravityUpwardFirst_ = false; // プレイヤーの初期重力方向
+
+	int selectedMenu_; // 0: Start, 1: title
+	int menuCount_ = 2; // メニューの数
 
 	//ゲームの表示部分に関わる変更できる変数
 	int notificationCount_ = 2; // タイマーの通知のカウント
@@ -78,5 +85,6 @@ private:
 	Pillar pillar_; // 柱のインスタンス
 	SEmanager seManager_; // SEマネージャーのインスタンス
 	BGMmanager bgmManager_; // BGMマネージャーのインスタンス
+	MarkerView markerView_; // マーカーのビューのインスタンス
 
 };

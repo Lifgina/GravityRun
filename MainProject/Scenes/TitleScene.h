@@ -27,6 +27,7 @@ private:
 	MarkerView markerView_; // メニュー選択用のマーカー	
 	TutorialView tutorialView_; // チュートリアル表示用のビュー
 	int selectedMenu_; // 0: Start, 1: Tutorial, 2: Exit
-	int titleState_ = 0; // タイトル画面の状態（0: メニュー選択, 1: チュートリアル表示)
 	int menuCount_ = 3; // メニューの数
+	int titleState_ = 0; // タイトル画面の状態（0: メニュー選択, 1: チュートリアル表示)
+	
 };
