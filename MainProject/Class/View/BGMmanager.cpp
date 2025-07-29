@@ -8,7 +8,9 @@ using namespace HE;
 
 void BGMmanager::Load()
 {
-	bgm_[0] = Sound("mainBGM.wav", Sound::LoopCount::BGM); //メインシーンのBGM
+	bgm_[0] = Sound("Sound/BGM/bgm_main.wav", Sound::LoopCount::BGM); //メインシーンのBGM
+	bgm_[1] = Sound("Sound/BGM/bgm_title.wav", Sound::LoopCount::BGM); //タイトルシーンのBGM
+	bgm_[2] = Sound("Sound/BGM/jingle_muteki.wav", Sound::LoopCount::BGM); //ゲームオーバーシーンのBGM
 	
 
 }

@@ -21,4 +21,5 @@ private:
 	float blinkinterval_ = 0.2f; // 点滅間隔
 
 	HE::Sprite playerSprite_; // プレイヤーのスプライト
+	HE::Sprite effectSprite_; // プレイヤーのエフェクトスプライト
 };

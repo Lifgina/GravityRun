@@ -8,6 +8,6 @@ public:
 	void SEPlay(int SEID);
 
 private:
-	int seCount_ = 5; // 管理するSEの数
-	HE::Sound se_[5]; // SEを管理するオブジェクト
+	int seCount_ = 11; // 管理するSEの数
+	HE::Sound se_[11]; // SEを管理するオブジェクト
 };

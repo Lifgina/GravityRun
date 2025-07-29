@@ -28,8 +28,8 @@ void GameOverView::Initialize()
 	jonin_resultSprite_.params.siz = HE::Math::Vector2(1280.0f, 720.0f); // ゲームオーバー画面のサイズを設定
 	sakanin_resultSprite_.params.siz = HE::Math::Vector2(1280.0f, 720.0f); // ゲームオーバー画面のサイズを設定
 	gameOverTime_.params.size = 144; // ゲームオーバーのフォントのサイズを設定
-	gameOverTime_.params.posX = 580.0f; // ゲームオーバーのフォントの位置を設定
-	gameOverTime_.params.posY = 255.0f; // ゲームオーバーのフォントの位置を設定
+	gameOverTime_.params.posX = 540.0f; // ゲームオーバーのフォントの位置を設定
+	gameOverTime_.params.posY = 250.0f; // ゲームオーバーのフォントの位置を設定
 
     HideGameOver(); // ゲームオーバー画面を非表示にする
 }
@@ -44,6 +44,9 @@ void GameOverView::ShowGameOver(int gameState, float aliveTime)
 	case 1: // ゲームオーバー状態1
 		
 		if (aliveTime < 20.0f) {
+			if (aliveTime < 10.0f) {
+				gameOverTime_.params.posX = 580.0f;
+			}
 			genin_resultSprite_.SetHidden(false); // ゲームオーバー画面を表示
 			gameOverTime_.SetText(std::to_wstring(aliveTimeInt));
 			gameOverTime_.SetHidden(false); // ゲームオーバーのフォントを表示
