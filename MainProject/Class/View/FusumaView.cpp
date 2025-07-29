@@ -52,7 +52,6 @@ void FusumaView::Initialize(Math::Vector2 fusumaPos)
 
 void FusumaView::FusumaMove(bool isOpened)
 {
-	fusumaSprite_.anim.repeatable = true; // ループするかしないか
 	fusumaSprite_.anim.drawRectAnim.frameRate = 24;
 	
 	if(isOpened){
@@ -72,7 +71,3 @@ void FusumaView::FusumaMove(bool isOpened)
 
 }
 
-void FusumaView::Update()
-{
-	fusumaSprite_.anim.repeatable = false; // ループするかしないか
-}

@@ -19,6 +19,7 @@
 #include "../Class/View/SEmanager.h"
 #include "../Class/View/BGMmanager.h"
 #include "../Class/View/MarkerView.h"
+#include "../Class/View/CountdownView.h"
 
 class MainScene : public HE::Scene
 {
@@ -48,7 +49,7 @@ private:
 
 	//ゲームの処理部分に関わる変更できる変数
 	float timeLimit_ = 60.0f; // タイムリミット
-	HE::Math::Vector2 initialPlayerPosition_ = HE::Math::Vector2(610.0f-30, 284.0f - 60.0f); // 初期プレイヤー位置
+	HE::Math::Vector2 initialPlayerPosition_ = HE::Math::Vector2(560.0f, 350.0f - 60.0f); // 初期プレイヤー位置
 	float leftEdge = 40.0f; // ゲームウィンドウの左端の位置
 	float rightEdge = 1280.0f - 40.0f; // ゲームウィンドウの右端の位置
 	float playerWidth_ = 60.0f; // プレイヤーの幅
@@ -65,6 +66,7 @@ private:
 	float notificatingTime = 5.0f; // タイマーの通知を表示する時間
 	bool isPrevSuitonEnemyActive_[4] ; // 前の水遁の術の敵がアクティブだったかどうか
 	bool isPrevKatonEnemyActive_[8]; // 前の火遁の術の敵がアクティブだったかどうか
+	bool isStartShowed_ = false; // ゲーム開始が表示されたかどうか
 
 	int gameState_ ; // ゲームの状態
 	GameManager gameManager_; // ゲームマネージャーのインスタンス
@@ -86,5 +88,6 @@ private:
 	SEmanager seManager_; // SEマネージャーのインスタンス
 	BGMmanager bgmManager_; // BGMマネージャーのインスタンス
 	MarkerView markerView_; // マーカーのビューのインスタンス
+	CountdownView countdownView_; // カウントダウンビューのインスタンス
 
 };

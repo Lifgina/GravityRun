@@ -17,8 +17,13 @@ void SilentEnemy::Load()
 void SilentEnemy::Initialize(Math::Vector2 initialPos,float activateTime,float activateDuration)
 {
 	enemyPosition_ = initialPos;
-	isActive_ = false; // 初期状態では非アクティブ
 	activateTime_ = activateTime; // 敵がアクティブになる時間を設定
+	if (activateTime_ <= 0.0f) {
+		isActive_ = true; // アクティブになる時間が0以下なら即座にアクティブにする
+	}
+	else {
+		isActive_ = false; // それ以外は非アクティブにする
+	}
 	activateDuration_ = activateDuration; // 敵がアクティブな時間を設定
 	draftSprite_.params.pos = enemyPosition_;
 }

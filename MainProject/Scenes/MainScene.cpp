@@ -34,6 +34,7 @@ void MainScene::Load()
 	seManager_.Load();
 	bgmManager_.Load();
 	markerView_.Load();
+	countdownView_.Load();
 	for (int i = 0; i < floorData_.GetFloorCount(); i++)
 	{
 		floorView_[i].Load(floorData_.GetIsBreakable(i)); 
@@ -70,7 +71,9 @@ void MainScene::Initialize()
 	bg_.Initialize(); // 背景の初期化
 	pillar_.Initialize(); // 柱の初期化
 	invincibleItemView_.Initialize(); // 無敵アイテムの初期化
-	gameState_= 0; // ゲームオーバー状態を初期化
+	countdownView_.Initialize(); // カウントダウンの初期化
+	gameState_= 3; // ゲームオーバー状態を初期化
+	isStartShowed_ = false; // ゲーム開始が表示されたかどうかを初期化
 	gameManager_.Initialize(timeLimit_, floorData_.GetFloorCount(), enemyData_.GetSilentEnemyCount(), enemyData_.GetMoveEnemyCount(), enemyData_.GetSuitonEnemyCount(), enemyData_.GetSuitonAttackTimes(),enemyData_.GetKatonEnemyCount(),enemyData_.GetKatonAttackTimes());
 	gameManager_.PlayerSetup(initialPlayerPosition_, leftEdge, rightEdge, isMovingToRightFirst_, isGravityUpwardFirst_, playerWidth_, playerHeight_);
 	for (int i = 0; i <floorData_.GetFloorCount(); i++)
@@ -104,7 +107,14 @@ void MainScene::Initialize()
 		katonFusumaView_[i].Initialize(enemyData_.GetKatonFusumaPosition(i)); // ふすまの初期化
 		isPrevKatonEnemyActive_[i] = false; // 前の火遁の術の敵がアクティブだったかどうか
 	}
+
 	markerView_.MarkerDelete(); // マーカーを削除
+	playerView_.Update(gameManager_.GetPlayerModel().GetPlayerPosition(), gameManager_.GetPlayerModel().GetIsMovingToRight(), gameManager_.GetPlayerModel().GetIsGravityUpward(), gameManager_.GetPlayerInvincible().GetIsInvincible(), gameManager_.GetPlayerInvincible().GetInvincibleRemainingTime(gameManager_.GetTimer())); // プレイヤーの位置を更新
+	playerView_.AnimStop(); // プレイヤーのアニメーションを停止
+	invincibleItemView_.Update(gameManager_.GetInvincibleItemModel().GetItemPosition(), gameManager_.GetInvincibleItemModel().GetIsActive()); // 無敵アイテムの位置を更新
+	EnemyViewUpdate(); // 敵のビューを更新
+
+	countdownView_.ShowCountDown();
 	
 }
 
@@ -117,7 +127,6 @@ void MainScene::Terminate()
 // updates the scene.
 void MainScene::Update(float deltaTime)
 {
-	
 	switch (gameState_)
 	{
 	case 0: // ゲーム中
@@ -130,6 +139,10 @@ void MainScene::Update(float deltaTime)
 		invincibleItemView_.Update(gameManager_.GetInvincibleItemModel().GetItemPosition(),gameManager_.GetInvincibleItemModel().GetIsActive()); // 無敵アイテムの位置を更新
 		EnemyViewUpdate(); // 敵のビューを更新
 		NotificateTime(); // タイマーの通知を表示
+
+		if (countdownView_.GetCurrentFrame() >= 10) {
+			countdownView_.HideCountDown(); // カウントダウンを非表示にする
+		}
 
 		break;
 	case 1: // ゲームオーバー
@@ -155,6 +168,11 @@ void MainScene::Update(float deltaTime)
 		MarkerUpdate(); // マーカーを更新
 		break;
 	case 3://ゲーム開始前
+		if (countdownView_.GetCurrentFrame() >= 30) {
+			countdownView_.ShowStart(); // 開始
+			playerView_.AnimStart(); // プレイヤーのアニメーションを開始
+			gameState_ = 0; // ゲーム開始
+		}
 
 		break;
 	}
@@ -173,7 +191,6 @@ void MainScene::EnemyViewUpdate() {
 	for (int i = 0; i < enemyData_.GetSuitonEnemyCount(); i++)
 	{
 		suitonEnemyView_[i].Update(gameManager_.GetSuitonEnemy(i).GetIsActive(), gameManager_.GetSuitonEnemy(i).GetSuitonEnemyState(),gameManager_.GetSuitonEnemy(i).GetSuitonEnemyPosition());
-		suitonFusumaView_[i].Update();
 		if (isPrevSuitonEnemyActive_[i] != gameManager_.GetSuitonEnemy(i).GetIsActive()) {
 			suitonFusumaView_[i].FusumaMove(gameManager_.GetSuitonEnemy(i).GetIsActive()); // ふすまの表示を更新
 			isPrevSuitonEnemyActive_[i] = gameManager_.GetSuitonEnemy(i).GetIsActive(); // 前の水遁の術の敵がアクティブだったかどうかを更新
@@ -183,7 +200,6 @@ void MainScene::EnemyViewUpdate() {
 	for (int i = 0; i < enemyData_.GetKatonEnemyCount(); i++)
 	{
 		katonEnemyView_[i].Update(gameManager_.GetKatonEnemy(i).GetIsActive(), gameManager_.GetKatonEnemy(i).GetSuitonEnemyState());
-		katonFusumaView_[i].Update();
 		if (isPrevKatonEnemyActive_[i] != gameManager_.GetKatonEnemy(i).GetIsActive()) {
 			katonFusumaView_[i].FusumaMove(gameManager_.GetKatonEnemy(i).GetIsActive()); // ふすまの表示を更新
 			isPrevKatonEnemyActive_[i] = gameManager_.GetKatonEnemy(i).GetIsActive(); // 前の火遁の術の敵がアクティブだったかどうかを更新

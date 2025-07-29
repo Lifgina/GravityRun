@@ -97,7 +97,7 @@ private:
 	};
 
 	//敵の存在時間
-	float silentEnemyTimeToActive_[12] = { 0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f, 0.0f,0.0f,0.0f,0.0f}; // 敵がアクティブになるまでの時間
+	float silentEnemyTimeToActive_[12] = { 0,0,0,0,0,0,0,0,0,0,0,0 }; // 敵がアクティブになるまでの時間
 	float silentEnemyActiveDuration_[12] = { 99.0f,99.0f,10.0f,10.0f,10.0f,10.0f,10.0f,10.0f,10.0f,10.0f,99.0f,99.0f }; // 敵がアクティブになっている時間、ずっと残す場合は制限時間以上を設定する
 	//敵の向き　1:上向き　-1:下向き
 	//View側で使用

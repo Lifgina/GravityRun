@@ -8,6 +8,7 @@ public:
 	void Initialize(); // プレイヤーのスプライトを表示する
 	void Update(HE::Math::Vector2 playerPos, bool isMovingRight, bool isGravityUp,bool isInvincible,float invincibleRemainingTime);
 	void AnimStop() { playerSprite_.anim.drawRectAnim.frameRate = 0; ; } // アニメーションを停止する
+	void AnimStart() { playerSprite_.anim.drawRectAnim.frameRate = 15; } // アニメーションを開始する
 
 
 private:

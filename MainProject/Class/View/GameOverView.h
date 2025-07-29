@@ -18,5 +18,7 @@ private:
 	HE::Sprite jonin_resultSprite_;
 	HE::Sprite sakanin_resultSprite_; 
 
+	HE::SpriteFont gameOverTime_; // ゲームオーバーのフォント
+
 
 };
