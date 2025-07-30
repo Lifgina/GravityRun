@@ -63,7 +63,6 @@ void TitleScene::Update(float deltaTime)
 	case 1: // チュートリアル表示状態
 		tutorialView_.Update(true); // チュートリアルビューを表示
 		if (InputSystem.Keyboard.wasPressedThisFrame.Enter) {
-			seManager_.PlaySE(0); 
 			tutorialView_.Update(false); // チュートリアルビューを非表示
 			titleState_ = 0; // Enterキーが押されたらメニュー選択状態に戻る
 		}

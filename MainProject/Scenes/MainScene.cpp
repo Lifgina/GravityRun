@@ -122,6 +122,9 @@ void MainScene::Initialize()
 	isSceceMovingToMain_ = false; // シーンが移動中かどうかを初期化
 	isSceceMovingToTitle_ = false; // シーンがタイトルに移動中かどうかを初期化
 	prevSelectedMenu_ = selectedMenu_ = 0; // 前回選択されたメニューを初期化
+	for (int i = 0; i < stagebreakTimes_; i++) {
+		isStagebreakSEActivate_[i] = false;
+	}
 }
 
 // releasing resources required for termination.
@@ -339,8 +342,12 @@ void MainScene::SoundControl()
 			prevKatonEnemyState_[i] = gameManager_.GetKatonEnemy(i).GetSuitonEnemyState(); // 前の火遁の術の敵の状態を更新
 		}
 	}
-	if (gameManager_.GetTimer() == 10.0f || gameManager_.GetTimer() == 30.0f) {
-		seManager_.PlaySE(11);
+	for (int i = 0; i < stagebreakTimes_; i++) {
+		if (isStagebreakSEActivate_[i])break;
+		if (gameManager_.GetTimer() >= stagebreakSEActiveTime_[i]) {
+			seManager_.PlaySE(11);
+			isStagebreakSEActivate_[i] = true;
+		}
 	}
 	if (prevSelectedMenu_ != selectedMenu_) {
 		seManager_.PlaySE(1); // メニュー選択のSEを再生

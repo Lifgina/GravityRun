@@ -64,18 +64,21 @@ private:
 
 	//ゲームの表示部分に関わる変更できる変数
 	int notificationCount_ = 2; // タイマーの通知のカウント
-	float notificationTime_[2] = {30.0f,50.0f}; // タイマーの通知を表示時間
+	float notificationTime_[2] = { 30.0f,50.0f }; // タイマーの通知を表示時間
 	float notificatingTime = 5.0f; // タイマーの通知を表示する時間
-	bool isPrevSuitonEnemyActive_[4] ; // 前の水遁の術の敵がアクティブだったかどうか
+	bool isPrevSuitonEnemyActive_[4]; // 前の水遁の術の敵がアクティブだったかどうか
 	bool isPrevKatonEnemyActive_[8]; // 前の火遁の術の敵がアクティブだったかどうか
 	bool isStartShowed_ = false; // ゲーム開始が表示されたかどうか
 
 	//SE制御用の変数
-	bool isPrevGravityUpward_ ; // 前の重力方向が上向きだったかどうか
-	bool isPrevPlayerInvincible_ ; // 前のプレイヤーが無敵だったかどうか
+	bool isPrevGravityUpward_; // 前の重力方向が上向きだったかどうか
+	bool isPrevPlayerInvincible_; // 前のプレイヤーが無敵だったかどうか
 	int prevSelectedMenu_; // 前回選択されたメニューを記録する変数
 	int prevSuitonEnemyState_[4]; // 前の水遁の術の敵の状態
 	int prevKatonEnemyState_[8]; // 前の火遁の術の敵の状態
+	int stagebreakTimes_ = 2;
+	float stagebreakSEActiveTime_[2] = {10.0f,30.0f};
+	bool isStagebreakSEActivate_[2];
 
 
 	// ゲームの状態を表す変数
