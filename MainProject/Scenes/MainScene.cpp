@@ -73,6 +73,7 @@ void MainScene::Initialize()
 	invincibleItemView_.Initialize(); // 無敵アイテムの初期化
 	countdownView_.Initialize(); // カウントダウンの初期化
 	gameState_= 3; // ゲームオーバー状態を初期化
+	prevGameState_ = gameState_; // 前のゲーム状態を初期化
 	isStartShowed_ = false; // ゲーム開始が表示されたかどうかを初期化
 	gameManager_.Initialize(timeLimit_, floorData_.GetFloorCount(), enemyData_.GetSilentEnemyCount(), enemyData_.GetMoveEnemyCount(), enemyData_.GetSuitonEnemyCount(), enemyData_.GetSuitonAttackTimes(),enemyData_.GetKatonEnemyCount(),enemyData_.GetKatonAttackTimes());
 	gameManager_.PlayerSetup(initialPlayerPosition_, leftEdge, rightEdge, isMovingToRightFirst_, isGravityUpwardFirst_, playerWidth_, playerHeight_);
@@ -115,7 +116,12 @@ void MainScene::Initialize()
 	EnemyViewUpdate(); // 敵のビューを更新
 
 	countdownView_.ShowCountDown();
-	
+
+	isPrevGravityUpward_ = gameManager_.GetPlayerModel().GetIsGravityUpward(); // 前の重力方向が上向きだったかどうかを初期化
+	isPrevPlayerInvincible_ = gameManager_.GetPlayerInvincible().GetIsInvincible(); // 前のプレイヤーが無敵だったかどうかを初期化
+	isSceceMovingToMain_ = false; // シーンが移動中かどうかを初期化
+	isSceceMovingToTitle_ = false; // シーンがタイトルに移動中かどうかを初期化
+	prevSelectedMenu_ = selectedMenu_ = 0; // 前回選択されたメニューを初期化
 }
 
 // releasing resources required for termination.
@@ -143,6 +149,7 @@ void MainScene::Update(float deltaTime)
 		if (countdownView_.GetCurrentFrame() >= 10) {
 			countdownView_.HideCountDown(); // カウントダウンを非表示にする
 		}
+		
 
 		break;
 	case 1: // ゲームオーバー
@@ -155,6 +162,13 @@ void MainScene::Update(float deltaTime)
 		}
 		SelectMenu(); // メニューを選択する
 		MarkerUpdate(); // マーカーを更新
+		if (isSceceMovingToMain_ && !seManager_.GetIsSEPlaying(2)) {
+			SceneManager.SetNextScene(NextScene::MainScene);
+		}
+		if (isSceceMovingToTitle_ && !seManager_.GetIsSEPlaying(1))
+		{
+			SceneManager.SetNextScene(NextScene::TitleScene); // タイトルシーンに移動
+		}
 		break;
 	case 2: // ゲームクリア
 		gameOverView_.ShowGameOver(2, gameManager_.GetTimerModel().GetTimer()); // ゲームクリア画面を表示
@@ -166,6 +180,13 @@ void MainScene::Update(float deltaTime)
 		}
 		SelectMenu(); // メニューを選択する
 		MarkerUpdate(); // マーカーを更新
+		if (isSceceMovingToMain_ && !seManager_.GetIsSEPlaying(2)) {
+			SceneManager.SetNextScene(NextScene::MainScene);
+		}
+		if (isSceceMovingToTitle_ && !seManager_.GetIsSEPlaying(1))
+		{
+			SceneManager.SetNextScene(NextScene::TitleScene); // タイトルシーンに移動
+		}
 		break;
 	case 3://ゲーム開始前
 		if (countdownView_.GetCurrentFrame() >= 30) {
@@ -173,9 +194,13 @@ void MainScene::Update(float deltaTime)
 			playerView_.AnimStart(); // プレイヤーのアニメーションを開始
 			gameState_ = 0; // ゲーム開始
 		}
+		if (countdownView_.GetCurrentFrame() % 10 == 1) {
+			seManager_.PlaySE(3); // カウントダウンのSEを再生
+		}
 
 		break;
 	}
+	SoundControl(); // SEの制御
 	Scene::Update(deltaTime);
 }
 
@@ -193,6 +218,7 @@ void MainScene::EnemyViewUpdate() {
 		suitonEnemyView_[i].Update(gameManager_.GetSuitonEnemy(i).GetIsActive(), gameManager_.GetSuitonEnemy(i).GetSuitonEnemyState(),gameManager_.GetSuitonEnemy(i).GetSuitonEnemyPosition());
 		if (isPrevSuitonEnemyActive_[i] != gameManager_.GetSuitonEnemy(i).GetIsActive()) {
 			suitonFusumaView_[i].FusumaMove(gameManager_.GetSuitonEnemy(i).GetIsActive()); // ふすまの表示を更新
+			seManager_.PlaySE(7); // ふすまのSEを再生
 			isPrevSuitonEnemyActive_[i] = gameManager_.GetSuitonEnemy(i).GetIsActive(); // 前の水遁の術の敵がアクティブだったかどうかを更新
 		}
 	
@@ -202,6 +228,7 @@ void MainScene::EnemyViewUpdate() {
 		katonEnemyView_[i].Update(gameManager_.GetKatonEnemy(i).GetIsActive(), gameManager_.GetKatonEnemy(i).GetSuitonEnemyState());
 		if (isPrevKatonEnemyActive_[i] != gameManager_.GetKatonEnemy(i).GetIsActive()) {
 			katonFusumaView_[i].FusumaMove(gameManager_.GetKatonEnemy(i).GetIsActive()); // ふすまの表示を更新
+			seManager_.PlaySE(7); // ふすまのSEを再生
 			isPrevKatonEnemyActive_[i] = gameManager_.GetKatonEnemy(i).GetIsActive(); // 前の火遁の術の敵がアクティブだったかどうかを更新
 		}
 	}
@@ -238,6 +265,7 @@ void MainScene::MoniteringGameManager()
 
 void MainScene::SelectMenu()
 {
+	if (isSceceMovingToMain_ || isSceceMovingToTitle_)return; // シーンが移動中の場合はメニュー選択を無効化
 	if (InputSystem.Keyboard.wasPressedThisFrame.Up) {
 		selectedMenu_--; // 上キーでメニューを上に移動
 	}
@@ -254,10 +282,13 @@ void MainScene::SelectMenu()
 	}
 	if (InputSystem.Keyboard.wasPressedThisFrame.Enter) {
 		if (selectedMenu_ == 0) {
-			SceneManager.SetNextScene(NextScene::MainScene);
+
+			seManager_.PlaySE(2); // SEを再生
+			isSceceMovingToMain_ = true; // シーンが移動中であることを示す
 		}
 		else if (selectedMenu_ == 1) {
-			SceneManager.SetNextScene(NextScene::TitleScene); 
+			seManager_.PlaySE(1); // SEを再生
+			isSceceMovingToTitle_ = true; // シーンが移動中であることを示す
 		}
 	}
 }
@@ -273,5 +304,70 @@ void MainScene::MarkerUpdate()
 		markerView_.UpdateMarker(Math::Vector2(340.0f, 605.0f)); // Tutorial menu position
 		break;
 	}
+}
+
+void MainScene::SoundControl()
+{
+	if (isPrevGravityUpward_ != gameManager_.GetPlayerModel().GetIsGravityUpward()) {
+		seManager_.PlaySE(9);
+		isPrevGravityUpward_ = gameManager_.GetPlayerModel().GetIsGravityUpward(); // 前の重力方向を更新
+	}
+	if (isPrevPlayerInvincible_ != gameManager_.GetPlayerInvincible().GetIsInvincible()) {
+		if (gameManager_.GetPlayerInvincible().GetIsInvincible()) {
+			bgmManager_.PlayBGMFromTop(2); // プレイヤーが無敵状態になったら無敵BGMを再生
+		}
+		else {
+			bgmManager_.PlayBGMContinue(0); // プレイヤーが無敵状態でなくなったら通常BGMを再生
+		}
+		isPrevPlayerInvincible_ = gameManager_.GetPlayerInvincible().GetIsInvincible(); // 前のプレイヤーの無敵状態を更新
+	}
+	for (int i = 0; i < enemyData_.GetSuitonEnemyCount(); i++)
+	{
+		if (prevSuitonEnemyState_[i] != gameManager_.GetSuitonEnemy(i).GetSuitonEnemyState()) {
+			if (gameManager_.GetSuitonEnemy(i).GetSuitonEnemyState() == 1) {
+				seManager_.PlaySE(6); // 水遁の術の敵がアクティブになったらSEを再生
+			}
+			prevSuitonEnemyState_[i] = gameManager_.GetSuitonEnemy(i).GetSuitonEnemyState(); // 前の水遁の術の敵の状態を更新
+		}
+	}
+	for (int i = 0; i < enemyData_.GetKatonEnemyCount(); i++)
+	{
+		if (prevKatonEnemyState_[i] != gameManager_.GetKatonEnemy(i).GetSuitonEnemyState()) {
+			if (gameManager_.GetKatonEnemy(i).GetSuitonEnemyState() == 1) {
+				seManager_.PlaySE(5); // 火遁の術の敵がアクティブになったらSEを再生
+			}
+			prevKatonEnemyState_[i] = gameManager_.GetKatonEnemy(i).GetSuitonEnemyState(); // 前の火遁の術の敵の状態を更新
+		}
+	}
+	if (gameManager_.GetTimer() == 10.0f || gameManager_.GetTimer() == 30.0f) {
+		seManager_.PlaySE(11);
+	}
+	if (prevSelectedMenu_ != selectedMenu_) {
+		seManager_.PlaySE(1); // メニュー選択のSEを再生
+		prevSelectedMenu_ = selectedMenu_; // 前回選択されたメニューを更新
+	}
+	if (prevGameState_ != gameState_) {
+		switch (gameState_)
+		{
+		case 0: // ゲーム中
+			bgmManager_.PlayBGMFromTop(0); // BGMを再生
+			seManager_.PlaySE(4); // ゲーム中のSEを再生
+			prevGameState_ = gameState_; // 前のゲーム状態を更新
+			break;
+		case 1: // ゲームオーバー
+			bgmManager_.StopBGM(); // BGMを停止
+			seManager_.PlaySE(8); // ゲームオーバーのSEを再生
+			prevGameState_ = gameState_; // 前のゲーム状態を更新
+			break;
+		case 2: // ゲームクリア
+			bgmManager_.StopBGM(); // BGMを停止
+			seManager_.PlaySE(10); // ゲームクリアのSEを再生
+			prevGameState_ = gameState_; // 前のゲーム状態を更新
+			break;
+		}
+	   
+	}
+
+
 }
 

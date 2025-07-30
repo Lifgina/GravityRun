@@ -39,6 +39,8 @@ void TitleScene::Initialize()
     bg_.Initialize();
 	tutorialView_.Initialize(); // チュートリアルビューの初期化
 	selectedMenu_ = 0; // 初期選択メニューは「Start」
+	prevSelectedMenu_ = selectedMenu_; // 前回選択されたメニューを初期化
+	isSceMovingToMain_ = false; // メインシーンに移動中ではない
 	bgmManager_.PlayBGMFromTop(1); // タイトル画面のBGMを再生
 
 }
@@ -61,19 +63,22 @@ void TitleScene::Update(float deltaTime)
 	case 1: // チュートリアル表示状態
 		tutorialView_.Update(true); // チュートリアルビューを表示
 		if (InputSystem.Keyboard.wasPressedThisFrame.Enter) {
-			seManager_.PlaySE(1); 
+			seManager_.PlaySE(0); 
 			tutorialView_.Update(false); // チュートリアルビューを非表示
 			titleState_ = 0; // Enterキーが押されたらメニュー選択状態に戻る
 		}
 	}
-
+	if (prevSelectedMenu_ != selectedMenu_) {
+		seManager_.PlaySE(1); // メニューが変更されたらSEを再生
+		prevSelectedMenu_ = selectedMenu_; // 前回選択されたメニューを更新
+	}
 
     Scene::Update(deltaTime);
 }
 
 void TitleScene::SelectMenu()
 {
-	
+	if (isSceMovingToMain_) return; // メインシーンに移動中の場合はメニュー選択を無効化	
     if (InputSystem.Keyboard.wasPressedThisFrame.Up) {
 		selectedMenu_--; // 上キーでメニューを上に移動
 		
@@ -92,6 +97,7 @@ void TitleScene::SelectMenu()
 	if (InputSystem.Keyboard.wasPressedThisFrame.Enter) {
 		if (selectedMenu_ == 0) {
 			seManager_.PlaySE(2); 
+			isSceMovingToMain_ = true; // メインシーンに移動中であることを示す
 			SceneManager.SetNextScene(NextScene::MainScene);
 		}
 		else if (selectedMenu_ == 1) {

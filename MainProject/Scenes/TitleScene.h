@@ -33,6 +33,8 @@ private:
 	int selectedMenu_; // 0: Start, 1: Tutorial, 2: Exit
 	int menuCount_ = 3; // メニューの数
 	int titleState_ = 0; // タイトル画面の状態（0: メニュー選択, 1: チュートリアル表示)
+	bool isSceMovingToMain_ ; // メインシーンに移動中かどうか
+	int prevSelectedMenu_ ; // 前回選択されたメニューを記録する変数
 
 	
 };

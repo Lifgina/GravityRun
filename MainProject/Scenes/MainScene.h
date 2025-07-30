@@ -41,6 +41,8 @@ public:
 
 	void NotificateTime();
 
+	void SoundControl();
+
 	void SelectMenu();
 	void MarkerUpdate();
 
@@ -68,7 +70,19 @@ private:
 	bool isPrevKatonEnemyActive_[8]; // 前の火遁の術の敵がアクティブだったかどうか
 	bool isStartShowed_ = false; // ゲーム開始が表示されたかどうか
 
+	//SE制御用の変数
+	bool isPrevGravityUpward_ ; // 前の重力方向が上向きだったかどうか
+	bool isPrevPlayerInvincible_ ; // 前のプレイヤーが無敵だったかどうか
+	int prevSelectedMenu_; // 前回選択されたメニューを記録する変数
+	int prevSuitonEnemyState_[4]; // 前の水遁の術の敵の状態
+	int prevKatonEnemyState_[8]; // 前の火遁の術の敵の状態
+
+
+	// ゲームの状態を表す変数
 	int gameState_ ; // ゲームの状態
+	int prevGameState_ ; // 前のゲーム状態
+	bool isSceceMovingToMain_ ; 
+	bool isSceceMovingToTitle_; 
 	GameManager gameManager_; // ゲームマネージャーのインスタンス
 	FloorData floorData_; // 床データのインスタンス
 	EnemyData enemyData_; // 敵データのインスタンス

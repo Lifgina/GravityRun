@@ -25,6 +25,7 @@ void BGMmanager::PlayBGMFromTop(int BGMID)
 	}
 	
 	bgm_[BGMID].PlayFromTop(); // w’è‚³‚ê‚½BGM‚ğÄ¶
+	currentBGMID_ = BGMID; // Œ»İ‚ÌBGM ID ‚ğXVs
 }
 
 void BGMmanager::PlayBGMContinue(int BGMID)

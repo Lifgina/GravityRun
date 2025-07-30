@@ -19,6 +19,7 @@ void SEmanager::Load()
 	se_[8] = Sound("Sound/SE/se_player_damage.wav", Sound::LoopCount::SE); //プレイヤーがダメージを受けたときのSE
 	se_[9] = Sound("Sound/SE/se_player_gravity.wav", Sound::LoopCount::SE); //プレイヤーが重力を変更したときのSE
 	se_[10] = Sound("Sound/SE/jingle_result.wav", Sound::LoopCount::SE); //ゲームクリアのSE
+	se_[11] = Sound("Sound/SE/se_movefloar.wav", Sound::LoopCount::SE); //プレイヤーが無敵状態になったときのSE
 
 
 }
