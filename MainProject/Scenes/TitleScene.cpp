@@ -27,6 +27,8 @@ void TitleScene::Load()
     bg_.Load();
 	markerView_.Load();
 	tutorialView_.Load(); // チュートリアルビューのロード
+	bgmManager_.Load();
+	seManager_.Load();
 
     Scene::Load();
 }
@@ -37,6 +39,8 @@ void TitleScene::Initialize()
     bg_.Initialize();
 	tutorialView_.Initialize(); // チュートリアルビューの初期化
 	selectedMenu_ = 0; // 初期選択メニューは「Start」
+	bgmManager_.PlayBGMFromTop(1); // タイトル画面のBGMを再生
+
 }
 
 // releasing resources required for termination.
@@ -57,6 +61,7 @@ void TitleScene::Update(float deltaTime)
 	case 1: // チュートリアル表示状態
 		tutorialView_.Update(true); // チュートリアルビューを表示
 		if (InputSystem.Keyboard.wasPressedThisFrame.Enter) {
+			seManager_.PlaySE(1); 
 			tutorialView_.Update(false); // チュートリアルビューを非表示
 			titleState_ = 0; // Enterキーが押されたらメニュー選択状態に戻る
 		}
@@ -68,8 +73,10 @@ void TitleScene::Update(float deltaTime)
 
 void TitleScene::SelectMenu()
 {
+	
     if (InputSystem.Keyboard.wasPressedThisFrame.Up) {
 		selectedMenu_--; // 上キーでメニューを上に移動
+		
     }
     if (InputSystem.Keyboard.wasPressedThisFrame.Down) {
         selectedMenu_++; // 下キーでメニューを下に移動
@@ -84,17 +91,21 @@ void TitleScene::SelectMenu()
 	}
 	if (InputSystem.Keyboard.wasPressedThisFrame.Enter) {
 		if (selectedMenu_ == 0) {
+			seManager_.PlaySE(2); 
 			SceneManager.SetNextScene(NextScene::MainScene);
 		}
 		else if (selectedMenu_ == 1) {
+			seManager_.PlaySE(0); // チュートリアル選択時のSEを再生
 			titleState_ = 1; // チュートリアル表示状態に変更
 		}
 		else if (selectedMenu_ == 2) {
 			// Exit logic can be added here, such as closing the application
+			seManager_.PlaySE(0); 
 			wi::jobsystem::ShutDown();
 			PostQuitMessage(0);
 		}
 	}
+
 }
 
 void TitleScene::MarkerUpdate()

@@ -26,3 +26,16 @@ void BGMmanager::PlayBGMFromTop(int BGMID)
 	
 	bgm_[BGMID].PlayFromTop(); // 指定されたBGMを再生
 }
+
+void BGMmanager::PlayBGMContinue(int BGMID)
+{
+	if (BGMID < 0 || BGMID >= bgmCount_) {
+		return; // 無効なBGMIDの場合は何もしない
+	}
+	if (currentBGMID_ != -1) {
+		bgm_[currentBGMID_].Stop(); // 前のBGMを停止
+	}
+
+	bgm_[BGMID].Play(); // 指定されたBGMを再生
+	currentBGMID_ = BGMID; // 現在のBGM ID を更新
+}

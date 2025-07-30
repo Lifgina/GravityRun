@@ -12,11 +12,11 @@ void GameOverView::Load()
 	tyunin_resultSprite_ = HE::Sprite("tyunin_result.png");
 	jonin_resultSprite_ = HE::Sprite("jonin_result.png");
 	sakanin_resultSprite_ = HE::Sprite("sakanin_result.png");
-	gameOverTime_.params.style = Font::AddFontStyle("Fonts/meiryob004.ttf"); // ゲームオーバーのフォントスタイルを設定
-	RenderingPath->AddSprite(&genin_resultSprite_, 1000); // ゲームオーバー画面のスプライトをレンダリングパスに追加
-	RenderingPath->AddSprite(&tyunin_resultSprite_, 1000); // ゲームオーバー画面のスプライトをレンダリングパスに追加
-	RenderingPath->AddSprite(&jonin_resultSprite_, 1000); // ゲームオーバー画面のスプライトをレンダリングパスに追加
-	RenderingPath->AddSprite(&sakanin_resultSprite_, 1000); // ゲームオーバー画面のスプライトをレンダリングパスに追加
+	gameOverTime_.params.style = Font::AddFontStyle("Fonts/tamanegi.ttf"); // ゲームオーバーのフォントスタイルを設定
+	RenderingPath->AddSprite(&genin_resultSprite_, 800); // ゲームオーバー画面のスプライトをレンダリングパスに追加
+	RenderingPath->AddSprite(&tyunin_resultSprite_, 800); // ゲームオーバー画面のスプライトをレンダリングパスに追加
+	RenderingPath->AddSprite(&jonin_resultSprite_, 800); // ゲームオーバー画面のスプライトをレンダリングパスに追加
+	RenderingPath->AddSprite(&sakanin_resultSprite_, 800); // ゲームオーバー画面のスプライトをレンダリングパスに追加
 	RenderingPath->AddFont(&gameOverTime_, 1000); // ゲームオーバーのフォントをレンダリングパスに追加
 
 }

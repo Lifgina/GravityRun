@@ -24,7 +24,7 @@ private:
 	{ Vector2(40.0f,0.0f),  Vector2(440.0f,0.0f),Vector2(540.0f,0.0f),Vector2(640.0f,0.0f),Vector2(740.0f,0.0f),
 	 Vector2(40.0f,175.0f),Vector2(140.0f,175.0f),Vector2(240.0f,175.0f),Vector2(340.0f,175.0f),Vector2(940.0f,175.0f),Vector2(1040.0f,175.0f),
 	 Vector2(40.0f,350.0f), Vector2(240.0f,350.0f),Vector2(640.0f,350.0f),Vector2(740.0f,350.0f),
-	Vector2(40.0f,175.0f),Vector2(140.0f,525.0f),Vector2(240.0f,525.0f),Vector2(340.0f,525.0f),Vector2(1040.0f,525.0f),Vector2(1140.0f,525.0f),
+	Vector2(40.0f,525.0f),Vector2(140.0f,525.0f),Vector2(240.0f,525.0f),Vector2(340.0f,525.0f),Vector2(1040.0f,525.0f),Vector2(1140.0f,525.0f),
 	Vector2(40.0f,700.0f),  Vector2(440.0f,700.0f),Vector2(540.0f,700.0f),Vector2(640.0f,700.0f),Vector2(740.0f,700.0f),
 	};
 

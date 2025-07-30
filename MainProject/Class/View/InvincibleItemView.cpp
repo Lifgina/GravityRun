@@ -9,7 +9,7 @@ using namespace HE;
 void InvincibleItemView::Load()
 {
 	invincibleItemSprite_ = HE::Sprite("makimono.png");
-	RenderingPath->AddSprite(&invincibleItemSprite_, 10); // 無敵アイテムのスプライトをレンダリングパスに追加
+	RenderingPath->AddSprite(&invincibleItemSprite_, 40); // 無敵アイテムのスプライトをレンダリングパスに追加
 }
 
 void InvincibleItemView::Initialize()

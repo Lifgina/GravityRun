@@ -28,7 +28,7 @@ private:
 	float loopInterval_ = 0.5f; // 上下ループをした時に逆側から出てくるまでの時間補正
 	float gravityChangeCooltime_ = 0.1f; // 重力変更のクール時間
 
-	float collisionSizeCorrection_x_ = 0.0f; // 衝突判定のサイズ補正
+	float collisionSizeCorrection_x_ = -10.0f; // 衝突判定のサイズ補正
 	float collisionSizeCorrection_y_ = 0.0f; // 衝突判定のサイズ補正
 	float collisionPositionCorrection_x_ = 0.0f; // 衝突判定の位置補正
 	float collisionPositionCorrection_y_ = 0.0f; // 衝突判定の位置補正

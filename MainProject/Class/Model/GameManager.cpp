@@ -253,12 +253,12 @@ void GameManager::InvincibleItemAperance()
 	if (timerModel_.GetTimer() >= 15.0f &&!isInvincibleItemAppered_[0])
 	{
 		isInvincibleItemAppered_[0] = true;
-		invincibleItemModel_.SetActive(Math::Vector2 (610.0f,202.5f),timerModel_.GetTimer()); // 15秒経過したら無敵アイテムを出現させる
+		invincibleItemModel_.SetActive(Math::Vector2 (640.0f,20.0f),timerModel_.GetTimer()); // 15秒経過したら無敵アイテムを出現させる
 	}
 	if (timerModel_.GetTimer() >= 35.0f && !isInvincibleItemAppered_[1])
 	{
 		isInvincibleItemAppered_[1] = true;
-		invincibleItemModel_.SetActive(Math::Vector2(610.0f, 202.5f), timerModel_.GetTimer()); // 35秒経過したらもう一つの無敵アイテムを出現させる
+		invincibleItemModel_.SetActive(Math::Vector2(440.0f, 370.0f), timerModel_.GetTimer()); // 35秒経過したらもう一つの無敵アイテムを出現させる
 	}
 }
 

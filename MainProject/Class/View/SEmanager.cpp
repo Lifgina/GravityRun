@@ -23,7 +23,7 @@ void SEmanager::Load()
 
 }
 
-void SEmanager::SEPlay(int SEID)
+void SEmanager::PlaySE(int SEID)
 {
 	if (SEID < 0 || SEID >= seCount_) {
 		return; // –³Œø‚ÈSEID‚Ìê‡‚Í‰½‚à‚µ‚È‚¢

@@ -6,6 +6,7 @@ class BGMmanager {
 public:
 	void Load(); // BGM‚ğƒ[ƒh‚·‚éŠÖ”
 	void PlayBGMFromTop(int BGMID);
+	void PlayBGMContinue(int BGMID);
 
 private:
 	int bgmCount_ = 3; // ŠÇ—‚·‚éBGM‚Ì”

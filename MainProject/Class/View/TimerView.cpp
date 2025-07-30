@@ -30,14 +30,13 @@ void TimerView::Initialize()
 	// アニメーションの設定
 	timerSprite_10.anim = Sprite::Anim();
 	timerSprite_10.anim.repeatable = false;                       // ループするかしないか
-	timerSprite_10.anim.drawRectAnim.frameCount = 80;             // 画像にアニメーションが何コマあるか
-	timerSprite_10.anim.drawRectAnim.horizontalFrameCount = 10;   // 横に並んでいるコマ数
+	timerSprite_10.anim.drawRectAnim.frameCount = 81;             // 画像にアニメーションが何コマあるか
+	timerSprite_10.anim.drawRectAnim.horizontalFrameCount = 9;   // 横に並んでいるコマ数
 
 	timerSprite_30.anim = Sprite::Anim();
 	timerSprite_30.anim.repeatable = false;                       // ループするかしないか
 	timerSprite_30.anim.drawRectAnim.frameCount = 80;             // 画像にアニメーションが何コマあるか
 	timerSprite_30.anim.drawRectAnim.horizontalFrameCount = 10;   // 横に並んでいるコマ数
-
 	HideNotification(); // 初期状態ではタイマーの通知を非表示にする
 
 

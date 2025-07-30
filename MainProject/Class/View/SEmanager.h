@@ -5,7 +5,7 @@
 class SEmanager {
 public:
 	void Load();
-	void SEPlay(int SEID);
+	void PlaySE(int SEID);
 
 private:
 	int seCount_ = 11; // ŠÇ—‚·‚éSE‚Ì”
